@@ -1,19 +1,31 @@
+Contacts = new Mongo.Collection("contacts");
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+  Template.body.helpers({
+    contacts: function () {
+      return Contacts.find({}, { sort: { name: 1 }});
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.body.events({
+    "submit .new-contact": function (event) {
+      var name = event.target.name.value;
+
+
+      Contacts.insert({
+        name: name,
+        createdAt: new Date()
+      });
+
+      // Clear form
+      event.target.name.value = "";
+
+      // Prevent default form submit
+      return false;
     }
   });
+
 }
 
 if (Meteor.isServer) {
