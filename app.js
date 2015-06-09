@@ -19,6 +19,8 @@ var parseForm = function (e) {
       formData[prop] = e.target[prop].value;
     }
   }
+  formData["lastModifiedDate"] = new Date();
+  console.log(formData);
   return formData;
 }
 
@@ -32,15 +34,14 @@ Router.route('/', function () {
   this.render("Home");
 });
 
-// Router.route('/contacts', function () {
-//   this.layout("layout");
-//   this.render("contactslist");
-// });
+Router.route('/email', function () {
+  this.layout("Layout");
+  this.render("EmailStakeholders");
+});
 
 TabularTables = {};
 
 TabularTables.Contacts = new Tabular.Table({
-  name: "ContactsList",
   collection: Contacts,
   columns: [
     {data: "name", title: "NAME"},
@@ -52,6 +53,7 @@ TabularTables.Contacts = new Tabular.Table({
     {data: "tags", title: "TAGS"},
     {data: "notes", title: "NOTES"}
   ],
+  name: "ContactsList",
   responsive: true
 });
 
