@@ -5,7 +5,7 @@
     "glyphicons"           : true,
 
     "scaffolding"          : true,
-    "type"                 : false,
+    "type"                 : true,
     "code"                 : false,
     "grid"                 : true,
     "tables"               : true,
@@ -35,18 +35,18 @@
     "wells"                : true,
     "close"                : true,
 
-    "modals"               : false,
-    "tooltip"              : false,
-    "popovers"             : false,
+    "modals"               : true,
+    "tooltip"              : true,
+    "popovers"             : true,
     "carousel"             : false,
 
-    "affix"                : false,
-    "alert"                : false,
+    "affix"                : true,
+    "alert"                : true,
     "button"               : true,
-    "collapse"             : false,
-    "scrollspy"            : false,
-    "tab"                  : false,
-    "transition"           : false,
+    "collapse"             : true,
+    "scrollspy"            : true,
+    "tab"                  : true,
+    "transition"           : true,
 
     "utilities"            : true,
     "responsive-utilities" : true
