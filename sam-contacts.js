@@ -7,7 +7,7 @@ var contact = {
   phone: "",
   email: "",
   address: "",
-  areaOfFocus: "",
+  tags: "",
   notes: ""
 }
 

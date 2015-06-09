@@ -17,6 +17,7 @@
 				<tr>
 					<th>NAME</th>
 					<th>EMAIL</th>
+					<th>TAGS</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -59,6 +60,7 @@
 	<tr>
 		<td>{{name}}</td>
 		<td>{{email}}</td>
+		<td>{{tags}}</td>
 	</tr>
 </template>
 
@@ -112,8 +114,8 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="form-group">
-					<label for="areaOfFocus">AREA OF FOCUS</label>
-					<input type="text" class="form-control" name="areaOfFocus" id="areaOfFocus" />
+					<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
+					<input type="text" data-role="tagsinput"  name="tags" id="tags" />
 				</div>
 			</div>
 		</div>
