@@ -1,5 +1,35 @@
 Contacts = new Mongo.Collection("contacts");
 
+var contact = {
+  name: "",
+  title: "",
+  organization: "",
+  phone: "",
+  email: "",
+  address: "",
+  areaOfFocus: "",
+  notes: ""
+}
+
+var parseForm = function (e) {
+  var formData = new Object();
+  formData = contact;
+  for (var prop in formData) {
+    if (formData.hasOwnProperty(prop)) {
+      formData[prop] = e.target[prop].value;
+    }
+  }
+  return formData;
+}
+
+var clearForm = function (e, formData) {
+  for (var prop in formData) {
+    if (formData.hasOwnProperty(prop)) {
+      e.target[prop].value = "";
+    }
+  }
+}
+
 if (Meteor.isClient) {
 
   Template.body.helpers({
@@ -10,19 +40,10 @@ if (Meteor.isClient) {
 
   Template.body.events({
     "submit .new-contact": function (event) {
-      var name = event.target.name.value;
-
-
-      Contacts.insert({
-        name: name,
-        createdAt: new Date()
-      });
-
-      // Clear form
-      event.target.name.value = "";
-
-      // Prevent default form submit
-      return false;
+      var form = parseForm(event);
+      Contacts.insert(form);
+      clearForm(event, form);
+      return false; // Prevent default form submit
     }
   });
 

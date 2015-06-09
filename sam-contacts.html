@@ -4,85 +4,74 @@
 
 <body>
 	<div class="container">
+		{{> addcontact }}
 
-		<form class="new-contact">
-			<div class="row">
-				<div class="twelve columns">
-					<label for="name">Name</label>
-		  		<input type="text" class="u-full-width" name="name" id="name" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="six columns">
-					<label for="title">Title</label>
-					<input type="text" class="u-full-width" name="title" id="title"  />
-				</div>
-				<div class="six columns">
-					<label for="organization">Company/Organization</label>
-					<input type="text" class="u-full-width" name="organization" id="organization" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="six columns">
-					<label for="title">Phone</label>
-					<input type="tel" class="u-full-width" name="phone" id="phone"  />
-				</div>
-				<div class="six columns">
-					<label for="organization">Email</label>
-					<input type="email" class="u-full-width" name="email" id="email" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="twelve columns">
-					<label for="address">Address</label>
-					<input type="text" class="u-full-width" name="address" id="address" />
-				</div>
-			</div>
-			<div class="row">
-				<div class="twelve columns">
-					<label for="areaOfFocus">Area of Focus</label>
-					<input type="text" class="u-full-width" name="areaOfFocus" id="areaOfFocus" />
-				</div>
-			</div>
-		  <label for="notes">Notes</label>
-		  <textarea class="u-full-width" placeholder="Type something interesting..." id="notes"></textarea>
-		  <input class="button-primary" type="submit" value="Submit">
-		</form>
-
-
-<!-- 		  <div class="form-group">
-
-
-
-		  	<input type="text" class="form-control" name="address" placeholder="Address" />
-	  		<input type="text" class="form-control" name="areaOfFocus" placeholder="Area of Focus" />
-		  </div>
-		  <button type="submit" class="submit input">Submit</button> -->
-
-<!-- 		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>First</th>
-							<th>Last</th>
-						</tr>
-					</thead>
-					<tbody>
-				  	{{#each contacts}}
-				  		{{> contact}}
-				  	{{/each}}
-					</tbody>
-				</table>
-			</div>
-		</div> -->
+		<table class="u-full-width">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+			  	{{#each contacts}}
+			  		{{> contact}}
+			  	{{/each}}
+			</tbody>
+		</table>
 
 	</div> <!-- END .container -->
 </body>
 
 <template name="contact">
 	<tr>
-		<td>{{first}}</td>
-		<td>{{last}}</td>
+		<td>{{name}}</td>
+		<td>{{email}}</td>
 	</tr>
+</template>
+
+<template name="addcontact">
+	<form class="new-contact">
+		<div class="row">
+			<div class="twelve columns">
+				<label for="name">Name</label>
+	  		<input type="text" class="u-full-width" name="name" id="name" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="six columns">
+				<label for="title">Title</label>
+				<input type="text" class="u-full-width" name="title" id="title"  />
+			</div>
+			<div class="six columns">
+				<label for="organization">Company/Organization</label>
+				<input type="text" class="u-full-width" name="organization" id="organization" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="six columns">
+				<label for="title">Phone</label>
+				<input type="tel" class="u-full-width" name="phone" id="phone"  />
+			</div>
+			<div class="six columns">
+				<label for="organization">Email</label>
+				<input type="email" class="u-full-width" name="email" id="email" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<label for="address">Address</label>
+				<input type="text" class="u-full-width" name="address" id="address" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="twelve columns">
+				<label for="areaOfFocus">Area of Focus</label>
+				<input type="text" class="u-full-width" name="areaOfFocus" id="areaOfFocus" />
+			</div>
+		</div>
+	  <label for="notes">Notes</label>
+	  <textarea class="u-full-width" placeholder="Type something interesting..." id="notes"></textarea>
+	  <input class="button-primary" type="submit" value="Submit">
+	</form>
 </template>
