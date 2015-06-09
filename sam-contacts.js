@@ -22,27 +22,34 @@ var parseForm = function (e) {
   return formData;
 }
 
-var clearForm = function (e, formData) {
-  for (var prop in formData) {
-    if (formData.hasOwnProperty(prop)) {
-      e.target[prop].value = "";
-    }
-  }
-}
+Router.configure({
+  // the default layout
+  layoutTemplate: "layout"
+});
+
+Router.route('/', function () {
+  this.layout("layout");
+  this.render("home");
+});
+
+Router.route('/contacts', function () {
+  this.layout("layout");
+  this.render("contacts");
+});
 
 if (Meteor.isClient) {
 
-  Template.body.helpers({
+  Template.contacts.helpers({
     contacts: function () {
       return Contacts.find({}, { sort: { name: 1 }});
     }
   });
 
-  Template.body.events({
+  Template.addcontact.events({
     "submit .new-contact": function (event) {
       var form = parseForm(event);
       Contacts.insert(form);
-      clearForm(event, form);
+      Router.go("contacts");
       return false; // Prevent default form submit
     }
   });

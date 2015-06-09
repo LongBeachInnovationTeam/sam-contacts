@@ -4,31 +4,36 @@
 </head>
 
 <body>
+</body>
+
+<template name="layout">
 	<div class="container">
 		{{>navigation}}
-
-		<h1>SAM Contacts</h1>
-
-		{{>addcontact}}
-
-		<h2>BROWSE CONTACTS</h2>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>NAME</th>
-					<th>EMAIL</th>
-					<th>TAGS</th>
-				</tr>
-			</thead>
-			<tbody>
-			  	{{#each contacts}}
-			  		{{> contact}}
-			  	{{/each}}
-			</tbody>
-		</table>
-
+		{{>yield}}
 	</div> <!-- END .container -->
-</body>
+</template>
+
+<template name="contacts">
+	<h2>BROWSE CONTACTS</h2>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>NAME</th>
+				<th>EMAIL</th>
+				<th>TAGS</th>
+			</tr>
+		</thead>
+		<tbody>
+		  	{{#each contacts}}
+		  		{{> contact}}
+		  	{{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="home">
+	{{>addcontact}}
+</template>
 
 <template name="navigation">
 	<nav class="navbar navbar-default">
@@ -48,6 +53,7 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="/">HOME</a></li>
+	        <li><a href="/contacts">CONTACTS</a></li>
 	        <li><a href="#">EMAIL</a></li>
 	        <li><a href="#">CATEGORIES</a></li>
 	      </ul>
@@ -115,7 +121,7 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="form-group">
 					<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
-					<input type="text" data-role="tagsinput"  name="tags" id="tags" />
+					<input type="text" data-role="tagsinput" name="tags" id="tags" placeholder="ADD TAGS" />
 				</div>
 			</div>
 		</div>
