@@ -12,7 +12,7 @@
 		{{>addcontact}}
 
 		<h2>BROWSE CONTACTS</h2>
-		<table class="u-full-width">
+		<table class="table">
 			<thead>
 				<tr>
 					<th>NAME</th>
@@ -30,19 +30,29 @@
 </body>
 
 <template name="navigation">
-	<div class="row">
-	  <div class="twelve columns">
-	    <nav>
-	      <ul>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">LOGO</a>
+	    </div>
 
-	        <li><a href="/">CONTACTS</a></li>
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="/">HOME</a></li>
 	        <li><a href="#">EMAIL</a></li>
 	        <li><a href="#">CATEGORIES</a></li>
-	        <li><a href="#">ABOUT</a></li>
 	      </ul>
-	    </nav>
-	  </div>
-	</div>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
 </template>
 
 <template name="contact">
@@ -56,45 +66,65 @@
 	<h2>ADD NEW CONTACT</h2>
 	<form class="new-contact">
 		<div class="row">
-			<div class="twelve columns">
-				<label for="name">NAME</label>
-	  		<input type="text" class="u-full-width" name="name" id="name" />
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="form-group">
+					<label for="name">NAME</label>
+	  			<input type="text" class="form-control" name="name" id="name" />
+  			</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="six columns">
-				<label for="title">TITLE</label>
-				<input type="text" class="u-full-width" name="title" id="title"  />
+			<div class="col-sm-6 col-md-6 col-lg-6">
+				<div class="form-group">
+					<label for="title">TITLE</label>
+					<input type="text" class="form-control" name="title" id="title"  />
+				</div>
 			</div>
-			<div class="six columns">
-				<label for="organization">COMPANY/ORGANIZATION</label>
-				<input type="text" class="u-full-width" name="organization" id="organization" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="six columns">
-				<label for="title">PHONE</label>
-				<input type="tel" class="u-full-width" name="phone" id="phone"  />
-			</div>
-			<div class="six columns">
-				<label for="organization">EMAIL</label>
-				<input type="email" class="u-full-width" name="email" id="email" />
+			<div class="col-sm-6 col-md-6 col-lg-6">
+				<div class="form-group">
+					<label for="organization">COMPANY/ORGANIZATION</label>
+					<input type="text" class="form-control" name="organization" id="organization" />
+				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="twelve columns">
-				<label for="address">ADDRESS</label>
-				<input type="text" class="u-full-width" name="address" id="address" />
+			<div class="col-sm-6 col-md-6 col-lg-6">
+				<div class="form-group">
+					<label for="title">PHONE</label>
+					<input type="tel" class="form-control" name="phone" id="phone"  />
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-6 col-lg-6">
+				<div class="form-group">
+					<label for="organization">EMAIL</label>
+					<input type="email" class="form-control" name="email" id="email" />
+				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="twelve columns">
-				<label for="areaOfFocus">AREA OF FOCUS</label>
-				<input type="text" class="u-full-width" name="areaOfFocus" id="areaOfFocus" />
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="form-group">
+					<label for="address">ADDRESS</label>
+					<input type="text" class="form-control" name="address" id="address" />
+				</div>
 			</div>
 		</div>
-	  <label for="notes">NOTES</label>
-	  <textarea class="u-full-width" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" id="notes"></textarea>
-	  <input class="button-primary" type="submit" value="Submit">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="form-group">
+					<label for="areaOfFocus">AREA OF FOCUS</label>
+					<input type="text" class="form-control" name="areaOfFocus" id="areaOfFocus" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="form-group">
+				  <label for="notes">NOTES</label>
+	  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" id="notes"></textarea>
+				</div>
+			</div>
+		</div>
+	  <button type="submit" class="btn btn-primary">SUBMIT</button>
 	</form>
 </template>
