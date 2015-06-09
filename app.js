@@ -72,6 +72,7 @@ if (Meteor.isClient) {
     "submit .new-contact": function (event) {
       var form = parseForm(event);
       Contacts.insert(form);
+      $('#addContactModal').modal('hide');
       Router.go("/");
       return false; // Prevent default form submit
     }
