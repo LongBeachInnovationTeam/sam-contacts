@@ -1,0 +1,47 @@
+nav {
+  margin-bottom: 10px;
+}
+
+nav ul {
+  list-style: none;
+  background-color: #3B3276;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+nav li {
+  font-size: 1.1rem;
+  line-height: 40px;
+  height: 40px;
+  border-bottom: 1px solid #888;
+  padding: 0;
+  margin: 0;
+}
+
+nav li.search a {
+  color: red;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+}
+
+nav a.active {
+  background-color: #fff;
+  color: #444;
+  cursor: default;
+}
+
+@media screen and (min-width: 600px) {
+  nav li {
+    width: 13.0rem;
+    border-bottom: none;
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.4em;
+    display: inline-block;
+    margin-right: -4px;
+  }
+}

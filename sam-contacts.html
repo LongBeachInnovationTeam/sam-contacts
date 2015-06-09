@@ -5,15 +5,17 @@
 
 <body>
 	<div class="container">
+		{{>navigation}}
+
 		<h1>SAM Contacts</h1>
 
-		{{> addcontact }}
+		{{>addcontact}}
 
 		<table class="u-full-width">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Email</th>
+					<th>NAME</th>
+					<th>EMAIL</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,6 +28,22 @@
 	</div> <!-- END .container -->
 </body>
 
+<template name="navigation">
+	<div class="row">
+	  <div class="twelve columns">
+	    <nav>
+	      <ul>
+
+	        <li><a href="/">CONTACTS</a></li>
+	        <li><a href="#">EMAIL</a></li>
+	        <li><a href="#">CATEGORIES</a></li>
+	        <li><a href="#">ABOUT</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</div>
+</template>
+
 <template name="contact">
 	<tr>
 		<td>{{name}}</td>
@@ -34,46 +52,47 @@
 </template>
 
 <template name="addcontact">
+	<h2>Add new contact</h2>
 	<form class="new-contact">
 		<div class="row">
 			<div class="twelve columns">
-				<label for="name">Name</label>
+				<label for="name">NAME</label>
 	  		<input type="text" class="u-full-width" name="name" id="name" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="six columns">
-				<label for="title">Title</label>
+				<label for="title">TITLE</label>
 				<input type="text" class="u-full-width" name="title" id="title"  />
 			</div>
 			<div class="six columns">
-				<label for="organization">Company/Organization</label>
+				<label for="organization">COMPANY/ORGANIZATION</label>
 				<input type="text" class="u-full-width" name="organization" id="organization" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="six columns">
-				<label for="title">Phone</label>
+				<label for="title">PHONE</label>
 				<input type="tel" class="u-full-width" name="phone" id="phone"  />
 			</div>
 			<div class="six columns">
-				<label for="organization">Email</label>
+				<label for="organization">EMAIL</label>
 				<input type="email" class="u-full-width" name="email" id="email" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="twelve columns">
-				<label for="address">Address</label>
+				<label for="address">ADDRESS</label>
 				<input type="text" class="u-full-width" name="address" id="address" />
 			</div>
 		</div>
 		<div class="row">
 			<div class="twelve columns">
-				<label for="areaOfFocus">Area of Focus</label>
+				<label for="areaOfFocus">AREA OF FOCUS</label>
 				<input type="text" class="u-full-width" name="areaOfFocus" id="areaOfFocus" />
 			</div>
 		</div>
-	  <label for="notes">Notes</label>
+	  <label for="notes">NOTES</label>
 	  <textarea class="u-full-width" placeholder="Type something interesting..." id="notes"></textarea>
 	  <input class="button-primary" type="submit" value="Submit">
 	</form>
