@@ -1,4 +1,16 @@
 <template name="Home">
+	<div class="page-header">
+	  <h1 class="pull-left">BROWSE CONTACTS</h1>
+	  <!-- Button trigger modal in add_contact.html -->
+    <div class="pull-right">
+      <div id="add-contact-btn" class="btn-group pull-right" data-toggle="modal" data-target="#addContactModal">
+        <button class="btn btn-primary">
+          ADD CONTACT
+        </button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+	</div>
 	{{>ContactsList}}
 	{{>AddContact}}
 </template>
