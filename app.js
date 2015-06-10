@@ -7,7 +7,7 @@ var contact = {
   phone: "",
   email: "",
   address: "",
-  tags: "",
+  //tags: "",
   notes: ""
 }
 
@@ -19,14 +19,11 @@ var parseForm = function (e) {
       formData[prop] = e.target[prop].value;
     }
   }
-  formData["lastModifiedDate"] = new Date();
-  console.log(formData);
   return formData;
 }
 
 Router.configure({
-  // the default layout
-  layoutTemplate: "Layout"
+  layoutTemplate: "Layout"  // the default layout
 });
 
 Router.route('/', function () {
@@ -73,9 +70,10 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.AddContact.events({
+  Template.body.events({
     "submit .new-contact": function (event) {
       var form = parseForm(event);
+      form["lastModifiedDate"] = new Date();
       Contacts.insert(form);
       $('#addContactModal').modal('hide');
       Router.go("/");
