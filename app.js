@@ -66,6 +66,16 @@ if (Meteor.isClient) {
   Template.ContactsList.helpers({
     contacts: function () {
       return Contacts.find({}, { sort: { name: 1 }});
+    },
+    getTags: function() {
+      var self = this;
+      self.tags = self.tags || [];
+      return _.map(self.tags, function (value, index){
+        return {
+          value: value,
+          index: index
+        };
+      });
     }
   });
 
