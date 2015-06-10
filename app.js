@@ -55,11 +55,11 @@ if (Meteor.isClient) {
       }
     },
     getCollapseHref: function (str) {
-      var newStr = "#collapse-" + str.toLocaleLowerCase().replace(" ", "-").replace(",","-").trim();
+      var newStr = "#collapse-" + str.toLowerCase().replace(/\W/g, '').trim();
       return newStr;
     },
     getCollapseId: function (str) {
-      var newStr = "collapse-" + str.toLocaleLowerCase().replace(" ", "-").replace(",","-").trim();
+      var newStr = "collapse-" + str.toLowerCase().replace(/\W/g, '').trim();
       return newStr;
     },
     getPhone: function (str) {
@@ -98,15 +98,30 @@ if (Meteor.isClient) {
 
   Template.body.events({
     "submit .new-contact": function (event) {
-      var form = parseForm(event);
-      form["lastModifiedDate"] = new Date();
+      var form = parseForm(event);  // parse form data
+      form["lastModifiedDate"] = new Date();  // add a last modified date
       form["tags"] = $("#add-contact-tags").tagsinput('items'); // get tags from tag input
+
+      // Normalize phone number
+      var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+      var phone = form["phone"];
+      if (phoneRegex.test(phone)) {
+        var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
+        form["phone"] = formattedPhoneNumber;
+      }
+
       Contacts.insert(form);
       $('#addContactModal').modal('hide');
       Router.go("/");
       return false; // Prevent default form submit
     }
   });
+
+  Template.body.rendered = function () {
+    // Setup parsley form validation
+    // replace form with the id of your form
+    $('#new-contact').parsley({trigger: 'change'});
+  };
 
 }
 
