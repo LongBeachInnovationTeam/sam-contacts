@@ -1,7 +1,7 @@
 <template name="ContactsList">
 	<div id="contacts-list" class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			<div class="ui divided list">
+			<div class="ui very relaxed divided list">
 				{{#each contacts}}
 					<div class="pull-right">
 						<button type="button" class="btn btn-default btn-xs contact-edit-btn">EDIT</button>
@@ -17,42 +17,54 @@
 				      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
 				      </div>
 				      <div class="collapse" id="collapseExample">
-					      <div class="list">
-					      	<div class="item">
-					      		<div class="content">
-					      			<div class="header">COMPANY/ORGANIZATION</div>
-					      			<div class="description">{{organization}}</div>
-					      		</div>
-					      	</div>
-					      </div>
-					      <div class="list">
-					      	<div class="item">
-					      		<div class="content">
-					      			<div class="header">ADDRESS</div>
-					      			<div class="description">{{address}}</div>
-					      		</div>
-					      	</div>
-					      </div>
-					      <div class="list">
-					      	<div class="item">
-					      		<div class="content">
-					      			<div class="header">NOTES</div>
-					      			<div class="description">{{notes}}</div>
-					      		</div>
-					      	</div>
-					      </div>
-					      <div class="list">
-					      	<div class="item">
-					      		<div class="content">
-					      			<div class="header">TAGS</div>
-					      			<div class="description">
-					      				{{#each getTags}}
-					      					<span class="label label-primary">{{value}}</span>
-					      				{{/each}}
-					      			</div>
-					      		</div>
-					      	</div>
-					      </div>
+				      	<div class="row">
+				      		<div class="col-sm-6 col-md-6 col-lg-6">
+							      <div class="list">
+							      	<div class="item">
+							      		<div class="content">
+							      			<div class="header">COMPANY/ORGANIZATION</div>
+							      			<div class="description">{{organization}}</div>
+							      		</div>
+							      	</div>
+							      </div>
+				      		</div>
+				      		<div class="col-sm-6 col-md-6 col-lg-6">
+							      <div class="list">
+							      	<div class="item">
+							      		<div class="content">
+							      			<div class="header">ADDRESS</div>
+							      			<div class="description">{{address}}</div>
+							      		</div>
+							      	</div>
+							      </div>
+				      		</div>
+				      	</div>
+				      	<div class="row">
+				      		<div class="col-sm-6 col-md-6 col-lg-6">
+							      <div class="list">
+							      	<div class="item">
+							      		<div class="content">
+							      			<div class="header">NOTES</div>
+							      			<div class="description">{{notes}}</div>
+							      		</div>
+							      	</div>
+							      </div>
+				      		</div>
+				      		<div class="col-sm-6 col-md-6 col-lg-6">
+							      <div class="list">
+							      	<div class="item">
+							      		<div class="content">
+							      			<div class="header">TAGS</div>
+							      			<div class="description">
+							      				{{#each getTags}}
+							      					<span class="label label-primary">{{value}}</span>
+							      				{{/each}}
+							      			</div>
+							      		</div>
+							      	</div>
+							      </div>
+				      		</div>
+				      	</div>
 				      </div>
 				    </div>
 				  </div>
