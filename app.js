@@ -43,7 +43,7 @@ if (Meteor.isClient) {
   }
 
   var strToId = function (str) {
-    return str.toLowerCase().replace(/\W/g, '').trim();
+    return "collapse-" + str;
   }
 
   Template.ContactsList.helpers({
@@ -59,12 +59,10 @@ if (Meteor.isClient) {
       }
     },
     getCollapseHref: function (str) {
-      var newStr = "#collapse-" + strToId(str);
-      return newStr;
+      return "#" + strToId(str);
     },
     getCollapseId: function (str) {
-      var newStr = "collapse-" + strToId(str);
-      return newStr;
+      return strToId(str);
     },
     getPhone: function (str) {
       if (str && str !== "") {
