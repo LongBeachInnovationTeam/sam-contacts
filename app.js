@@ -69,12 +69,17 @@ if (Meteor.isClient) {
     }
   });
 
+  // Clear form when the modal is hidder
+  $('#addContactModal').on('hide.bs.modal', function(){
+    console.log("HIDDEN");
+    //$(this).find('form')[0].reset();
+  });
+
   Template.body.events({
     "submit .new-contact": function (event) {
       var form = parseForm(event);
       form["lastModifiedDate"] = new Date();
       form["tags"] = $("#add-contact-tags").tagsinput('items'); // get tags from tag input
-      console.log(form);
       Contacts.insert(form);
       $('#addContactModal').modal('hide');
       Router.go("/");
