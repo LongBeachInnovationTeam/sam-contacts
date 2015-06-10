@@ -1,26 +1,5 @@
 Contacts = new Mongo.Collection("contacts");
 
-var contact = {
-  name: "",
-  title: "",
-  organization: "",
-  phone: "",
-  email: "",
-  address: "",
-  notes: ""
-}
-
-var parseForm = function (e) {
-  var formData = new Object();
-  formData = contact;
-  for (var prop in formData) {
-    if (formData.hasOwnProperty(prop)) {
-      formData[prop] = e.target[prop].value;
-    }
-  }
-  return formData;
-}
-
 Router.configure({
   layoutTemplate: "Layout"  // the default layout
 });
@@ -42,6 +21,31 @@ Router.route('/categories', function () {
 
 if (Meteor.isClient) {
 
+  var contact = {
+    name: "",
+    title: "",
+    organization: "",
+    phone: "",
+    email: "",
+    address: "",
+    notes: ""
+  }
+
+  var parseForm = function (e) {
+    var formData = new Object();
+    formData = contact;
+    for (var prop in formData) {
+      if (formData.hasOwnProperty(prop)) {
+        formData[prop] = e.target[prop].value;
+      }
+    }
+    return formData;
+  }
+
+  var strToId = function (str) {
+    return str.toLowerCase().replace(/\W/g, '').trim();
+  }
+
   Template.ContactsList.helpers({
     contacts: function () {
       return Contacts.find({}, { sort: { name: 1 }});
@@ -55,11 +59,11 @@ if (Meteor.isClient) {
       }
     },
     getCollapseHref: function (str) {
-      var newStr = "#collapse-" + str.toLowerCase().replace(/\W/g, '').trim();
+      var newStr = "#collapse-" + strToId(str);
       return newStr;
     },
     getCollapseId: function (str) {
-      var newStr = "collapse-" + str.toLowerCase().replace(/\W/g, '').trim();
+      var newStr = "collapse-" + strToId(str);
       return newStr;
     },
     getPhone: function (str) {
