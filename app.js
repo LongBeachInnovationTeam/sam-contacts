@@ -40,28 +40,7 @@ Router.route('/categories', function () {
   this.render("Categories");
 });
 
-TabularTables = {};
-
-TabularTables.Contacts = new Tabular.Table({
-  collection: Contacts,
-  columns: [
-    {data: "name", title: "NAME"},
-    {data: "title", title: "TITLE"},
-    {data: "organization", title: "ORGANIZATION"},
-    {data: "phone", title: "PHONE"},
-    {data: "email", title: "EMAIL"},
-    {data: "address", title: "ADDDRESS"},
-    {data: "tags", title: "TAGS"},
-    {data: "notes", title: "NOTES"}
-  ],
-  name: "ContactsList",
-  responsive: true
-});
-
-
 if (Meteor.isClient) {
-
-  Template.registerHelper("TabularTables", TabularTables);
 
   Template.ContactsList.helpers({
     contacts: function () {
