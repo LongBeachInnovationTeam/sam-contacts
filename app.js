@@ -39,6 +39,11 @@ Router.route('/email', function () {
   this.render("EmailStakeholders");
 });
 
+Router.route('/categories', function () {
+  this.layout("Layout");
+  this.render("Categories");
+});
+
 TabularTables = {};
 
 TabularTables.Contacts = new Tabular.Table({
