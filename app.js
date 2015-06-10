@@ -7,7 +7,6 @@ var contact = {
   phone: "",
   email: "",
   address: "",
-  //tags: "",
   notes: ""
 }
 
@@ -74,6 +73,8 @@ if (Meteor.isClient) {
     "submit .new-contact": function (event) {
       var form = parseForm(event);
       form["lastModifiedDate"] = new Date();
+      form["tags"] = $("#add-contact-tags").tagsinput('items'); // get tags from tag input
+      console.log(form);
       Contacts.insert(form);
       $('#addContactModal').modal('hide');
       Router.go("/");
