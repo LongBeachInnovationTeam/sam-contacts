@@ -67,6 +67,22 @@ if (Meteor.isClient) {
     contacts: function () {
       return Contacts.find({}, { sort: { name: 1 }});
     },
+    getEmail: function (str) {
+      if (str && str !== "") {
+        return str;
+      }
+      else {
+        return "Unknown Email";
+      }
+    },
+    getPhone: function (str) {
+      if (str && str !== "") {
+        return str;
+      }
+      else {
+        return "Unknown Phone";
+      }
+    },
     getTags: function() {
       var self = this;
       self.tags = self.tags || [];
@@ -76,6 +92,14 @@ if (Meteor.isClient) {
           index: index
         };
       });
+    },
+    getTitle: function (str) {
+      if (str && str !== "") {
+        return str;
+      }
+      else {
+        return "Unknown Title";
+      }
     }
   });
 
