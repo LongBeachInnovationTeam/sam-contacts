@@ -4,11 +4,15 @@
 			<div class="ui medium divided list">
 				{{#each contacts}}
 					<div class="pull-right">
-						<a id="collapse-{{name}}" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">DETAILS</a> | <a>EDIT</a>
+						<a>EDIT</a>
 					</div>
 				  <div class="item">
 				    <div class="content">
-				      <div class="header">{{name}}</div>
+				      <div class="header">
+				      	<a id="collapse-{{name}}" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				      		<span class="glyphicon glyphicon-collapse-down"></span> {{name}}
+				      	</a>
+			      	</div>
 				      <div class="description">
 				      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
 				      </div>
