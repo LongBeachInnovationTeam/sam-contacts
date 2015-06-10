@@ -54,6 +54,14 @@ if (Meteor.isClient) {
         return "Unknown Email";
       }
     },
+    getCollapseHref: function (str) {
+      var newStr = "#collapse-" + str.toLocaleLowerCase().replace(" ", "-").replace(",","-").trim();
+      return newStr;
+    },
+    getCollapseId: function (str) {
+      var newStr = "collapse-" + str.toLocaleLowerCase().replace(" ", "-").replace(",","-").trim();
+      return newStr;
+    },
     getPhone: function (str) {
       if (str && str !== "") {
         return str;

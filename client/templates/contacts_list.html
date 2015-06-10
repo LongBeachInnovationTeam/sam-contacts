@@ -9,14 +9,14 @@
 				  <div class="item">
 				    <div class="content">
 				      <div class="header">
-				      	<a id="collapse-{{name}}" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				      	<a data-toggle="collapse" href="{{getCollapseHref name}}" aria-expanded="false" aria-controls="{{getCollapseId name}}">
 				      		<span class="glyphicon glyphicon-collapse-down"></span> {{name}}
 				      	</a>
 			      	</div>
 				      <div class="description">
 				      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
 				      </div>
-				      <div class="collapse" id="collapseExample">
+				      <div class="collapse" id="{{getCollapseId name}}">
 				      	<div class="row">
 				      		<div class="col-sm-6 col-md-6 col-lg-6">
 							      <div class="list">
