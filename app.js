@@ -114,16 +114,20 @@ if (Meteor.isClient) {
         form["phone"] = formattedPhoneNumber;
       }
 
-      Contacts.insert(form);
-      $('#addContactModal').modal('hide');
-      Router.go("/");
+      // Only insert a record if there was an entered name
+      var name = form["name"].trim();
+      if (name !== "" && typeof name === "string") {
+        Contacts.insert(form);
+        $('#addContactModal').modal('hide');
+        Router.go("/");
+      }
+
       return false; // Prevent default form submit
     }
   });
 
   Template.body.rendered = function () {
     // Setup parsley form validation
-    // replace form with the id of your form
     $('#new-contact').parsley({trigger: 'change'});
   };
 
