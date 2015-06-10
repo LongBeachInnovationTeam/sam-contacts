@@ -70,10 +70,10 @@ if (Meteor.isClient) {
   });
 
   // Clear form when the modal is hidder
-  $('#addContactModal').on('hide.bs.modal', function(){
-    console.log("HIDDEN");
-    //$(this).find('form')[0].reset();
-  });
+  // $('#addContactModal').on('hide.bs.modal', function(){
+  //   console.log("HIDDEN");
+  //   //$(this).find('form')[0].reset();
+  // });
 
   Template.body.events({
     "submit .new-contact": function (event) {

@@ -1,7 +1,54 @@
 <template name="ContactsList">
 	<div id="contacts-list" class="row">
 		<div class="col-sm-12 col-md-12 col-lg-12">
-			{{> tabular table=TabularTables.Contacts class="table table-striped table-bordered table-condensed"}}
+			<div class="ui relaxed medium divided list">
+				{{#each contacts}}
+					<div class="pull-right">
+						<a id="collapse-{{name}}" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">DETAILS</a> | <a>EDIT</a>
+					</div>
+				  <div class="item">
+				    <div class="content">
+				      <div class="header">{{name}}</div>
+				      <div class="description">{{title}} | {{email}} | {{phone}}</div>
+				      <div class="collapse" id="collapseExample">
+					      <div class="list">
+					      	<div class="item">
+					      		<div class="content">
+					      			<div class="header">COMPANY/ORGANIZATION</div>
+					      			<div class="description">{{organization}}</div>
+					      		</div>
+					      	</div>
+					      </div>
+					      <!-- <div class="list">
+					      	<div class="item">
+					      		<div class="content">
+					      			<div class="header">CONTACT</div>
+					      			<div class="description">{{email}}</div>
+					      			<div class="description">{{phone}}</div>
+					      		</div>
+					      	</div>
+					      </div> -->
+					      <div class="list">
+					      	<div class="item">
+					      		<div class="content">
+					      			<div class="header">TAGS</div>
+					      			<div class="description"></div>
+					      		</div>
+					      	</div>
+					      </div>
+					      <div class="list">
+					      	<div class="item">
+					      		<div class="content">
+					      			<div class="header">NOTES</div>
+					      			<div class="description">{{notes}}</div>
+					      		</div>
+					      	</div>
+					      </div>
+				      </div>
+				    </div>
+				  </div>
+				{{/each}}
+			</div>
 		</div>
 	</div>
 </template>
