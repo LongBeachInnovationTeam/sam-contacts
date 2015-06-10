@@ -1,17 +1,10 @@
 <template name="Home">
 	<div class="page-header">
 	  <h1 class="pull-left">STAKEHOLDER CONTACTS</h1>
+    <button type="button" data-toggle="modal" data-target="#addContactModal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
+      <i class="glyphicon glyphicon-plus"></i>
+    </button>
     <div class="clearfix"></div>
 	</div>
-  <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-      <div class="btn-group" data-toggle="modal" data-target="#addContactModal">
-        <button class="btn btn-primary">
-          ADD CONTACT
-        </button>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-  </div>
 	{{>ContactsList}}
 </template>
