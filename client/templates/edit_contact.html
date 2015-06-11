@@ -1,16 +1,16 @@
 <template name="EditContact">
-	{{#with editFormData}}
-		<div class="modal fade" id="editContactModal" tabindex="-1" role="dialog" aria-labelledby="editContactModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-		  	<form class="edit-contact" data-parsley-validate>
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <a class="close" data-dismiss="modal" aria-label="Close">
-			        	<span aria-hidden="true">&times;</span>
-		        	</a>
-			        <h4 class="modal-title" id="editContactModalLabel">EDIT CONTACT</h4>
-			      </div>
-			      <div class="modal-body">
+	<div class="modal fade" id="editContactModal" tabindex="-1" role="dialog" aria-labelledby="editContactModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	  	<form class="edit-contact" data-parsley-validate>
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <a class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true">&times;</span>
+	        	</a>
+		        <h4 class="modal-title" >EDIT CONTACT</h4>
+		      </div>
+		      <div class="modal-body">
+			      {{#with editFormData}}
 		      		<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
@@ -71,15 +71,17 @@
 									</div>
 								</div>
 							</div>
-			      </div>
-			      <div class="modal-footer">
+						{{/with}}
+		      </div>
+		      <div class="modal-footer">
+		      	{{#with editFormData}}
 		        	<button type="button" class="btn btn-danger pull-left delete-contact-btn">DELETE</button>
 			        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
 			        <button type="submit" class="btn btn-primary">EDIT</button>
-			      </div>
-			    </div>
-	    	</form>
-		  </div>
-		</div>
-	{{/with}}
+		        {{/with}}
+		      </div>
+		    </div>
+    	</form>
+	  </div>
+	</div>
 </template>

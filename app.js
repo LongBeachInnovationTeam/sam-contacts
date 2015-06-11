@@ -94,9 +94,6 @@ if (Meteor.isClient) {
 
   Template.EditContact.helpers({
     editFormData: function () {
-      Meteor.setTimeout(function() {
-
-      }, 500);
       var id = Session.get("editContactId", id);
       return Contacts.findOne({_id: id});
     },
@@ -109,7 +106,7 @@ if (Meteor.isClient) {
     "submit .new-contact": function (event) {
       var form = parseForm(event);  // parse form data
       form["lastModifiedDate"] = new Date();  // add a last modified date
-      form["tags"] = $("#add-contact-tags").tagsinput('items'); // get tags from tag input
+      form["tags"] = $("#add-contact-tags").tagsinput("items"); // get tags from tag input
 
       // Normalize phone number
       var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -123,7 +120,7 @@ if (Meteor.isClient) {
       var name = form["name"].trim();
       if (name !== "" && typeof name === "string") {
         Contacts.insert(form);
-        $('#addContactModal').modal('hide');
+        $("#addContactModal").modal("hide");
         Router.go("/");
       }
 
@@ -137,6 +134,7 @@ if (Meteor.isClient) {
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
+      $("#editContactModal").modal("hide");
     }
   });
 
