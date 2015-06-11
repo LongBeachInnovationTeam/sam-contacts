@@ -92,13 +92,20 @@ if (Meteor.isClient) {
     }
   });
 
-  // Clear form when the modal is hidder
-  // $('#addContactModal').on('hide.bs.modal', function(){
-  //   console.log("HIDDEN");
-  //   //$(this).find('form')[0].reset();
-  // });
+  Template.EditContact.helpers({
+    editFormData: function () {
+      Meteor.setTimeout(function() {
 
-  Template.body.events({
+      }, 500);
+      var id = Session.get("editContactId", id);
+      return Contacts.findOne({_id: id});
+    },
+    getTagsAsString: function (tags) {
+      return tags.join();
+    }
+  });
+
+  Template.AddContact.events({
     "submit .new-contact": function (event) {
       var form = parseForm(event);  // parse form data
       form["lastModifiedDate"] = new Date();  // add a last modified date
@@ -121,6 +128,21 @@ if (Meteor.isClient) {
       }
 
       return false; // Prevent default form submit
+    }
+  });
+
+  Template.EditContact.events({
+    "submit .edit-contact": function (event) {
+      // update contact
+    },
+    "click .delete-contact-btn": function (event) {
+      Contacts.remove(this._id);
+    }
+  });
+
+  Template.ContactsList.events({
+    "click .contact-edit-btn": function (event) {
+      Session.set("editContactId", event.target.id);
     }
   });
 

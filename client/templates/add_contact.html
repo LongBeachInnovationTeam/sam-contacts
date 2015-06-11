@@ -1,0 +1,83 @@
+<template name="AddContact">
+	<!-- Modal -->
+	<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	  	<form id="new-contact" class="new-contact" data-parsley-validate>
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <a class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true">&times;</span>
+	        	</a>
+		        <h4 class="modal-title" id="addContactModalLabel">ADD NEW CONTACT</h4>
+		      </div>
+		      <div class="modal-body">
+	      		<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="name">NAME *</label>
+					  			<input type="text" class="form-control" name="name" id="name" required />
+				  			</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="title">TITLE</label>
+									<input type="text" class="form-control" name="title" id="title"  />
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="organization">COMPANY/ORGANIZATION</label>
+									<input type="text" class="form-control" name="organization" id="organization" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="title">PHONE</label>
+									<input type="tel" class="form-control" name="phone" id="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+								</div>
+							</div>
+							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="organization">EMAIL</label>
+									<input type="email" class="form-control" name="email" id="email" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="address">ADDRESS</label>
+									<input type="text" class="form-control" name="address" id="address" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+									<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
+									<input type="text" data-role="tagsinput" id="add-contact-tags" class="form-control" name="tags" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="form-group">
+								  <label for="notes">NOTES</label>
+					  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" id="notes"></textarea>
+								</div>
+							</div>
+						</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+		        <button type="submit" class="btn btn-primary">SUBMIT</button>
+		      </div>
+		    </div>
+	  	</form>
+	  </div>
+	</div>
+</template>
