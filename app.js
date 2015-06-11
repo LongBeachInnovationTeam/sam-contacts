@@ -75,7 +75,7 @@ if (Meteor.isClient) {
     getTags: function() {
       var self = this;
       self.tags = self.tags || [];
-      return _.map(self.tags, function (value, index){
+      return _.map(self.tags, function (value, index) {
         return {
           value: value,
           index: index
@@ -103,12 +103,19 @@ if (Meteor.isClient) {
   });
 
   Template.AddContact.events({
-    "submit .new-contact": function (event) {
-      var form = parseForm(event);  // parse form data
-      form["lastModifiedDate"] = new Date();  // add a last modified date
-      form["tags"] = $("#add-contact-tags").tagsinput("items"); // get tags from tag input
+    "submit .new-contact": function (event, template) {
+      event.preventDefault();
 
-      // Normalize phone number
+      var form = parseForm(event);
+
+      // Get tags from tag input, strip out any non-alphanumeric characters
+      var tags = $("#add-contact-tags").tagsinput("items");
+      for (tag in tags) {
+        tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
+      }
+      form["tags"] = tags;
+
+      // Normalize phone number to use the U.S. hyphen format
       var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
       var phone = form["phone"];
       if (phoneRegex.test(phone)) {
@@ -119,12 +126,15 @@ if (Meteor.isClient) {
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
       if (name !== "" && typeof name === "string") {
+        form["lastModifiedDate"] = new Date();
         Contacts.insert(form);
-        $("#addContactModal").modal("hide");
-        Router.go("/");
       }
 
-      return false; // Prevent default form submit
+      $(".new-contact").parsley().reset();
+      template.find("form").reset(); // reset form
+      $("#addContactModal").modal("hide");
+
+      return false; // prevent default form submit
     }
   });
 
