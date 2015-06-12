@@ -146,10 +146,10 @@ if (Meteor.isClient) {
 
   Template.EditContact.events({
     "submit .edit-contact": function (event, template) {
-
       event.preventDefault();
 
-      // Get submitted form data and sanitize it for proper entry and retrieval
+      // Get submitted form data and sanitize it for proper update and retrieval
+      var id = Session.get("editContactId");
       var form = parseForm(event);
       form = sanitizeContactFormData(form);
 
@@ -157,11 +157,10 @@ if (Meteor.isClient) {
       var name = form["name"].trim();
       if (name !== "" && typeof name === "string") {
         form["lastModifiedDate"] = new Date();
-        Contacts.update(this._id, form);
+        Contacts.update({_id: id}, { $set: form });
       }
 
       $(".edit-contact").parsley().reset();
-      template.find("form").reset(); // reset form
       $("#editContactModal").modal("hide");
 
       return false;
