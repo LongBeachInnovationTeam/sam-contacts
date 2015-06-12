@@ -111,20 +111,20 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.EditContact.helpers({
-    editFormData: function () {
-      var id = Session.get("editContactId", id);
-      return Contacts.findOne({_id: id});
-    },
-    getTagsAsString: function (tags) {
-      return tags.join();
+  Template.ContactsList.events({
+    "click .contact-edit-btn": function (event) {
+      Session.set("editContactId", event.target.id);
     }
   });
 
   Template.AddContact.events({
+    "click #add-contact-cancel-btn": function (event, template) {
+      $(".invalid-add-contact-error-message").html("");
+      template.find("form").reset();
+      $("#addContactModal").modal("hide");
+    },
     "submit .new-contact": function (event, template) {
       event.preventDefault();
-      event.stopPropagation();
       // Get submitted form data and sanitize it for proper entry and retrieval
       var form = parseForm(event);
       form = sanitizeContactFormData(form);
@@ -134,10 +134,56 @@ if (Meteor.isClient) {
         form["lastModifiedDate"] = new Date();
         Contacts.insert(form);
       }
+      // Reset form, hide modal, and return to caller
+      $(".invalid-add-contact-error-message").html("");
       $(".new-contact").parsley().reset();
-      template.find("form").reset(); // reset form
+      template.find("form").reset();
       $("#addContactModal").modal("hide");
       return false;
+    }
+  });
+
+  Template.AddContact.rendered = function () {
+    $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
+      if (!$('#add-name-field').val().length && !$('#add-organization-field').val().length) {
+        formInstance.submitEvent.preventDefault();
+        $(".invalid-add-contact-error-message")
+          .html("You must enter a NAME or COMPANY/ORGANIZATION")
+          .addClass("alert")
+          .addClass("alert-danger");
+      }
+      else {
+        $(".invalid-add-contact-error-message").html("");
+      }
+      return;
+
+      // if one of these blocks is not failing do not prevent submission
+      // we use here group validation with option force (validate even non required fields)
+      // if (formInstance.isValid("block1", true)) {
+      //   console.log("valid");
+      //   $(".invalid-form-error-message").html("");
+      //   return;
+      // }
+      // else stop form submission
+      //formInstance.submitEvent.preventDefault();
+
+      // and display a gentle message
+      // $(".invalid-form-error-message")
+      //   .html("You must enter a name or company/organization")
+      //   .addClass("filled");
+      // return;
+
+
+    });
+  }
+
+  Template.EditContact.helpers({
+    editFormData: function () {
+      var id = Session.get("editContactId", id);
+      return Contacts.findOne({_id: id});
+    },
+    getTagsAsString: function (tags) {
+      return tags.join();
     }
   });
 
@@ -163,17 +209,6 @@ if (Meteor.isClient) {
       $("#editContactModal").modal("hide");
     }
   });
-
-  Template.ContactsList.events({
-    "click .contact-edit-btn": function (event) {
-      Session.set("editContactId", event.target.id);
-    }
-  });
-
-  Template.body.rendered = function () {
-    // Setup parsley form validation
-    $('#new-contact').parsley({trigger: 'change'});
-  };
 
 }
 

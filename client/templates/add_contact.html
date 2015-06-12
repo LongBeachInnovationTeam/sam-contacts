@@ -2,7 +2,7 @@
 	<!-- Modal -->
 	<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
-	  	<form id="new-contact" class="new-contact" data-parsley-validate>
+	  	<form class="new-contact" data-parsley-validate>
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <a class="close" data-dismiss="modal" aria-label="Close">
@@ -11,11 +11,16 @@
 		        <h4 class="modal-title" id="addContactModalLabel">ADD NEW CONTACT</h4>
 		      </div>
 		      <div class="modal-body">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="invalid-add-contact-error-message" role="alert"></div>
+							</div>
+						</div>
 	      		<div class="row">
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
-									<label for="name">NAME *</label>
-					  			<input type="text" class="form-control" name="name" id="name" required />
+									<label for="name">NAME</label>
+					  			<input type="text" class="form-control" name="name" id="add-name-field" data-parsley-validate-if-empty data-parsley-group="block1" />
 				  			</div>
 							</div>
 						</div>
@@ -29,7 +34,7 @@
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="organization">COMPANY/ORGANIZATION</label>
-									<input type="text" class="form-control" name="organization" id="organization" />
+									<input type="text" class="form-control" name="organization" id="add-organization-field" data-parsley-validate-if-empty data-parsley-group="block1" />
 								</div>
 							</div>
 						</div>
@@ -73,7 +78,7 @@
 						</div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+		        <button type="button" id="add-contact-cancel-btn" class="btn btn-default">CANCEL</button>
 		        <button type="submit" class="btn btn-primary">SUBMIT</button>
 		      </div>
 		    </div>
