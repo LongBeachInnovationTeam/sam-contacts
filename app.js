@@ -57,6 +57,8 @@ if (Meteor.isClient) {
       var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
       form["phone"] = formattedPhoneNumber;
     }
+
+    return form;
   }
 
   var strToId = function (str) {
