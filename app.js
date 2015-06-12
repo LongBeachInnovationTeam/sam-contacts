@@ -130,7 +130,8 @@ if (Meteor.isClient) {
       form = sanitizeContactFormData(form);
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
-      if (name !== "" && typeof name === "string") {
+      var organization = form["organization"].trim();
+      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined) ) {
         form["lastModifiedDate"] = new Date();
         Contacts.insert(form);
       }
