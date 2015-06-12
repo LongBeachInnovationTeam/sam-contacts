@@ -42,6 +42,23 @@ if (Meteor.isClient) {
     return formData;
   }
 
+  var sanitizeContactFormData = function (form) {
+    // Get tags from tag input, strip out any non-alphanumeric characters
+    var tags = $("#add-contact-tags").tagsinput("items");
+    for (tag in tags) {
+      tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
+    }
+    form["tags"] = tags;
+
+    // Normalize phone number to use the U.S. hyphen format
+    var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    var phone = form["phone"];
+    if (phoneRegex.test(phone)) {
+      var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
+      form["phone"] = formattedPhoneNumber;
+    }
+  }
+
   var strToId = function (str) {
     return "collapse-" + str;
   }
@@ -106,22 +123,9 @@ if (Meteor.isClient) {
     "submit .new-contact": function (event, template) {
       event.preventDefault();
 
+      // Get submitted form data and sanitize it for proper entry and retrieval
       var form = parseForm(event);
-
-      // Get tags from tag input, strip out any non-alphanumeric characters
-      var tags = $("#add-contact-tags").tagsinput("items");
-      for (tag in tags) {
-        tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
-      }
-      form["tags"] = tags;
-
-      // Normalize phone number to use the U.S. hyphen format
-      var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-      var phone = form["phone"];
-      if (phoneRegex.test(phone)) {
-        var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
-        form["phone"] = formattedPhoneNumber;
-      }
+      form = sanitizeContactFormData(form);
 
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
@@ -139,8 +143,26 @@ if (Meteor.isClient) {
   });
 
   Template.EditContact.events({
-    "submit .edit-contact": function (event) {
-      // update contact
+    "submit .edit-contact": function (event, template) {
+
+      event.preventDefault();
+
+      // Get submitted form data and sanitize it for proper entry and retrieval
+      var form = parseForm(event);
+      form = sanitizeContactFormData(form);
+
+      // Only insert a record if there was an entered name
+      var name = form["name"].trim();
+      if (name !== "" && typeof name === "string") {
+        form["lastModifiedDate"] = new Date();
+        Contacts.update(this._id, form);
+      }
+
+      $(".edit-contact").parsley().reset();
+      template.find("form").reset(); // reset form
+      $("#editContactModal").modal("hide");
+
+      return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
