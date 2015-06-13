@@ -21,26 +21,6 @@ Router.route('/categories', function () {
 
 if (Meteor.isClient) {
 
-  var contact = {
-    name: "",
-    title: "",
-    organization: "",
-    phone: "",
-    email: "",
-    address: "",
-    notes: ""
-  }
-
-  var parseForm = function (e) {
-    var formData = contact;
-    for (var prop in formData) {
-      if (formData.hasOwnProperty(prop) && prop !== "tags" && prop !== "lastModifiedDate") {
-        formData[prop] = e.target[prop].value;
-      }
-    }
-    return formData;
-  }
-
   var sanitizePhone = function (phone) {
     // Normalize phone number to use the U.S. hyphen format
     var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
@@ -57,25 +37,6 @@ if (Meteor.isClient) {
       tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
     }
     return tags;
-  }
-
-  var sanitizeContactFormData = function (form) {
-    // Get tags from tag input, strip out any non-alphanumeric characters
-    var tags = $(".contact-tags").tagsinput("items");
-    for (tag in tags) {
-      tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
-    }
-    form["tags"] = tags;
-
-    // Normalize phone number to use the U.S. hyphen format
-    var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    var phone = form["phone"];
-    if (phoneRegex.test(phone)) {
-      var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
-      form["phone"] = formattedPhoneNumber;
-    }
-
-    return form;
   }
 
   var strToId = function (str) {
@@ -153,21 +114,39 @@ if (Meteor.isClient) {
     },
     "submit .new-contact": function (event, template) {
       event.preventDefault();
-      // Get submitted form data and sanitize it for proper entry and retrieval
-      var form = parseForm(event);
-      form = sanitizeContactFormData(form);
-      // Only insert a record if there was an entered name
-      var name = form["name"].trim();
-      var organization = form["organization"].trim();
-      if ((name !== "" && typeof name === "string") || (organization !== "" && typeof organization === "string")) {
-        form["lastModifiedDate"] = new Date();
-        Contacts.insert(form);
+
+      var name = $("#add-name-field").val();
+      var title = $("#add-title-field").val();
+      var organization = $("#add-organization-field").val();
+      var phone = $("#add-phone-field").val();
+      var email = $("#add-email-field").val();
+      var address = $("#add-address-field").val();
+      var tags = $("#add-tags-field").val();
+      var notes = $("#add-notes-field").val();
+
+      var newContact = {
+        name: name,
+        title: title,
+        organization: organization,
+        phone: sanitizePhone(phone) || "",
+        email: email,
+        address: address,
+        tags: sanitizeTags(tags) || [],
+        notes: notes
       }
+
+      // Only insert a record if there was an entered name
+      if ((newContact.name !== "" && newContact.name) || (newContact.organization !== "" && newContact.organization)) {
+        newContact.createdDate = new Date();
+        newContact.lastModifiedDate = newContact.createdDate;
+        Contacts.insert(newContact);
+      }
+
       // Reset form, hide modal, and return to caller
       $(".invalid-contact-alert").hide();
       $(".new-contact").parsley().reset();
       template.find("form").reset();
-      $("#addContactModal").modal("hide");
+      $("#add-contact-modal").modal("hide");
       return false;
     }
   });
@@ -214,7 +193,7 @@ if (Meteor.isClient) {
         phone: sanitizePhone(phone) || "",
         email: email,
         address: address,
-        tags: sanitizeTags([]),
+        tags: sanitizeTags([]) || [],
         notes: notes
       }
 

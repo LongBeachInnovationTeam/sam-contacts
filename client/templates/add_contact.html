@@ -1,5 +1,5 @@
 <template name="AddContact">
-	<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel" aria-hidden="true">
+	<div class="modal fade" id="add-contact-modal" tabindex="-1" role="dialog" aria-labelledby="add-contact-modal-label" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	  	<form class="new-contact" data-parsley-validate>
 		    <div class="modal-content">
@@ -7,7 +7,7 @@
 		        <a class="close" data-dismiss="modal" aria-label="Close">
 		        	<span aria-hidden="true">&times;</span>
 	        	</a>
-		        <h4 class="modal-title" id="addContactModalLabel">ADD NEW CONTACT</h4>
+		        <h4 class="modal-title" id="add-contact-modal-label">ADD NEW CONTACT</h4>
 		      </div>
 		      <div class="modal-body">
 						<div class="row">
@@ -29,7 +29,7 @@
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="title">TITLE</label>
-									<input type="text" class="form-control" name="title" />
+									<input type="text" id="add-title-field" class="form-control" name="title" />
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-6 col-lg-6">
@@ -43,13 +43,13 @@
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="title">PHONE</label>
-									<input type="tel" class="form-control" name="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+									<input type="tel" id="add-phone-field" class="form-control" name="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="organization">EMAIL</label>
-									<input type="email" class="form-control" name="email" />
+									<input type="email" id="add-email-field" class="form-control" name="email" />
 								</div>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="address">ADDRESS</label>
-									<input type="text" class="form-control" name="address" />
+									<input type="text" id="add-address-field" class="form-control" name="address" />
 								</div>
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
-									<input type="text" data-role="tagsinput" class="form-control contact-tags" name="tags" />
+									<input type="text" id="add-tags-field" class="form-control" name="tags" data-role="tagsinput" />
 								</div>
 							</div>
 						</div>
@@ -73,7 +73,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 								  <label for="notes">NOTES</label>
-					  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" name="notes"></textarea>
+					  			<textarea id="add-notes-field" class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" name="notes"></textarea>
 								</div>
 							</div>
 						</div>
