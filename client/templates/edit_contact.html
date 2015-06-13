@@ -1,5 +1,5 @@
 <template name="EditContact">
-	<div class="modal fade" id="editContactModal" tabindex="-1" role="dialog" aria-labelledby="editContactModalLabel" aria-hidden="true">
+	<div class="modal fade" id="edit-contact-modal" tabindex="-1" role="dialog" aria-labelledby="editContactModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	  	<form class="edit-contact" data-parsley-validate>
 		    <div class="modal-content">
@@ -22,7 +22,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label for="name">NAME</label>
-						  			<input type="text" id="edit-name-field" class="form-control" name="name" value="{{name}}" data-parsley-group="block1" />
+						  			<input type="text" id="edit-name-field" class="form-control" name="name" value="{{name}}" data-parsley-group="edit-block1" />
 					  			</div>
 								</div>
 							</div>
@@ -30,13 +30,13 @@
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="title">TITLE</label>
-										<input type="text" class="form-control" name="title" value="{{title}}"  />
+										<input type="text" id="edit-title-field" class="form-control" name="title" value="{{title}}"  />
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="organization">COMPANY/ORGANIZATION</label>
-										<input type="text" id="edit-organization-field" class="form-control" name="organization" value="{{organization}}" data-parsley-group="block1" />
+										<input type="text" id="edit-organization-field" class="form-control" name="organization" value="{{organization}}" data-parsley-group="edit-block1" />
 									</div>
 								</div>
 							</div>
@@ -44,13 +44,13 @@
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="title">PHONE</label>
-										<input type="tel" class="form-control" name="phone" value="{{phone}}" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+										<input type="tel" id="edit-phone-field" class="form-control" name="phone" value="{{phone}}" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="organization">EMAIL</label>
-										<input type="email" class="form-control" name="email" value="{{email}}" />
+										<input type="email" id="edit-email-field" class="form-control" name="email" value="{{email}}" />
 									</div>
 								</div>
 							</div>
@@ -58,7 +58,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label for="address">ADDRESS</label>
-										<input type="text" class="form-control" name="address" value="{{address}}" />
+										<input type="text" id="edit-address-field" class="form-control" name="address" value="{{address}}" />
 									</div>
 								</div>
 							</div>
@@ -66,7 +66,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
-										<input type="text" data-role="tagsinput" class="form-control contact-tags" name="tags" value="{{getTagsAsString tags}}" />
+										<input type="text" id="edit-tags-field" class="form-control" name="tags" value="{{getTagsAsString tags}}" data-role="tagsinput" />
 									</div>
 								</div>
 							</div>
@@ -74,7 +74,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 									  <label for="notes">NOTES</label>
-						  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" value="{{notes}}"></textarea>
+						  			<textarea id="edit-notes-field" class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" value="{{notes}}"></textarea>
 									</div>
 								</div>
 							</div>

@@ -41,6 +41,24 @@ if (Meteor.isClient) {
     return formData;
   }
 
+  var sanitizePhone = function (phone) {
+    // Normalize phone number to use the U.S. hyphen format
+    var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (phoneRegex.test(phone)) {
+      var formattedPhoneNumber = phone.replace(phoneRegex, "$1-$2-$3");
+      return formattedPhoneNumber;
+    }
+  }
+
+  var sanitizeTags = function (tags) {
+    // Get tags from tag input, strip out any non-alphanumeric characters
+    // make them lowercase
+    for (tag in tags) {
+      tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
+    }
+    return tags;
+  }
+
   var sanitizeContactFormData = function (form) {
     // Get tags from tag input, strip out any non-alphanumeric characters
     var tags = $(".contact-tags").tagsinput("items");
@@ -178,26 +196,43 @@ if (Meteor.isClient) {
   Template.EditContact.events({
     "submit .edit-contact": function (event, template) {
       event.preventDefault();
-      // Get submitted form data and sanitize it for proper update and retrieval
+
       var id = Session.get("editContactId");
-      var form = parseForm(event);
-      form = sanitizeContactFormData(form);
-      // Only insert a record if there was an entered name
-      var name = form["name"].trim();
-      var organization = form["organization"].trim();
-      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined)) {
-        form["lastModifiedDate"] = new Date();
-        Contacts.update({_id: id}, { $set: form });
+      var name = $("#edit-name-field").val();
+      var title = $("#edit-title-field").val();
+      var organization = $("#edit-organization-field").val();
+      var phone = $("#edit-phone-field").val();
+      var email = $("#edit-email-field").val();
+      var address = $("#edit-address-field").val();
+      var tags = $("#edit-tags-field").val();
+      var notes = $("#edit-notes-field").val();
+
+      var editedContact = {
+        name: name,
+        title: title,
+        organization: organization,
+        phone: sanitizePhone(phone) || "",
+        email: email,
+        address: address,
+        tags: sanitizeTags([]),
+        notes: notes
       }
+
+      // Only insert a record if there was an entered name
+      if ((editedContact.name !== "" && editedContact.name) || (editedContact.organization !== "" && editedContact.organization)) {
+        editedContact.lastModifiedDate = new Date();
+        Contacts.update({_id: id}, { $set: editedContact });
+      }
+
       $(".invalid-contact-alert").hide();
       $(".edit-contact").parsley().reset();
-      $("#editContactModal").modal("hide");
+      $("#edit-contact-modal").modal("hide");
       return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
       $(".invalid-contact-alert").hide();
-      $("#editContactModal").modal("hide");
+      $("#edit-contact-modal").modal("hide");
     }
   });
 
