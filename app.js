@@ -107,10 +107,9 @@ if (Meteor.isClient) {
 
   Template.AddContact.events({
     "click #add-contact-cancel-btn": function (event, template) {
-      $(".invalid-add-contact-error-message").html("");
       template.find("form").reset();
-      $(".invalid-contact-alert").hide();
-      $("#addContactModal").modal("hide");
+      $("#add-invalid-contact-alert").hide();
+      $("#add-contact-modal").modal("hide");
     },
     "submit .new-contact": function (event, template) {
       event.preventDefault();
@@ -143,7 +142,7 @@ if (Meteor.isClient) {
       }
 
       // Reset form, hide modal, and return to caller
-      $(".invalid-contact-alert").hide();
+      $("#add-invalid-contact-alert").hide();
       $(".new-contact").parsley().reset();
       template.find("form").reset();
       $("#add-contact-modal").modal("hide");
@@ -152,7 +151,7 @@ if (Meteor.isClient) {
   });
 
   Template.AddContact.rendered = function () {
-    $(".invalid-contact-alert").hide();
+    $("#add-invalid-contact-alert").hide();
     $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#add-name-field').val().length && !$('#add-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
@@ -203,20 +202,20 @@ if (Meteor.isClient) {
         Contacts.update({_id: id}, { $set: editedContact });
       }
 
-      $(".invalid-contact-alert").hide();
+      $("#edit-invalid-contact-alert").hide();
       $(".edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
       return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
-      $(".invalid-contact-alert").hide();
+      $("#edit-invalid-contact-alert").hide();
       $("#edit-contact-modal").modal("hide");
     }
   });
 
   Template.EditContact.rendered = function () {
-    $(".invalid-contact-alert").hide();
+    $("#edit-invalid-contact-alert").hide();
     $(".edit-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#edit-name-field').val().length && !$('#edit-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
