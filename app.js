@@ -32,11 +32,10 @@ if (Meteor.isClient) {
   }
 
   var parseForm = function (e) {
-    var formData = new Object();
-    formData = contact;
+    var formData = contact;
     for (var prop in formData) {
-      if (formData.hasOwnProperty(prop) && (prop !== "tags" || prop !== "lastModifiedDate")) {
-        formData[prop] = e.target[prop].value || "";
+      if (formData.hasOwnProperty(prop) && prop !== "tags" && prop !== "lastModifiedDate") {
+        formData[prop] = e.target[prop].value;
       }
     }
     return formData;
@@ -142,7 +141,7 @@ if (Meteor.isClient) {
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
       var organization = form["organization"].trim();
-      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined)) {
+      if ((name !== "" && typeof name === "string") || (organization !== "" && typeof organization === "string")) {
         form["lastModifiedDate"] = new Date();
         Contacts.insert(form);
       }
