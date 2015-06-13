@@ -35,8 +35,8 @@ if (Meteor.isClient) {
     var formData = new Object();
     formData = contact;
     for (var prop in formData) {
-      if (formData.hasOwnProperty(prop) && (prop !== "tags" && prop != "lastModifiedDate")) {
-        formData[prop] = e.target[prop].value;
+      if (formData.hasOwnProperty(prop) && (prop !== "tags" || prop !== "lastModifiedDate")) {
+        formData[prop] = e.target[prop].value || "";
       }
     }
     return formData;
@@ -44,7 +44,7 @@ if (Meteor.isClient) {
 
   var sanitizeContactFormData = function (form) {
     // Get tags from tag input, strip out any non-alphanumeric characters
-    var tags = $("#add-contact-tags").tagsinput("items");
+    var tags = $(".contact-tags").tagsinput("items");
     for (tag in tags) {
       tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
     }
@@ -82,6 +82,16 @@ if (Meteor.isClient) {
     },
     getCollapseId: function (str) {
       return strToId(str);
+    },
+    getNameOrOrganization: function (name, organization) {
+      if (name && name !== "") {
+        return name;
+      }
+      if (organization && organization !== "") {
+        this.title = "Company/Organization";
+        return organization;
+      }
+      return "Unknown";
     },
     getPhone: function (str) {
       if (str && str !== "") {
@@ -121,6 +131,7 @@ if (Meteor.isClient) {
     "click #add-contact-cancel-btn": function (event, template) {
       $(".invalid-add-contact-error-message").html("");
       template.find("form").reset();
+      $(".invalid-contact-alert").hide();
       $("#addContactModal").modal("hide");
     },
     "submit .new-contact": function (event, template) {
@@ -131,12 +142,12 @@ if (Meteor.isClient) {
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
       var organization = form["organization"].trim();
-      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined) ) {
+      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined)) {
         form["lastModifiedDate"] = new Date();
         Contacts.insert(form);
       }
       // Reset form, hide modal, and return to caller
-      $(".invalid-add-contact-error-message").html("");
+      $(".invalid-contact-alert").hide();
       $(".new-contact").parsley().reset();
       template.find("form").reset();
       $("#addContactModal").modal("hide");
@@ -145,36 +156,13 @@ if (Meteor.isClient) {
   });
 
   Template.AddContact.rendered = function () {
+    $(".invalid-contact-alert").hide();
     $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#add-name-field').val().length && !$('#add-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
-        $(".invalid-add-contact-error-message")
-          .html("You must enter a NAME or COMPANY/ORGANIZATION")
-          .addClass("alert")
-          .addClass("alert-danger");
-      }
-      else {
-        $(".invalid-add-contact-error-message").html("");
+        $(".invalid-contact-alert").show();
       }
       return;
-
-      // if one of these blocks is not failing do not prevent submission
-      // we use here group validation with option force (validate even non required fields)
-      // if (formInstance.isValid("block1", true)) {
-      //   console.log("valid");
-      //   $(".invalid-form-error-message").html("");
-      //   return;
-      // }
-      // else stop form submission
-      //formInstance.submitEvent.preventDefault();
-
-      // and display a gentle message
-      // $(".invalid-form-error-message")
-      //   .html("You must enter a name or company/organization")
-      //   .addClass("filled");
-      // return;
-
-
     });
   }
 
@@ -197,19 +185,33 @@ if (Meteor.isClient) {
       form = sanitizeContactFormData(form);
       // Only insert a record if there was an entered name
       var name = form["name"].trim();
-      if (name !== "" && typeof name === "string") {
+      var organization = form["organization"].trim();
+      if ((name !== "" && name !== undefined) || (organization !== "" && organization !== undefined)) {
         form["lastModifiedDate"] = new Date();
         Contacts.update({_id: id}, { $set: form });
       }
+      $(".invalid-contact-alert").hide();
       $(".edit-contact").parsley().reset();
       $("#editContactModal").modal("hide");
       return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
+      $(".invalid-contact-alert").hide();
       $("#editContactModal").modal("hide");
     }
   });
+
+  Template.EditContact.rendered = function () {
+    $(".invalid-contact-alert").hide();
+    $(".edit-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
+      if (!$('#edit-name-field').val().length && !$('#edit-organization-field').val().length) {
+        formInstance.submitEvent.preventDefault();
+        $(".invalid-contact-alert").show();
+      }
+      return;
+    });
+  }
 
 }
 

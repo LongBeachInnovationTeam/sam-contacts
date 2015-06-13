@@ -1,5 +1,4 @@
 <template name="AddContact">
-	<!-- Modal -->
 	<div class="modal fade" id="addContactModal" tabindex="-1" role="dialog" aria-labelledby="addContactModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	  	<form class="new-contact" data-parsley-validate>
@@ -13,14 +12,16 @@
 		      <div class="modal-body">
 						<div class="row">
 							<div class="col-sm-12 col-md-12 col-lg-12">
-								<div class="invalid-add-contact-error-message" role="alert"></div>
+								<div class="alert alert-danger invalid-contact-alert" role="alert">
+									Must enter a <strong>NAME</strong> or <strong>COMPANY/ORGANIZATION</strong>
+								</div>
 							</div>
 						</div>
 	      		<div class="row">
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="name">NAME</label>
-					  			<input type="text" class="form-control" name="name" id="add-name-field" data-parsley-validate-if-empty data-parsley-group="block1" />
+					  			<input type="text" id="add-name-field" class="form-control" name="name" data-parsley-group="block1" />
 				  			</div>
 							</div>
 						</div>
@@ -28,13 +29,13 @@
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="title">TITLE</label>
-									<input type="text" class="form-control" name="title" id="title"  />
+									<input type="text" class="form-control" name="title" />
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="organization">COMPANY/ORGANIZATION</label>
-									<input type="text" class="form-control" name="organization" id="add-organization-field" data-parsley-validate-if-empty data-parsley-group="block1" />
+									<input type="text" id="add-organization-field" class="form-control" name="organization" data-parsley-group="block1" />
 								</div>
 							</div>
 						</div>
@@ -42,13 +43,13 @@
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="title">PHONE</label>
-									<input type="tel" class="form-control" name="phone" id="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+									<input type="tel" class="form-control" name="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
 								</div>
 							</div>
 							<div class="col-sm-6 col-md-6 col-lg-6">
 								<div class="form-group">
 									<label for="organization">EMAIL</label>
-									<input type="email" class="form-control" name="email" id="email" />
+									<input type="email" class="form-control" name="email" />
 								</div>
 							</div>
 						</div>
@@ -56,7 +57,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="address">ADDRESS</label>
-									<input type="text" class="form-control" name="address" id="address" />
+									<input type="text" class="form-control" name="address" />
 								</div>
 							</div>
 						</div>
@@ -64,7 +65,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
-									<input type="text" data-role="tagsinput" id="add-contact-tags" class="form-control" name="tags" />
+									<input type="text" data-role="tagsinput" class="form-control contact-tags" name="tags" />
 								</div>
 							</div>
 						</div>
@@ -72,7 +73,7 @@
 							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 								  <label for="notes">NOTES</label>
-					  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" id="notes"></textarea>
+					  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" name="notes"></textarea>
 								</div>
 							</div>
 						</div>

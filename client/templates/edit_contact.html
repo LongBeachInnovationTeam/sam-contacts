@@ -7,15 +7,22 @@
 		        <a class="close" data-dismiss="modal" aria-label="Close">
 		        	<span aria-hidden="true">&times;</span>
 	        	</a>
-		        <h4 class="modal-title" >EDIT CONTACT</h4>
+		        <h4 class="modal-title">EDIT CONTACT</h4>
 		      </div>
 		      <div class="modal-body">
 			      {{#with editFormData}}
+							<div class="row">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="alert alert-danger invalid-contact-alert" role="alert">
+										Must enter a <strong>NAME</strong> or <strong>COMPANY/ORGANIZATION</strong>
+									</div>
+								</div>
+							</div>
 		      		<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
-										<label for="name">NAME *</label>
-						  			<input type="text" class="form-control" name="name" id="name" value="{{name}}" required />
+										<label for="name">NAME</label>
+						  			<input type="text" id="edit-name-field" class="form-control" name="name" value="{{name}}" data-parsley-group="block1" />
 					  			</div>
 								</div>
 							</div>
@@ -23,13 +30,13 @@
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="title">TITLE</label>
-										<input type="text" class="form-control" name="title" id="title" value="{{title}}"  />
+										<input type="text" class="form-control" name="title" value="{{title}}"  />
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="organization">COMPANY/ORGANIZATION</label>
-										<input type="text" class="form-control" name="organization" id="organization" value="{{organization}}" />
+										<input type="text" id="edit-organization-field" class="form-control" name="organization" value="{{organization}}" data-parsley-group="block1" />
 									</div>
 								</div>
 							</div>
@@ -37,13 +44,13 @@
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="title">PHONE</label>
-										<input type="tel" class="form-control" name="phone" id="phone" value="{{phone}}" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+										<input type="tel" class="form-control" name="phone" value="{{phone}}" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="organization">EMAIL</label>
-										<input type="email" class="form-control" name="email" id="email" value="{{email}}" />
+										<input type="email" class="form-control" name="email" value="{{email}}" />
 									</div>
 								</div>
 							</div>
@@ -51,7 +58,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label for="address">ADDRESS</label>
-										<input type="text" class="form-control" name="address" id="address" value="{{address}}" />
+										<input type="text" class="form-control" name="address" value="{{address}}" />
 									</div>
 								</div>
 							</div>
@@ -59,7 +66,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 										<label for="tags">GRANT-RELATED INTERESTS/TOPICS/CHALLENGES</label>
-										<input type="text" data-role="tagsinput" id="edit-contact-tags" class="form-control" name="tags" value="{{getTagsAsString tags}}" />
+										<input type="text" data-role="tagsinput" class="form-control contact-tags" name="tags" value="{{getTagsAsString tags}}" />
 									</div>
 								</div>
 							</div>
@@ -67,7 +74,7 @@
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
 									  <label for="notes">NOTES</label>
-						  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" id="notes" value="{{notes}}"></textarea>
+						  			<textarea class="form-control" placeholder="ANYTHING WE SHOULD KNOW ABOUT THIS CONTACT?" value="{{notes}}"></textarea>
 									</div>
 								</div>
 							</div>
