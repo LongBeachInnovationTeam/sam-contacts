@@ -10,14 +10,14 @@
 		        <h4 class="modal-title">EDIT CONTACT</h4>
 		      </div>
 		      <div class="modal-body">
-			      {{#with editFormData}}
-							<div class="row">
-								<div class="col-sm-12 col-md-12 col-lg-12">
-									<div id="edit-invalid-contact-alert" class="alert alert-danger" role="alert">
-										Must enter a <strong>NAME</strong> or <strong>COMPANY/ORGANIZATION</strong>
-									</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="alert alert-danger edit-invalid-contact-alert" role="alert">
+									Must enter a <strong>NAME</strong> or <strong>COMPANY/ORGANIZATION</strong>
 								</div>
 							</div>
+						</div>
+			      {{#with editFormData}}
 		      		<div class="row">
 								<div class="col-sm-12 col-md-12 col-lg-12">
 									<div class="form-group">
@@ -83,7 +83,7 @@
 		      <div class="modal-footer">
 		      	{{#with editFormData}}
 		        	<button type="button" class="btn btn-danger pull-left delete-contact-btn">DELETE</button>
-			        <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+			        <button type="button" id="edit-contact-cancel-btn" class="btn btn-default">CANCEL</button>
 			        <button type="submit" class="btn btn-primary">EDIT</button>
 		        {{/with}}
 		      </div>

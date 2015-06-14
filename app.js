@@ -107,7 +107,7 @@ if (Meteor.isClient) {
 
   Template.AddContact.events({
     "click #add-contact-cancel-btn": function (event, template) {
-      template.find("form").reset();
+      template.find(".new-contact").reset();
       $("#add-invalid-contact-alert").hide();
       $("#add-contact-modal").modal("hide");
     },
@@ -144,7 +144,7 @@ if (Meteor.isClient) {
       // Reset form, hide modal, and return to caller
       $("#add-invalid-contact-alert").hide();
       $(".new-contact").parsley().reset();
-      template.find("form").reset();
+      template.find(".new-contact").reset();
       $("#add-contact-modal").modal("hide");
       return false;
     }
@@ -155,7 +155,7 @@ if (Meteor.isClient) {
     $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#add-name-field').val().length && !$('#add-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
-        $(".invalid-contact-alert").show();
+        $("#add-invalid-contact-alert").show();
       }
       return;
     });
@@ -172,6 +172,10 @@ if (Meteor.isClient) {
   });
 
   Template.EditContact.events({
+    "click #edit-contact-cancel-btn": function (event, template) {
+      $(".edit-invalid-contact-alert").hide();
+      $("#edit-contact-modal").modal("hide");
+    },
     "submit .edit-contact": function (event, template) {
       event.preventDefault();
 
@@ -202,7 +206,7 @@ if (Meteor.isClient) {
         Contacts.update({_id: id}, { $set: editedContact });
       }
 
-      $("#edit-invalid-contact-alert").hide();
+      $(".edit-invalid-contact-alert").hide();
       $(".edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
       return false;
@@ -215,11 +219,11 @@ if (Meteor.isClient) {
   });
 
   Template.EditContact.rendered = function () {
-    $("#edit-invalid-contact-alert").hide();
+    $(".edit-invalid-contact-alert").hide();
     $(".edit-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#edit-name-field').val().length && !$('#edit-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
-        $(".invalid-contact-alert").show();
+        $(".edit-invalid-contact-alert").show();
       }
       return;
     });
