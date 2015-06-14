@@ -56,12 +56,13 @@ if (Meteor.isClient) {
   }
 
   var sanitizeTags = function (tags) {
-    // Get tags from tag input, strip out any non-alphanumeric characters
-    // make them lowercase
-    for (tag in tags) {
-      tags[tag] = tags[tag].toLowerCase().replace(/\W/g, '');
+    // Get tags from tag input, split them into a new array, strip out any
+    // non-alphanumeric characters make them lowercase, and return an array of tags
+    var tagsArray = tags.split(",");
+    for (tag in tagsArray) {
+      tagsArray[tag] = tagsArray[tag].toLowerCase().replace(/\W/g, '');
     }
-    return tags;
+    return tagsArray;
   }
 
   var strToId = function (str) {
@@ -252,7 +253,7 @@ if (Meteor.isClient) {
         phone: sanitizePhone(phone) || "",
         email: email,
         address: address,
-        tags: sanitizeTags([]) || [],
+        tags: sanitizeTags(tags) || [],
         notes: notes
       }
 
