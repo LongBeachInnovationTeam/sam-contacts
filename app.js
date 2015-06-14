@@ -1,4 +1,5 @@
 Contacts = new Mongo.Collection("contacts");
+Organizations = new Mongo.Collection("organizations");
 
 Router.configure({
   layoutTemplate: "Layout"  // the default layout
@@ -20,6 +21,30 @@ Router.route('/categories', function () {
 });
 
 if (Meteor.isClient) {
+
+  var contactExists = function (name) {
+    var existingContact = Contacts.findOne({
+      name: name
+    });
+    if (existingContact) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  var organizationExists = function (org) {
+    var existingOrg = Organizations.findOne({
+      name: org
+    });
+    if (existingOrg) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   var sanitizePhone = function (phone) {
     // Normalize phone number to use the U.S. hyphen format
@@ -108,6 +133,7 @@ if (Meteor.isClient) {
   Template.AddContact.events({
     "click #add-contact-cancel-btn": function (event, template) {
       template.find(".new-contact").reset();
+      $("#add-existing-contact-alert").hide();
       $("#add-invalid-contact-alert").hide();
       $("#add-contact-modal").modal("hide");
     },
@@ -134,24 +160,55 @@ if (Meteor.isClient) {
         notes: notes
       }
 
-      // Only insert a record if there was an entered name
-      if ((newContact.name !== "" && newContact.name) || (newContact.organization !== "" && newContact.organization)) {
-        newContact.createdDate = new Date();
-        newContact.lastModifiedDate = newContact.createdDate;
-        Contacts.insert(newContact);
+      var isValidName = newContact.name !== "" && newContact.name;
+      var isValidOrganizationName = newContact.organization !== "" && newContact.organization;
+      var isExistingContact = contactExists(newContact.name);
+
+      // Create an entry in the Organizations collection for a newly identified organization
+      if (isValidOrganizationName) {
+        var orgName = newContact.organization;
+        if (!organizationExists(orgName)) {
+          var org = {
+            name: orgName,
+            createdDate: new Date()
+          }
+          Organizations.insert(org);
+        }
       }
 
-      // Reset form, hide modal, and return to caller
-      $("#add-invalid-contact-alert").hide();
-      $(".new-contact").parsley().reset();
-      template.find(".new-contact").reset();
-      $("#add-contact-modal").modal("hide");
+      // Create a new contact
+      var org = Organizations.findOne({
+        name: newContact.organization
+      });
+
+      if (isExistingContact) {
+        $("#add-existing-contact-alert").show();
+      }
+      else {
+        if (isValidName || isValidOrganizationName) {
+          if (org) {
+            newContact.organization_id = org._id;
+          }
+          newContact.createdDate = new Date();
+          newContact.lastModifiedDate = newContact.createdDate;
+          Contacts.insert(newContact);
+        }
+
+        // Reset form, hide modal, and return to caller
+        $("#add-invalid-contact-alert").hide();
+        $("#add-existing-contact-alert").hide();
+        $(".new-contact").parsley().reset();
+        template.find(".new-contact").reset();
+        $("#add-contact-modal").modal("hide");
+      }
+
       return false;
     }
   });
 
   Template.AddContact.rendered = function () {
     $("#add-invalid-contact-alert").hide();
+    $("#add-existing-contact-alert").hide();
     $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#add-name-field').val().length && !$('#add-organization-field').val().length) {
         formInstance.submitEvent.preventDefault();
