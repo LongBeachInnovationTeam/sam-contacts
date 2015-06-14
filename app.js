@@ -177,15 +177,14 @@ if (Meteor.isClient) {
       }
 
       // Create a new contact
-      var org = Organizations.findOne({
-        name: newContact.organization
-      });
-
       if (isExistingContact) {
         $("#add-existing-contact-alert").show();
       }
       else {
         if (isValidName || isValidOrganizationName) {
+          var org = Organizations.findOne({
+            name: newContact.organization
+          });
           if (org) {
             newContact.organization_id = org._id;
           }
@@ -257,8 +256,29 @@ if (Meteor.isClient) {
         notes: notes
       }
 
-      // Only insert a record if there was an entered name
-      if ((editedContact.name !== "" && editedContact.name) || (editedContact.organization !== "" && editedContact.organization)) {
+      var isValidName = editedContact.name !== "" && editedContact.name;
+      var isValidOrganizationName = editedContact.organization !== "" && editedContact.organization;
+
+      // Create an entry in the Organizations collection for a newly identified organization
+      if (isValidOrganizationName) {
+        var orgName = editedContact.organization;
+        if (!organizationExists(orgName)) {
+          var org = {
+            name: orgName,
+            createdDate: new Date()
+          }
+          Organizations.insert(org);
+        }
+      }
+
+      // Update contact
+      if (isValidName || isValidOrganizationName) {
+        var org = Organizations.findOne({
+          name: editedContact.organization
+        });
+        if (org) {
+          editedContact.organization_id = org._id;
+        }
         editedContact.lastModifiedDate = new Date();
         Contacts.update({_id: id}, { $set: editedContact });
       }
