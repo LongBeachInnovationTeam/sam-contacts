@@ -127,7 +127,11 @@ if (Meteor.isClient) {
 
   Template.ContactsList.events({
     "click .contact-edit-btn": function (event) {
-      Session.set("editContactId", event.target.id);
+      var id = event.target.id;
+      Session.set("editContactId", id);
+      // Meteor.setTimeout(function () {
+      //   $("#" + id + "-edit-tags-field").tagsinput("refresh");
+      // }, 100);
     }
   });
 
@@ -225,12 +229,17 @@ if (Meteor.isClient) {
     },
     getTagsAsString: function (tags) {
       return tags.join();
+    },
+    getTagsInputId: function () {
+      var id = Session.get("editContactId", id);
+      return id + "-edit-tags-field";
     }
   });
 
   Template.EditContact.events({
     "click #edit-contact-cancel-btn": function (event, template) {
       $(".edit-invalid-contact-alert").hide();
+      $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
     },
     "submit .edit-contact": function (event, template) {
@@ -243,7 +252,7 @@ if (Meteor.isClient) {
       var phone = $("#edit-phone-field").val();
       var email = $("#edit-email-field").val();
       var address = $("#edit-address-field").val();
-      var tags = $("#edit-tags-field").val();
+      var tags = $("#" + id + "-edit-tags-field").val();
       var notes = $("#edit-notes-field").val();
 
       var editedContact = {
@@ -285,13 +294,14 @@ if (Meteor.isClient) {
       }
 
       $(".edit-invalid-contact-alert").hide();
-      $(".edit-contact").parsley().reset();
+      $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
       return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
       $("#edit-invalid-contact-alert").hide();
+      $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
     }
   });
