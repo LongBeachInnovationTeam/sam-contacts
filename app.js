@@ -129,9 +129,9 @@ if (Meteor.isClient) {
     "click .contact-edit-btn": function (event) {
       var id = event.target.id;
       Session.set("editContactId", id);
-      // Meteor.setTimeout(function () {
-      //   $("#" + id + "-edit-tags-field").tagsinput("refresh");
-      // }, 100);
+      Meteor.setTimeout(function () {
+        $("#" + id + "-edit-tags-field").tagsinput("refresh");
+      }, 100);
     }
   });
 
@@ -238,6 +238,8 @@ if (Meteor.isClient) {
 
   Template.EditContact.events({
     "click #edit-contact-cancel-btn": function (event, template) {
+      var id = Session.get("editContactId");
+      $("#" + id + "-edit-tags-field").tagsinput("destroy");
       $(".edit-invalid-contact-alert").hide();
       $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
@@ -293,6 +295,7 @@ if (Meteor.isClient) {
         Contacts.update({_id: id}, { $set: editedContact });
       }
 
+      $("#" + id + "-edit-tags-field").tagsinput("destroy");
       $(".edit-invalid-contact-alert").hide();
       $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
@@ -300,6 +303,7 @@ if (Meteor.isClient) {
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
+      $("#" + this._id + "-edit-tags-field").tagsinput("destroy");
       $("#edit-invalid-contact-alert").hide();
       $("form.edit-contact").parsley().reset();
       $("#edit-contact-modal").modal("hide");
