@@ -156,6 +156,8 @@ if (Meteor.isClient) {
       var email = $("#add-email-field").val();
       var address = $("#add-address-field").val();
       var tags = $("#add-tags-field").val();
+      var regularMeetings = $("#add-regular-meetings-field").val();
+      var notableAnnualEvents = $("#add-notable-events-field").val();
       var notes = $("#add-notes-field").val();
 
       var newContact = {
@@ -166,6 +168,8 @@ if (Meteor.isClient) {
         email: email,
         address: address,
         tags: sanitizeTags(tags) || [],
+        regularMeetings: regularMeetings,
+        notableAnnualEvents: notableAnnualEvents,
         notes: notes
       }
 
@@ -254,6 +258,8 @@ if (Meteor.isClient) {
       var email = $("#edit-email-field").val();
       var address = $("#edit-address-field").val();
       var tags = $("#" + id + "-edit-tags-field").val();
+      var regularMeetings = $("#edit-regular-meetings-field").val();
+      var notableAnnualEvents = $("#edit-notable-events-field").val();
       var notes = $("#edit-notes-field").val();
 
       var editedContact = {
@@ -264,6 +270,8 @@ if (Meteor.isClient) {
         email: email,
         address: address,
         tags: sanitizeTags(tags) || [],
+        regularMeetings: regularMeetings,
+        notableAnnualEvents: notableAnnualEvents,
         notes: notes
       }
 
