@@ -60,7 +60,7 @@ if (Meteor.isClient) {
     // non-alphanumeric characters make them lowercase, and return an array of tags
     var tagsArray = tags.split(",");
     for (tag in tagsArray) {
-      tagsArray[tag] = tagsArray[tag].toLowerCase().replace(/\W/g, '');
+      tagsArray[tag] = tagsArray[tag].toLowerCase().replace(/\W/g, ' ');
     }
     return tagsArray;
   }
@@ -135,13 +135,17 @@ if (Meteor.isClient) {
     }
   });
 
+  var resetAddContactForm = function (template) {
+    // Reset form, hide modal, and return to caller
+    $("#add-tags-field").tagsinput("destroy");
+    $("#add-invalid-contact-alert").hide();
+    $("#add-existing-contact-alert").hide();
+    $(".new-contact").parsley().reset();
+    template.find(".new-contact").reset();
+    $("#add-contact-modal").modal("hide");
+  }
+
   Template.AddContact.events({
-    "click #add-contact-cancel-btn": function (event, template) {
-      template.find(".new-contact").reset();
-      $("#add-existing-contact-alert").hide();
-      $("#add-invalid-contact-alert").hide();
-      $("#add-contact-modal").modal("hide");
-    },
     "submit .new-contact": function (event, template) {
       event.preventDefault();
 
@@ -197,13 +201,7 @@ if (Meteor.isClient) {
           newContact.lastModifiedDate = newContact.createdDate;
           Contacts.insert(newContact);
         }
-
-        // Reset form, hide modal, and return to caller
-        $("#add-invalid-contact-alert").hide();
-        $("#add-existing-contact-alert").hide();
-        $(".new-contact").parsley().reset();
-        template.find(".new-contact").reset();
-        $("#add-contact-modal").modal("hide");
+        resetAddContactForm(template);
       }
 
       return false;
@@ -222,6 +220,14 @@ if (Meteor.isClient) {
     });
   }
 
+  var resetEditContactForm = function () {
+    var id = Session.get("editContactId");
+    $("#" + id + "-edit-tags-field").tagsinput("destroy");
+    $(".edit-invalid-contact-alert").hide();
+    $("form.edit-contact").parsley().reset();
+    $("#edit-contact-modal").modal("hide");
+  }
+
   Template.EditContact.helpers({
     editFormData: function () {
       var id = Session.get("editContactId", id);
@@ -235,14 +241,6 @@ if (Meteor.isClient) {
       return id + "-edit-tags-field";
     }
   });
-
-  var resetEditContactForm = function () {
-    var id = Session.get("editContactId");
-    $("#" + id + "-edit-tags-field").tagsinput("destroy");
-    $(".edit-invalid-contact-alert").hide();
-    $("form.edit-contact").parsley().reset();
-    $("#edit-contact-modal").modal("hide");
-  }
 
   Template.EditContact.events({
     "submit .edit-contact": function (event, template) {
