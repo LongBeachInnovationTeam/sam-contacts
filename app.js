@@ -236,14 +236,15 @@ if (Meteor.isClient) {
     }
   });
 
+  var resetEditContactForm = function () {
+    var id = Session.get("editContactId");
+    $("#" + id + "-edit-tags-field").tagsinput("destroy");
+    $(".edit-invalid-contact-alert").hide();
+    $("form.edit-contact").parsley().reset();
+    $("#edit-contact-modal").modal("hide");
+  }
+
   Template.EditContact.events({
-    "click #edit-contact-cancel-btn": function (event, template) {
-      var id = Session.get("editContactId");
-      $("#" + id + "-edit-tags-field").tagsinput("destroy");
-      $(".edit-invalid-contact-alert").hide();
-      $("form.edit-contact").parsley().reset();
-      $("#edit-contact-modal").modal("hide");
-    },
     "submit .edit-contact": function (event, template) {
       event.preventDefault();
 
@@ -295,22 +296,19 @@ if (Meteor.isClient) {
         Contacts.update({_id: id}, { $set: editedContact });
       }
 
-      $("#" + id + "-edit-tags-field").tagsinput("destroy");
-      $(".edit-invalid-contact-alert").hide();
-      $("form.edit-contact").parsley().reset();
-      $("#edit-contact-modal").modal("hide");
+      resetEditContactForm();
       return false;
     },
     "click .delete-contact-btn": function (event) {
       Contacts.remove(this._id);
-      $("#" + this._id + "-edit-tags-field").tagsinput("destroy");
-      $("#edit-invalid-contact-alert").hide();
-      $("form.edit-contact").parsley().reset();
-      $("#edit-contact-modal").modal("hide");
+      resetEditContactForm();
     }
   });
 
   Template.EditContact.rendered = function () {
+    $("#edit-contact-modal").on("hidden.bs.modal", function (e) {
+      resetEditContactForm();
+    });
     $(".edit-invalid-contact-alert").hide();
     $(".edit-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
       if (!$('#edit-name-field').val().length && !$('#edit-organization-field').val().length) {
