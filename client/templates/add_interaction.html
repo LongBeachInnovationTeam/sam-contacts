@@ -1,0 +1,68 @@
+<template name="AddInteraction">
+	<div class="modal fade" id="add-interaction-modal" tabindex="-1" role="dialog" aria-labelledby="add-interaction-modal-label" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	  	<form class="add-interaction" data-parsley-validate>
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <a class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true">&times;</span>
+	        	</a>
+		        <h4 class="modal-title" id="add-interaction-modal-label">ADD NEW INTERACTION</h4>
+		      </div>
+		      <div class="modal-body">
+		      	{{#with contactInfo}}
+		      		<div class="row">
+		      			<div class="col-sm-6 col-md-6 col-lg-6">
+		      				<div class="form-group">
+			      				<label for="interactionDate">MEETING DATE</label>
+			      				<input type="date" id="add-interaction-date-field" class="form-control" name="interactionDate" />
+	      					</div>
+		      			</div>
+		      			<div class="col-sm-6 col-md-6 col-lg-6">
+		      				<div class="form-group">
+			      				<label for="estimatedAttendees">ESTIMATED NO. OF NON-ITEAM ATTENDEES</label>
+			      				<input type="number" min="0" id="add-interaction-estimated-attendees-field" class="form-control" name="estimatedAttendees" />
+	      					</div>
+		      			</div>
+		      		</div>
+		      		<div class="row">
+		      			<div class="col-sm-12 col-md-12 col-lg-12">
+		      				<div class="form-group">
+		      					<label for="purpose">PURPOSE</label>
+		      					<textarea id="add-interaction-purpose-field" class="form-control" name="purpose"></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		<div class="row">
+		      			<div class="col-sm-6 col-md-6 col-lg-6">
+		      				<div class="form-group">
+			      				<label for="outcome">OUTCOME</label>
+			      				<textarea id="add-interaction-outcome-field" class="form-control" name="outcome"></textarea>
+	      					</div>
+		      			</div>
+		      			<div class="col-sm-6 col-md-6 col-lg-6">
+		      				<div class="form-group">
+			      				<label for="followUpAction">FOLLOW-UP ACTION</label>
+			      				<textarea id="add-interaction-follow-up-field" class="form-control" name="followUpAction"></textarea>
+	      					</div>
+		      			</div>
+		      		</div>
+		      		<div class="row">
+		      			<div class="col-sm-12 col-md-12 col-lg-12">
+		      				<div class="form-group">
+		      					<label for="notes">NOTES</label>
+		      					<textarea id="add-interaction-notes-field" class="form-control" name="notes"></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      	{{/with}}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" id="add-interaction-cancel-btn" class="btn btn-default">CANCEL</button>
+		        <button type="submit" class="btn btn-primary">SUBMIT</button>
+		      </div>
+		    </div>
+	  	</form>
+	  </div>
+	</div>
+</template>
