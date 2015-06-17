@@ -371,6 +371,8 @@ if (Meteor.isClient) {
 
       if (isValidId && isValidInteractionDate) {
         var editedContact = Contacts.findOne({_id: id});
+        interaction.createdDate = new Date();
+        interaction.lastModifiedDate = interaction.createdDate;
         editedContact.interactions.push(interaction);
         editedContact.lastModifiedDate = new Date();
         Contacts.update({_id: id}, { $set: editedContact });
