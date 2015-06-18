@@ -17,8 +17,10 @@
 				      <div class="description">
 				      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
 				      	<div class="last-contacted-info">
-				      		<span class="label label-success">Last Contacted {{getLastContactedDate}} </span>
-				      	</div>
+		      				<a href="{{getLastContactedDateHref}}" class="label label-success interaction-label">
+		      					<span>Last Contacted {{getLastContactedDate}}</span>
+		      				</a>
+	      				</div>
 				      </div>
 				      <div class="collapse" id="{{getCollapseId _id}}">
 				      	<div class="row">
