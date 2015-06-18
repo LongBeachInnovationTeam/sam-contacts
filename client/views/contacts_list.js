@@ -21,6 +21,10 @@ if (Meteor.isClient) {
     getInteractionHref: function (id, date) {
       return "interactions/" + id + "/" + date;
     },
+    getLastContactedDate: function () {
+      var lastContactedDate = this.interactions[this.interactions.length - 1].interactionDate;
+      return lastContactedDate;
+    },
     getNameOrOrganization: function (name, organization) {
       if (name && name !== "") {
         return name;
