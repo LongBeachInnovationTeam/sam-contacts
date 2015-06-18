@@ -90,11 +90,20 @@
 				      	</div>
 				      	<div class="row">
 				      		<div class="col-sm-12 col-md-12 col-lg-12">
-				      			<ul>
-				      			{{#each interactions}}
-				      				<li>{{interactionDate}}</li>
-				      			{{/each}}
-				      			</ul>
+					      		<div class="list">
+					      			<div class="item">
+					      				<div class="content">
+					      					<div class="header">INTERACTIONS</div>
+					      					<div class="description">
+								      			{{#each interactions}}
+								      				<a href="#" class="label label-default interaction-label">
+								      					{{interactionDate}}
+								      				</a>
+								      			{{/each}}
+					      					</div>
+					      				</div>
+					      			</div>
+					      		</div>
 				      		</div>
 				      	</div>
 				      </div>
