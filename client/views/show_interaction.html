@@ -1,0 +1,70 @@
+<template name="ShowInteraction">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div id="edit-interaction-succeed-alert" class="alert alert-success" role="alert">
+				Interaction has been successfully edited
+			</div>
+			<div id="edit-interaction-fail-alert" class="alert alert-danger" role="alert">
+				Interaction failed to update
+			</div>
+		</div>
+	</div>
+	{{#with interaction}}
+		<form class="edit-interaction">
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="form-group">
+	  				<label for="interactionDate">MEETING DATE *</label>
+	  				<input type="date" id="edit-interaction-date-field" class="form-control" name="interactionDate" value="{{interactionDate}}" required />
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="form-group">
+	  				<label for="estimatedAttendees">ESTIMATED NO. OF NON-ITEAM ATTENDEES</label>
+	  				<input type="number" min="0" id="edit-interaction-estimated-attendees-field" class="form-control" name="estimatedAttendees" value="{{estimatedAttendees}}" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="form-group">
+						<label for="purpose">PURPOSE</label>
+						<textarea id="edit-interaction-purpose-field" class="form-control" name="purpose" value="{{purpose}}"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="form-group">
+	  				<label for="outcome">OUTCOME</label>
+	  				<textarea id="edit-interaction-outcome-field" class="form-control" name="outcome" value="{{outcome}}"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6">
+					<div class="form-group">
+	  				<label for="followUpAction">FOLLOW-UP ACTION</label>
+	  				<textarea id="edit-interaction-follow-up-field" class="form-control" name="followUpAction" value="{{followUpAction}}"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="form-group">
+						<label for="notes">NOTES</label>
+						<textarea id="edit-interaction-notes-field" class="form-control" name="notes" value="{{notes}}"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="pull-left">
+						<a href="/">Return to contacts...</a>
+					</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-primary">UPDATE</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	{{/with}}
+</template>

@@ -96,8 +96,8 @@
 					      					<div class="header">INTERACTIONS</div>
 					      					<div class="description">
 								      			{{#each interactions}}
-								      				<a href="#" class="label label-default interaction-label">
-								      					{{interactionDate}}
+								      				<a href="{{getInteractionHref contactId interactionDate}}" class="label label-default interaction-label">
+								      					<span>{{interactionDate}}</span>
 								      				</a>
 								      			{{/each}}
 					      					</div>

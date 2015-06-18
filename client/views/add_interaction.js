@@ -27,6 +27,7 @@ if (Meteor.isClient) {
       var notes = $("#add-interaction-notes-field").val();
 
       var interaction = {
+        contactId: id,
         interactionDate: interactionDate,
         estimatedAttendees: estimatedAttendees,
         purpose: purpose,

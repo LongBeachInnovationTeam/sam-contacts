@@ -18,6 +18,9 @@ if (Meteor.isClient) {
     getCollapseId: function (str) {
       return strToId(str);
     },
+    getInteractionHref: function (id, date) {
+      return "interactions/" + id + "/" + date;
+    },
     getNameOrOrganization: function (name, organization) {
       if (name && name !== "") {
         return name;
