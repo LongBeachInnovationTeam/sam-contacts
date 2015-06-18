@@ -1,9 +1,9 @@
 if (Meteor.isClient) {
 
-  var resetAddInteractionForm = function (template) {
+  var resetAddInteractionForm = function () {
     // Reset form, hide modal, and return to caller
     $(".add-interaction").parsley().reset();
-    template.find(".add-interaction").reset();
+    $(".add-interaction")[0].reset();
     $("#add-interaction-modal").modal("hide");
   }
 
@@ -47,8 +47,15 @@ if (Meteor.isClient) {
         Contacts.update({_id: id}, { $set: editedContact });
       }
 
-      resetAddInteractionForm(template);
+      resetAddInteractionForm();
       return false;
     }
   });
+
+  Template.AddInteraction.rendered = function () {
+    $("#add-interaction-modal").on("hidden.bs.modal", function (e) {
+      resetAddInteractionForm();
+    });
+  }
+
 }

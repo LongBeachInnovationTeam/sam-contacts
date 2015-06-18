@@ -1,12 +1,12 @@
 if (Meteor.isClient) {
 
-  var resetAddContactForm = function (template) {
+  var resetAddContactForm = function () {
     // Reset form, hide modal, and return to caller
     $("#add-tags-field").tagsinput("destroy");
     $("#add-invalid-contact-alert").hide();
     $("#add-existing-contact-alert").hide();
     $(".new-contact").parsley().reset();
-    template.find(".new-contact").reset();
+    $(".new-contact")[0].reset();
     $("#add-contact-modal").modal("hide");
   }
 
@@ -71,7 +71,7 @@ if (Meteor.isClient) {
           newContact.lastModifiedDate = newContact.createdDate;
           Contacts.insert(newContact);
         }
-        resetAddContactForm(template);
+        resetAddContactForm();
       }
 
       return false;
@@ -79,6 +79,9 @@ if (Meteor.isClient) {
   });
 
   Template.AddContact.rendered = function () {
+    $("#add-contact-modal").on("hidden.bs.modal", function (e) {
+      resetAddContactForm();
+    });
     $("#add-invalid-contact-alert").hide();
     $("#add-existing-contact-alert").hide();
     $(".new-contact").parsley().subscribe("parsley:form:validate", function (formInstance) {
