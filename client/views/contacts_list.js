@@ -22,11 +22,23 @@ if (Meteor.isClient) {
       return "interactions/" + id + "/" + date;
     },
     getLastContactedDate: function () {
-      var lastContactedDate = this.interactions[this.interactions.length - 1].interactionDate;
-      return lastContactedDate;
+      var lastInteraction = this.interactions[this.interactions.length - 1];
+      if (lastInteraction && lastInteraction.hasOwnProperty("interactionDate")) {
+        var lastContactedDate = lastInteraction.interactionDate;
+        if (lastContactedDate) {
+          return lastContactedDate;
+        }
+      }
     },
     getLastContactedDateHref: function () {
-      return "interactions/" + this._id + "/" + this.interactions[this.interactions.length - 1].interactionDate;
+      var interactionDate = this.interactions[this.interactions.length - 1].interactionDate;
+      if (interactionDate) {
+        var lastContactedDateHref = "interactions/" + this._id + "/" + interactionDate;
+        return lastContactedDateHref;
+      }
+      else {
+        return "#";
+      }
     },
     getNameOrOrganization: function (name, organization) {
       if (name && name !== "") {

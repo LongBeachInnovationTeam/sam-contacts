@@ -1,5 +1,6 @@
 if (Meteor.isClient) {
-	 var resetEditContactForm = function () {
+
+  var resetEditContactForm = function () {
     var id = Session.get("editContactId");
     $("#" + id + "-edit-tags-field").tagsinput("destroy");
     $(".edit-invalid-contact-alert").hide();
@@ -61,7 +62,7 @@ if (Meteor.isClient) {
             name: orgName,
             createdDate: new Date()
           }
-          Organizations.insert(org);
+          Meteor.call("addOrganization", org);
         }
       }
 
