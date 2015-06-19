@@ -16,11 +16,13 @@
 			      	</div>
 				      <div class="description">
 				      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
-				      	<div class="last-contacted-info">
-		      				<a href="{{getLastContactedDateHref}}" class="label label-success interaction-label">
-		      					<span>Last Contacted {{getLastContactedDate}}</span>
-		      				</a>
-	      				</div>
+				      	{{#if getLastContactedDate}}
+					      	<div class="last-contacted-info">
+			      				<a href="{{getLastContactedDateHref}}" class="label label-success interaction-label">
+			      					<span>Last Contacted {{getLastContactedDate}}</span>
+			      				</a>
+		      				</div>
+	      				{{/if}}
 				      </div>
 				      <div class="collapse" id="{{getCollapseId _id}}">
 				      	<div class="row">
