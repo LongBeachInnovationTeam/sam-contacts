@@ -1,5 +1,20 @@
 if (Meteor.isClient) {
 
+  Template.ShowInteraction.helpers({
+    getContactName: function () {
+      var contact = Contacts.findOne({_id: this.contactId});
+      Session.set("contact", contact);
+      var isValidName = contact.name !== "" && contact.name;
+      var isValidOrganization = contact.organization !== "" && contact.organization;
+      if (isValidName) {
+        return contact.name.toUpperCase();
+      }
+      if (isValidOrganization) {
+        return contact.organization.toUpperCase();
+      }
+    }
+  });
+
 	Template.ShowInteraction.events({
 		"submit .edit-interaction": function (event, template) {
 			event.preventDefault();
@@ -26,7 +41,7 @@ if (Meteor.isClient) {
       var isValidInteractionDate = editedInteraction.interactionDate !== "" && editedInteraction.interactionDate;
 
       if (isValidId && isValidInteractionDate) {
-        var editedContact = Contacts.findOne({_id: id});
+        var editedContact = Session.get("contact");
         if (editedContact) {
     	    for (var i in editedContact.interactions) {
 			      if (editedContact.interactions[i].interactionDate === editedInteraction.interactionDate) {

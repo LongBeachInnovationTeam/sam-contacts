@@ -1,15 +1,17 @@
 <template name="ShowInteraction">
-	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<div id="edit-interaction-succeed-alert" class="alert alert-success" role="alert">
-				Interaction has been successfully edited
-			</div>
-			<div id="edit-interaction-fail-alert" class="alert alert-danger" role="alert">
-				Interaction failed to update
+	{{#with interaction}}
+		<h1>INTERACTION DETAIL FOR {{getContactName}}</h1>
+		<h2>{{interactionDate}}</h2>
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div id="edit-interaction-succeed-alert" class="alert alert-success" role="alert">
+					Interaction has been successfully edited
+				</div>
+				<div id="edit-interaction-fail-alert" class="alert alert-danger" role="alert">
+					Interaction failed to update
+				</div>
 			</div>
 		</div>
-	</div>
-	{{#with interaction}}
 		<form class="edit-interaction">
 			<div class="row">
 				<div class="col-sm-6 col-md-6 col-lg-6">
