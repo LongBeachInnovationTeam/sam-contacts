@@ -38,7 +38,7 @@ if (Meteor.isClient) {
         notes: notes,
         interactions: new Array(),
         owner: Meteor.userId(),
-        username: Meteor.user().emails[0].address
+        ownerUsername: Meteor.user().emails[0].address
       }
 
       var isValidName = newContact.name !== "" && newContact.name;
@@ -53,7 +53,7 @@ if (Meteor.isClient) {
             name: orgName,
             createdDate: new Date()
           }
-          Organizations.insert(org);
+          Meteor.call("addOrganization", org);
         }
       }
 
@@ -71,7 +71,7 @@ if (Meteor.isClient) {
           }
           newContact.createdDate = new Date();
           newContact.lastModifiedDate = newContact.createdDate;
-          Contacts.insert(newContact);
+          Meteor.call("addContact", newContact);
         }
         resetAddContactForm();
       }

@@ -45,7 +45,7 @@ if (Meteor.isClient) {
         interaction.lastModifiedDate = interaction.createdDate;
         editedContact.interactions.push(interaction);
         editedContact.lastModifiedDate = new Date();
-        Contacts.update({_id: id}, { $set: editedContact });
+        Meteor.call("updateContact", id, editedContact);
       }
 
       resetAddInteractionForm();

@@ -49,7 +49,7 @@ if (Meteor.isClient) {
 			        break;
 			      }
 			    }
-			    Contacts.update({_id: id}, { $set: editedContact });
+          Meteor.call("updateContact", id, editedContact);
 			    $("#edit-interaction-fail-alert").hide();
 			    $("#edit-interaction-succeed-alert").show();
         }

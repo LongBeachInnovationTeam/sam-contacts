@@ -74,14 +74,14 @@ if (Meteor.isClient) {
           editedContact.organization_id = org._id;
         }
         editedContact.lastModifiedDate = new Date();
-        Contacts.update({_id: id}, { $set: editedContact });
+        Meteor.call("updateContact", id, editedContact);
       }
 
       resetEditContactForm();
       return false;
     },
     "click .delete-contact-btn": function (event) {
-      Contacts.remove(this._id);
+      Meteor.call("removeContact", this._id);
       resetEditContactForm();
     }
   });
