@@ -36,7 +36,9 @@ if (Meteor.isClient) {
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
         notes: notes,
-        interactions: new Array()
+        interactions: new Array(),
+        owner: Meteor.userId(),
+        username: Meteor.user().emails[0].address
       }
 
       var isValidName = newContact.name !== "" && newContact.name;

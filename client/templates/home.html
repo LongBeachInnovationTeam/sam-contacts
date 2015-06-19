@@ -1,8 +1,10 @@
 <template name="Home">
-  <h1 class="pull-left">STAKEHOLDER CONTACTS</h1>
-  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
-    <i class="glyphicon glyphicon-plus"></i>
-  </button>
+  {{#if currentUser}}
+    <h1 class="pull-left">STAKEHOLDER CONTACTS</h1>
+	  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
+	    <i class="glyphicon glyphicon-plus"></i>
+	  </button>
+  {{/if}}
   <div class="clearfix"></div>
 	{{>ContactsList}}
 </template>

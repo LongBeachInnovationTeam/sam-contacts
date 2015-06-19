@@ -12,3 +12,5 @@ nemo64:bootstrap
 iron:router
 semantic:ui-list
 amr:parsley.js
+accounts-password
+ian:accounts-ui-bootstrap-3
