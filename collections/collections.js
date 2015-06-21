@@ -1,5 +1,7 @@
-Contacts = new Mongo.Collection("contacts");
-Organizations = new Mongo.Collection("organizations");
+Contacts = new Meteor.Collection("contacts");
+Organizations = new Meteor.Collection("organizations");
+
+Contacts.initEasySearch(["name", "organization", "tags"]);
 
 Meteor.methods({
 	addContact: function (newContact) {
