@@ -1,8 +1,19 @@
 if (Meteor.isClient) {
 
+  incrementLimit = function (inc) {
+    if (!inc) {
+      inc = 10;
+    }
+    var newLimit = Session.get("limit") + inc;
+    Session.set("limit", newLimit);
+  }
+
   Template.ContactsList.helpers({
     contacts: function () {
-      return Contacts.find({}, { sort: { name: 1 }});
+      return Contacts.find({}, {
+        limit: Session.get("limit"),
+        sort: { name: 1 },
+      });
     },
     getEmail: function (str) {
       if (str && str !== "") {
@@ -92,5 +103,23 @@ if (Meteor.isClient) {
       }, 100);
     }
   });
+
+  Template.ContactsList.created = function () {
+    Session.setDefault("limit", 20);
+    // Deps.autorun() automatically rerun the subscription whenever Session.get('limit') changes
+    // http://docs.meteor.com/#deps_autorun
+    Deps.autorun(function() {
+      Meteor.subscribe("getContacts", Session.get("limit"));
+    });
+  }
+
+  Template.ContactsList.rendered = function () {
+    // is triggered every time we scroll
+    $(window).scroll(function() {
+      if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+        incrementLimit();
+      }
+    });
+  }
 
 }
