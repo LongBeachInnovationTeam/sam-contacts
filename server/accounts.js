@@ -8,6 +8,6 @@ Accounts.onCreateUser(function (options, user) {
   	return user;
   }
   else {
-  	throw new Meteor.Error("invalid-email-domain");
+  	throw new Meteor.Error("not-authorized");
   }
 });
