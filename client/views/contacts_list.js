@@ -15,12 +15,12 @@ if (Meteor.isClient) {
         sort: { name: 1 },
       });
     },
-    getEmail: function (str) {
+    getCell: function (str) {
       if (str && str !== "") {
-        return str;
+        return " | M: " + str;
       }
       else {
-        return "Unknown Email";
+        return "";
       }
     },
     getCollapseHref: function (str) {
@@ -28,6 +28,14 @@ if (Meteor.isClient) {
     },
     getCollapseId: function (str) {
       return strToId(str);
+    },
+    getEmail: function (str) {
+      if (str && str !== "") {
+        return str;
+      }
+      else {
+        return "Unknown Email";
+      }
     },
     getInteractionHref: function (id, date) {
       return "interactions/" + id + "/" + date;
@@ -61,9 +69,14 @@ if (Meteor.isClient) {
       }
       return "Unknown";
     },
-    getPhone: function (str) {
-      if (str && str !== "") {
-        return str;
+    getPhone: function (phone, ext) {
+      if (phone && phone !== "") {
+        if (ext && ext !== "") {
+          return phone + " x" + ext;
+        }
+        else {
+          return phone;
+        }
       }
       else {
         return "Unknown Phone";

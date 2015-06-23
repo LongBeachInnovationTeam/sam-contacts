@@ -47,13 +47,27 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-sm-6 col-md-6 col-lg-6">
+							<div class="col-sm-4 col-md-4 col-lg-4">
 								<div class="form-group">
-									<label for="title">PHONE</label>
+									<label for="phone">PHONE</label>
 									<input type="tel" id="add-phone-field" class="form-control" name="phone" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
 								</div>
 							</div>
+							<div class="col-sm-2 col-md-2 col-lg-2">
+								<div class="form-group">
+									<label for="ext">PHONE EXT</label>
+									<input type="text" id="add-phone-ext-field" class="form-control" name="ext" />
+								</div>
+							</div>
 							<div class="col-sm-6 col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="cell">CELL PHONE</label>
+									<input type="tel" id="add-cell-field" class="form-control" name="cell" data-parsley-pattern="^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$" data-parsley-pattern-message="Must enter a valid phone number" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
 								<div class="form-group">
 									<label for="organization">EMAIL</label>
 									<input type="email" id="add-email-field" class="form-control" name="email" />

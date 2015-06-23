@@ -31,6 +31,8 @@ if (Meteor.isClient) {
       var title = $("#edit-title-field").val();
       var organization = $("#edit-organization-field").val();
       var phone = $("#edit-phone-field").val();
+      var phoneExt = $("#edit-phone-ext-field").val();
+      var cell = $("#edit-cell-field").val();
       var email = $("#edit-email-field").val();
       var address = $("#edit-address-field").val();
       var tags = $("#" + id + "-edit-tags-field").val();
@@ -43,6 +45,8 @@ if (Meteor.isClient) {
         title: title,
         organization: organization,
         phone: sanitizePhone(phone) || "",
+        phoneExt: phoneExt,
+        cell: sanitizePhone(cell) || "",
         email: email,
         address: address,
         tags: sanitizeTags(tags) || [],
