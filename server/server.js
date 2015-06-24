@@ -11,7 +11,7 @@ if (Meteor.isServer) {
 
 	  // A Function that takes a user object and returns a String for the subject line of the email.
 	  Accounts.emailTemplates.verifyEmail.subject = function (user) {
-	    return 'SAM: Confirm Your Email Address';
+	    return 'Confirm Your Email Address';
 	  };
 
 	  // A Function that takes a user object and a url, and returns the body text for the email.
