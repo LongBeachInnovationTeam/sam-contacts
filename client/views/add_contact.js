@@ -22,6 +22,7 @@ if (Meteor.isClient) {
       var cell = $("#add-cell-field").val();
       var email = $("#add-email-field").val();
       var address = $("#add-address-field").val();
+      var website = $("#add-website-field").val();
       var tags = $("#add-tags-field").val();
       var regularMeetings = $("#add-regular-meetings-field").val();
       var notableAnnualEvents = $("#add-notable-events-field").val();
@@ -36,6 +37,7 @@ if (Meteor.isClient) {
         cell: sanitizePhone(cell) || "",
         email: email,
         address: address,
+        website: website,
         tags: sanitizeTags(tags) || new Array(),
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
