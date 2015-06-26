@@ -93,12 +93,6 @@ if (Meteor.isClient) {
           };
         });
       }
-      else {
-        var tags = self.tags.split(",");
-        if (tags.length > 1) {
-          return tags;
-        }
-      }
     },
     getTitle: function (str) {
       if (str && str !== "") {
