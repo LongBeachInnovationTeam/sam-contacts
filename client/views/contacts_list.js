@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     contacts: function () {
       return Contacts.find({}, {
         limit: Session.get("limit"),
-        sort: { name: 1 },
+        sort: { name: 1, organization: 1 },
       });
     },
     getCell: function (str) {
