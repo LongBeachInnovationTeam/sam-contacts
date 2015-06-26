@@ -71,7 +71,7 @@ if (Meteor.isClient) {
     },
     getPhone: function (phone, ext) {
       if (phone && phone !== "") {
-        if (ext && ext !== "") {
+        if (ext && ext !== "" && typeof ext === "string") {
           return phone + " x" + ext;
         }
         else {
@@ -85,12 +85,20 @@ if (Meteor.isClient) {
     getTags: function() {
       var self = this;
       self.tags = self.tags || [];
-      return _.map(self.tags, function (value, index) {
-        return {
-          value: value,
-          index: index
-        };
-      });
+      if (Array.isArray(self.tags)) {
+        return _.map(self.tags, function (value, index) {
+          return {
+            value: value,
+            index: index
+          };
+        });
+      }
+      else {
+        var tags = self.tags.split(",");
+        if (tags.length > 1) {
+          return tags;
+        }
+      }
     },
     getTitle: function (str) {
       if (str && str !== "") {
