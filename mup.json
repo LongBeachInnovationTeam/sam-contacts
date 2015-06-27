@@ -18,7 +18,7 @@
   "setupPhantom": true,
 
   // Application name (No spaces)
-  "appName": "SAM",
+  "appName": "sam-contacts",
 
   // Location of app (local directory)
   "app": "/srv/sam-contacts/",
