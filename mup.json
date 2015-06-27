@@ -4,7 +4,7 @@
     {
       "host": "i-team",
       "username": "root",
-      "password": "12th13th14th"
+      "password": "!4en3msa"
     }
   ],
 
@@ -21,7 +21,7 @@
   "appName": "SAM",
 
   // Location of app (local directory)
-  "app": "/srv/SAM/",
+  "app": "/srv/sam-contacts/",
 
   // Configure environment
   "env": {
