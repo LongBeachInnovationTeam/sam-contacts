@@ -15,7 +15,7 @@
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
   "setupNode": false,
 
-  "nodeVersion": "0.12.6",
+  "nodeVersion": "0.12.5",
 
   // Install PhantomJS in the server
   "setupPhantom": true,
