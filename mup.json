@@ -4,7 +4,8 @@
     {
       "host": "i-team",
       "username": "root",
-      "password": "!4en3msa"
+      "password": "!4en3msa",
+      "env": {}
     }
   ],
 
@@ -13,6 +14,8 @@
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
   "setupNode": false,
+
+  "nodeVersion": "0.12.6",
 
   // Install PhantomJS in the server
   "setupPhantom": true,
