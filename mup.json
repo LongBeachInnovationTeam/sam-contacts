@@ -13,9 +13,9 @@
   "setupMongo": true,
 
   // WARNING: Node.js is required! Only skip if you already have Node.js installed on server.
-  "setupNode": false,
+  "setupNode": true,
 
-  "nodeVersion": "0.12.5",
+  "nodeVersion": "0.12.2",
 
   // Install PhantomJS in the server
   "setupPhantom": true,
@@ -24,7 +24,7 @@
   "appName": "sam-contacts",
 
   // Location of app (local directory)
-  "app": "/srv/sam-contacts/",
+  "app": "/sam-contacts/",
 
   // Configure environment
   "env": {
