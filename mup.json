@@ -28,7 +28,7 @@
   "appName": "sam-contacts",
 
   // Location of app (local directory)
-  "app": "/root/sam-contacts",
+  "app": "/home/app/sam-contacts",
 
   // Configure environment
   "env": {
