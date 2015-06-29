@@ -17,6 +17,7 @@ if (Meteor.isServer) {
 	  // A Function that takes a user object and a url, and returns the body text for the email.
 	  // Note: if you need to return HTML instead, use Accounts.emailTemplates.verifyEmail.html
 	  Accounts.emailTemplates.verifyEmail.text = function (user, url) {
+	  	url = url.replace('localhost', '45.55.15.131');
 	    return 'Click on the following link to verify your email address: ' + url;
 	  };
 
