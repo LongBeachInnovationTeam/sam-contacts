@@ -1,7 +1,7 @@
 Contacts = new Meteor.Collection("contacts");
 Organizations = new Meteor.Collection("organizations");
 
-Contacts.initEasySearch(["name", "organization", "tags"]);
+Contacts.initEasySearch(["name", "title", "organization", "tags"]);
 
 Meteor.methods({
 	addContact: function (newContact) {
