@@ -60,7 +60,22 @@ if (Meteor.isClient) {
       }
 
 			return false;
-		}
+		},
+    "click .delete-interaction-btn": function (event) {
+      event.preventDefault();
+      var contactId = this.contactId;
+      var interactionId = this.interactionId;
+      var contact = Contacts.findOne({ _id: contactId });
+      var interactions = _.reject(contact.interactions, function (obj) {
+        return obj.interactionId == interactionId;
+      });
+      if (interactions) {
+        contact.interactions = interactions;
+        Meteor.call("updateContact", contactId, contact);
+      }
+      Router.go("/");
+      return false;
+    }
 
 	});
 
