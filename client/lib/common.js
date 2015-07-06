@@ -1,9 +1,17 @@
 if (Meteor.isClient) {
 
-  contactExists = function (name) {
-    var existingContact = Contacts.findOne({
-      name: name
-    });
+  contactExists = function (name, organizationName) {
+    var existingContact;
+    if (name && name !== "") {
+      existingContact = Contacts.findOne({
+        name: name
+      });
+    }
+    else if (organizationName && organizationName != "") {
+      existingContact = Contacts.findOne({
+        name: organizationName
+      });
+    }
     if (existingContact) {
       return true;
     }

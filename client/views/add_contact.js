@@ -49,7 +49,7 @@ if (Meteor.isClient) {
 
       var isValidName = newContact.name !== "" && newContact.name;
       var isValidOrganizationName = newContact.organization !== "" && newContact.organization;
-      var isExistingContact = contactExists(newContact.name);
+      var isExistingContact = contactExists(newContact.name, newContact.organization);
 
       // Create an entry in the Organizations collection for a newly identified organization
       if (isValidOrganizationName) {
