@@ -29,6 +29,7 @@ if (Meteor.isClient) {
 
       var editedInteraction = {
         contactId: id,
+        interactionId: this.interactionId,
         interactionDate: interactionDate,
         estimatedAttendees: estimatedAttendees,
         purpose: purpose,
@@ -44,7 +45,7 @@ if (Meteor.isClient) {
         var editedContact = Session.get("contact");
         if (editedContact) {
     	    for (var i in editedContact.interactions) {
-			      if (editedContact.interactions[i].interactionDate === editedInteraction.interactionDate) {
+			      if (editedContact.interactions[i].interactionId === editedInteraction.interactionId) {
 			        editedContact.interactions[i] = editedInteraction;
 			        break;
 			      }
