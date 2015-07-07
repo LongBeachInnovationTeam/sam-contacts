@@ -1,10 +1,20 @@
 <template name="Home">
   {{#if currentUser}}
     <h1 class="pull-left">STAKEHOLDER CONTACTS</h1>
-	  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
-	    <i class="glyphicon glyphicon-plus"></i>
-	  </button>
+    <div class="hidden-xs">
+		  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
+		    <i class="glyphicon glyphicon-plus"></i>
+		  </button>
+	  </div>
+	  <div class="visible-xs-block">
+	  	<div class="row">
+	  		<div class="col-xs-12">
+	  			<button type="button" data-toggle="modal" data-target="#add-contact-modal" class="btn btn-success btn-block">ADD CONTACT</button>
+	  		</div>
+	  	</div>
+	  	<br />
+	  </div>
   {{/if}}
-  <div class="clearfix"></div>
+
 	{{>ContactsList}}
 </template>
