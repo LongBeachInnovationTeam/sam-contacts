@@ -27,6 +27,7 @@ if (Meteor.isClient) {
       var regularMeetings = $("#add-regular-meetings-field").val();
       var notableAnnualEvents = $("#add-notable-events-field").val();
       var notes = $("#add-notes-field").val();
+      var quotes = $("#add-quotes-field").val();
 
       var newContact = {
         name: name,
@@ -42,6 +43,7 @@ if (Meteor.isClient) {
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
         notes: notes,
+        quotes: quotes,
         interactions: new Array(),
         owner: Meteor.userId(),
         ownerUsername: Meteor.user().emails[0].address
