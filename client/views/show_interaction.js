@@ -46,6 +46,13 @@ if (Meteor.isClient) {
         if (editedContact) {
     	    for (var i in editedContact.interactions) {
 			      if (editedContact.interactions[i].interactionId === editedInteraction.interactionId) {
+			      	if (editedContact.interactions[i].interactionDate !== editedInteraction.interactionDate) {
+      		      var interactions = _.reject(editedContact.interactions, function (obj) {
+					        return obj.interactionId == editedContact.interactions[i].interactionId;
+					      });
+					      editedContact.interactions = interactions;
+					      Router.go("/interactions/" + editedInteraction.interactionId + "/" + editedInteraction.interactionDate);
+			      	}
 			        editedContact.interactions[i] = editedInteraction;
 			        break;
 			      }
