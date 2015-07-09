@@ -2,9 +2,6 @@ if (Meteor.isServer) {
 
 	Meteor.startup(function () {
 
-  	// Configure email SMTP credentials
-  	//process.env.MAIL_URL = 'smtp://mail.longbeach.gov:25';
-
 	  // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users
 	  // asking for help with their account, be sure to set this to an email address that you can receive email at.
 	  Accounts.emailTemplates.from = 'Long Beach i-team <i-team@longbeach.gov>';
@@ -19,6 +16,16 @@ if (Meteor.isServer) {
 	  Accounts.emailTemplates.verifyEmail.text = function (user, url) {
 	  	url = url.replace('localhost', '45.55.15.131');
 	    return 'Click on the following link to verify your email address: ' + url;
+	  };
+
+	  // A Function that takes a user object and returns a String for the subject line of the email.
+	  Accounts.emailTemplates.resetPassword.subject = function (user) {
+	    return 'Reset Your Password for SAM';
+	  };
+
+	  Accounts.emailTemplates.resetPassword.text = function (user, url) {
+	  	url = url.replace('localhost', '45.55.15.131');
+	    return 'Click on the following link to reset your password: ' + url;
 	  };
 
 	});
