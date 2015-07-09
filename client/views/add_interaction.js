@@ -11,12 +11,6 @@ if (Meteor.isClient) {
     contactInfo: function () {
       var id = Session.get("editContactId");
       return Contacts.findOne({_id: id});
-    },
-    getMaxDate: function () {
-    	var d = new Date();
-			var tzoffset = d.getTimezoneOffset() * 60000; //offset in milliseconds
-			var localISOTime = (new Date(d - tzoffset)).toISOString().slice(0,-1);
-			return localISOTime.substring(0, 10); // return YYYY-MM-DD
     }
   });
 

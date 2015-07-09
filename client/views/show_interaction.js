@@ -12,12 +12,6 @@ if (Meteor.isClient) {
       if (isValidOrganization) {
         return contact.organization.toUpperCase();
       }
-    },
-    getMaxDate: function () {
-    	var d = new Date();
-			var tzoffset = d.getTimezoneOffset() * 60000; //offset in milliseconds
-			var localISOTime = (new Date(d - tzoffset)).toISOString().slice(0,-1);
-			return localISOTime.substring(0, 10); // return YYYY-MM-DD
     }
   });
 
