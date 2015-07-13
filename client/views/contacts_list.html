@@ -1,0 +1,320 @@
+<template name="ContactsList">
+	{{#if currentUser}}
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="input-group input-group-lg">
+					<span class="input-group-addon" id="sizing-addon1">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</span>
+    			{{> esInput class="form-control" aria-describedby="sizing-addon1" index="contacts" placeholder="search by name, title, organization, or tags" }}
+    		</div>
+    	</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+		    {{#ifEsHasNoResults index="contacts"}}
+        	<h2>No results found!</h2>
+    		{{/ifEsHasNoResults}}
+			</div>
+		</div>
+		{{#ifEsIsSearching index="contacts"}}
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<h2>Searching...</h2>
+				</div>
+			</div>
+		{{/ifEsIsSearching}}
+		{{#ifEsInputIsEmpty index="contacts"}}
+			<div class="row contacts-list">
+				<div class="col-sm-12 col-md-12 col-lg-12">
+					<div class="ui very relaxed divided list">
+						{{#each contacts}}
+							<div class="pull-right">
+								<button type="button" id="add-interaction-btn" class="btn btn-add-interaction btn-xs" data-id="{{_id}}">ADD INTERACTION</button>
+								<button type="button" id="{{_id}}" class="btn btn-edit-interaction btn-xs contact-edit-btn" data-toggle="modal" data-target="#edit-contact-modal">EDIT INFO</button>
+							</div>
+						  <div class="item">
+						    <div class="content">
+						      <div class="header">
+						      	<a data-toggle="collapse" href="{{getCollapseHref _id}}" aria-expanded="false" aria-controls="{{getCollapseId _id}}">
+						      		<span class="glyphicon glyphicon-collapse-down"></span> {{getNameOrOrganization name organization}}
+						      	</a>
+					      	</div>
+						      <div class="description">
+						      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone phoneExt}} {{getCell cell}}
+						      	{{#if getLastContactedDate}}
+							      	<div class="last-contacted-info">
+					      				<a href="{{getLastContactedDateHref}}" class="label label-success interaction-label">
+					      					<span>Last Contacted {{getLastContactedDate}}</span>
+					      				</a>
+				      				</div>
+			      				{{/if}}
+						      </div>
+						      <div class="collapse" id="{{getCollapseId _id}}">
+						      	<div class="row">
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">COMPANY/ORGANIZATION</div>
+									      			<div class="description">{{organization}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">ADDRESS</div>
+									      			<div class="description">{{address}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+						      	</div>
+						      	<div class="row">
+						      		<div class="col-sm-12 col-md-12 col-lg-12">
+						      			<div class="list">
+						      				<div class="item">
+						      					<div class="content">
+						      						<div class="header">WEBSITE</div>
+						      						<div class="description">{{website}}</div>
+						      					</div>
+						      				</div>
+						      			</div>
+						      		</div>
+						      	</div>
+						      	<div class="row">
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">DETAILS OF REGULAR MEETINGS</div>
+									      			<div class="description">{{regularMeetings}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">NOTABLE/ANNUAL EVENTS</div>
+									      			<div class="description">{{notableAnnualEvents}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+						      	</div>
+						      	<div class="row">
+						      		<div class="col-sm-12 col-md-12 col-lg-12">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">NOTES</div>
+									      			<div class="description">{{notes}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+					      		</div>
+						      	<div class="row">
+						      		<div class="col-sm-12 col-md-12 col-lg-12">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">JUICY QUOTES</div>
+									      			<div class="description">{{quotes}}</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+					      		</div>
+					      		<div class="row">
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+									      <div class="list">
+									      	<div class="item">
+									      		<div class="content">
+									      			<div class="header">TAGS</div>
+									      			<div class="description">
+									      				{{#each getTags}}
+								      						<span class="label label-primary">{{value}}</span>&nbsp;
+									      				{{/each}}
+									      			</div>
+									      		</div>
+									      	</div>
+									      </div>
+						      		</div>
+						      		<div class="col-sm-6 col-md-6 col-lg-6">
+							      		<div class="list">
+							      			<div class="item">
+							      				<div class="content">
+							      					<div class="header">INTERACTIONS</div>
+							      					<div class="description">
+										      			{{#each interactions}}
+										      				<a href="{{getInteractionHref contactId interactionDate}}" class="label label-default interaction-label">
+										      					<span>{{interactionDate}}</span>
+										      				</a>
+										      			{{/each}}
+							      					</div>
+							      				</div>
+							      			</div>
+							      		</div>
+						      		</div>
+						      	</div>
+						      </div>
+						    </div>
+						  </div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		{{/ifEsInputIsEmpty}}
+		<div class="row contacts-list">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<div class="ui very relaxed divided list">
+					{{#esEach index="contacts"}}
+						<div class="pull-right">
+							<button type="button" id="add-interaction-btn" class="btn btn-add-interaction btn-xs" data-id="{{_id}}">ADD INTERACTION</button>
+							<button type="button" id="{{_id}}" class="btn btn-edit-interaction btn-xs contact-edit-btn" data-toggle="modal" data-target="#edit-contact-modal">EDIT INFO</button>
+						</div>
+					  <div class="item">
+					    <div class="content">
+					      <div class="header">
+					      	<a data-toggle="collapse" href="{{getCollapseHref _id}}" aria-expanded="false" aria-controls="{{getCollapseId _id}}">
+					      		<span class="glyphicon glyphicon-collapse-down"></span> {{getNameOrOrganization name organization}}
+					      	</a>
+				      	</div>
+					      <div class="description">
+					      	{{getTitle title}} | {{getEmail email}} | {{getPhone phone}}
+					      	{{#if getLastContactedDate}}
+						      	<div class="last-contacted-info">
+				      				<a href="{{getLastContactedDateHref}}" class="label label-success interaction-label">
+				      					<span>Last Contacted {{getLastContactedDate}}</span>
+				      				</a>
+			      				</div>
+		      				{{/if}}
+					      </div>
+					      <div class="collapse" id="{{getCollapseId _id}}">
+					      	<div class="row">
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">COMPANY/ORGANIZATION</div>
+								      			<div class="description">{{organization}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">ADDRESS</div>
+								      			<div class="description">{{address}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+					      	</div>
+					      	<div class="row">
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">DETAILS OF REGULAR MEETINGS</div>
+								      			<div class="description">{{regularMeetings}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">NOTABLE/ANNUAL EVENTS</div>
+								      			<div class="description">{{notableAnnualEvents}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+					      	</div>
+					      	<div class="row">
+					      		<div class="col-sm-12 col-md-12 col-lg-12">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">NOTES</div>
+								      			<div class="description">{{notes}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+				      		</div>
+					      	<div class="row">
+					      		<div class="col-sm-12 col-md-12 col-lg-12">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">JUICY QUOTES</div>
+								      			<div class="description">{{quotes}}</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+				      		</div>
+				      		<div class="row">
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+								      <div class="list">
+								      	<div class="item">
+								      		<div class="content">
+								      			<div class="header">TAGS</div>
+								      			<div class="description">
+								      				{{#each getTags}}
+								      					<span class="label label-primary">{{value}}</span>
+								      				{{/each}}
+								      			</div>
+								      		</div>
+								      	</div>
+								      </div>
+					      		</div>
+					      		<div class="col-sm-6 col-md-6 col-lg-6">
+						      		<div class="list">
+						      			<div class="item">
+						      				<div class="content">
+						      					<div class="header">INTERACTIONS</div>
+						      					<div class="description">
+									      			{{#each interactions}}
+									      				<a href="{{getInteractionHref contactId interactionDate}}" class="label label-default interaction-label">
+									      					<span>{{interactionDate}}</span>
+									      				</a>
+									      			{{/each}}
+						      					</div>
+						      				</div>
+						      			</div>
+						      		</div>
+					      		</div>
+					      	</div>
+					      </div>
+					    </div>
+					  </div>
+					{{/esEach}}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<p class="text-muted">
+					<span>{{getTotalContacts}}</span> STAKEHOLDERS
+				</p>
+			</div>
+		</div>
+	{{else}}
+		<div class="jumbotron">
+		  <h1>Sign in to view contacts</h1>
+		  <p>Must have a longbeach.gov email to access the system</p>
+		</div>
+	{{/if}}
+</template>
