@@ -5,7 +5,7 @@
 			<div class="col-sm-12 col-md-12 col-lg-12">
 				<div class="form-group">
 					<label for="quote">QUOTE *</label>
-					<textarea id="add-quote-field" class="form-control" name="quote" rows="5"></textarea>
+					<textarea id="add-quote-field" class="form-control" name="quote" rows="5" required></textarea>
 				</div>
 			</div>
 		</div>
@@ -13,8 +13,7 @@
 			<div class="col-sm-6 col-md-6 col-lg-6">
 				<div class="form-group">
 					<label for="author">AUTHOR</label>
-					<br />
-					<input type="text" id="add-quote-author-field" class="form-control typeahead" name="author" autocomplete="off" spellcheck="off" data-source="authors" />
+					<input type="text" id="add-quote-author-field" class="form-control typeahead" name="author" autocomplete="off" spellcheck="off" data-source="authors" data-selected="selectedAuthor" />
 				</div>
 			</div>
 			<div class="col-sm-6 col-md-6 col-lg-6">

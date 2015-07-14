@@ -125,7 +125,13 @@
 									      	<div class="item">
 									      		<div class="content">
 									      			<div class="header">JUICY QUOTES</div>
-									      			<div class="description">{{quotes}}</div>
+									      			<div class="description">
+									      				<ul>
+										      				{{#each quotes}}
+										      					<li>{{quote}}</li>
+										      				{{/each}}
+									      				</ul>
+								      				</div>
 									      		</div>
 									      	</div>
 									      </div>
@@ -266,7 +272,13 @@
 								      	<div class="item">
 								      		<div class="content">
 								      			<div class="header">JUICY QUOTES</div>
-								      			<div class="description">{{quotes}}</div>
+								      			<div class="description">
+								      				<ul>
+									      				{{#each quotes}}
+									      					<li>{{quote}}</li>
+									      				{{/each}}
+								      				</ul>
+							      				</div>
 								      		</div>
 								      	</div>
 								      </div>
