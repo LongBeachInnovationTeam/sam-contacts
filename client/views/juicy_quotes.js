@@ -8,6 +8,8 @@ if (Meteor.isClient) {
   //   Session.set("limit", newLimit);
   // }
 
+  var colorCode = 0;
+
   var resetAddQuoteForm = function () {
     // Reset form, hide modal, and return to caller
     $(".new-contact").parsley().reset();
@@ -22,7 +24,11 @@ if (Meteor.isClient) {
       });
     },
     getQuoteType: function () {
-      return "quoute-type" + Math.floor((Math.random() * 6) + 1);;
+      if (colorCode == 6) {
+        colorCode = 0;
+      }
+      colorCode++;
+      return "quoute-type" + colorCode;
     }
   });
 
