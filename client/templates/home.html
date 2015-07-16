@@ -2,7 +2,7 @@
   {{#if currentUser}}
     <h1 class="pull-left">STAKEHOLDER CONTACTS</h1>
     <div class="hidden-xs">
-		  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="contact-add-btn" class="btn btn-success btn-circle-add pull-right">
+		  <button type="button" data-toggle="modal" data-target="#add-contact-modal" id="add-btn" class="btn btn-success btn-circle-add pull-right">
 		    <i class="glyphicon glyphicon-plus"></i>
 		  </button>
 	  </div>
@@ -14,7 +14,6 @@
 	  	</div>
 	  	<br />
 	  </div>
+	  {{>ContactsList}}
   {{/if}}
-
-	{{>ContactsList}}
 </template>

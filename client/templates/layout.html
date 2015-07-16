@@ -1,7 +1,14 @@
 <template name="Layout">
 	<div class="container">
 		{{>Navigation}}
-		{{>yield}}
+		{{#if currentUser}}
+			{{>yield}}
+		{{else}}
+			<div class="jumbotron">
+			  <h1>Sign in to view contacts</h1>
+			  <p>Must have a longbeach.gov email to access the system</p>
+			</div>
+		{{/if}}
 		{{>Footer}}
 	</div>
 </template>

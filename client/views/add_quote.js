@@ -1,5 +1,14 @@
 if (Meteor.isClient) {
 
+  var resetAddQuotesForm = function () {
+    // Reset form, hide modal, and return to caller
+    // $("#add-invalid-contact-alert").hide();
+    // $("#add-existing-contact-alert").hide();
+    $(".add-quoute").parsley().reset();
+    $(".add-quoute")[0].reset();
+    $("#add-quote-modal").modal("hide");
+  }
+
 	Template.AddQuote.rendered = function () {
 		Meteor.typeahead.inject();
 	};
@@ -44,6 +53,7 @@ if (Meteor.isClient) {
         editedContact.quotes.push(newQuote);
         editedContact.lastModifiedDate = new Date();
         Meteor.call("updateContact", authorId, editedContact);
+        resetAddQuotesForm();
       }
 
       return false;
