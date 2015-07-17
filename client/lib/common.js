@@ -51,6 +51,10 @@ if (Meteor.isClient) {
     return tagsArray;
   }
 
+  sanitizeQuote = function (quote) {
+    return quote.replace(/\s+/g,' ').trim();
+  }
+
   strToId = function (str) {
     return "collapse-" + str;
   }

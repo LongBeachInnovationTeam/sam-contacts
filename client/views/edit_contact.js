@@ -40,7 +40,6 @@ if (Meteor.isClient) {
       var regularMeetings = $("#edit-regular-meetings-field").val();
       var notableAnnualEvents = $("#edit-notable-events-field").val();
       var notes = $("#edit-notes-field").val();
-      var quotes = $("#edit-quotes-field").val();
 
       var editedContact = {
         name: name,
@@ -55,8 +54,7 @@ if (Meteor.isClient) {
         tags: sanitizeTags(tags) || [],
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
-        notes: notes,
-        quotes: quotes
+        notes: notes
       }
 
       var isValidName = editedContact.name !== "" && editedContact.name;
