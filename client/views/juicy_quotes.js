@@ -4,9 +4,7 @@ if (Meteor.isClient) {
 
   Template.JuicyQuotes.helpers({
     contacts: function () {
-      return Contacts.find({}, {
-        limit: 50
-      });
+      return Contacts.find({}).fetch();
     },
     getQuoteType: function () {
       if (colorCode == 6) {

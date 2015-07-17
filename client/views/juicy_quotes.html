@@ -26,16 +26,14 @@
 	  <br />
 	  <div class="row">
 			{{#each contacts}}
-				{{#if quotes}}
-					{{#each quotes}}
-						<div class="col-sm-4 col-md-4 col-lg-4">
-							<blockquote class="{{getQuoteType}}">
-							  <p>{{quote}}</p>
-							  <footer>{{author}}</footer>
-							</blockquote>
-						</div>
-					{{/each}}
-				{{/if}}
+				{{#each quotes}}
+					<div class="col-sm-4 col-md-4 col-lg-4">
+						<blockquote class="{{getQuoteType}}">
+						  <p>{{quote}}</p>
+						  <footer>{{author}}</footer>
+						</blockquote>
+					</div>
+				{{/each}}
 			{{/each}}
 	  </div>
 	  {{>AddQuote}}
