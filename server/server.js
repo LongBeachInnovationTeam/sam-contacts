@@ -3,7 +3,7 @@ if (Meteor.isServer) {
 	Meteor.startup(function () {
 
 		// Enable this in order to create accounts in dev
-		process.env.MAIL_URL = "smtp://mail.longbeach.gov:25";
+		//process.env.MAIL_URL = "smtp://mail.longbeach.gov:25";
 
 	  // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users
 	  // asking for help with their account, be sure to set this to an email address that you can receive email at.
