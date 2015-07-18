@@ -11,7 +11,7 @@
 			  <div class="visible-xs-block">
 			  	<div class="row">
 			  		<div class="col-xs-12">
-			  			<button type="button" data-toggle="modal" data-target="#add-quote-modal" class="btn btn-success btn-block">ADD QUOTE</button>
+			  			<button type="button" data-toggle="modal" data-target="#add-quote-modal" class="btn btn-primary btn-block">ADD QUOTE</button>
 			  		</div>
 			  	</div>
 			  	<br />
@@ -24,7 +24,9 @@
 					<div class="col-sm-4 col-md-4 col-lg-4">
 						<blockquote class="{{getQuoteType}}">
 						  <p>{{quote}}</p>
-						  <footer>{{author}}</footer>
+						  <footer>
+					  		{{author}}
+					  	</footer>
 						</blockquote>
 					</div>
 				{{/each}}

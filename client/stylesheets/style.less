@@ -15,14 +15,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: @font-family-headings;
 }
 
-.btn-add-interaction {
-  .button-variant(#fff; @brand-primary; #000);
-}
-
-.btn-edit-interaction {
-  .button-variant(#fff; @brand-secondary; #000);
-}
-
 .contacts-list {
 	padding-top: 10px;
 }
@@ -35,12 +27,17 @@ h1, h2, h3, h4, h5, h6 {
   width: 100% !important;
 }
 
-#add-interaction-btn {
-  margin-top: 10px;
+.add-interaction-btn .glyphicon, .contact-edit-btn .glyphicon {
+  padding-left: 5px;
+  padding-right: 5px;
+  top: 10px;
+  font-size: 30px;
+  color: @brand-secondary;
 }
 
-.contact-edit-btn {
-	margin-top: 10px;
+.add-interaction-btn .glyphicon:hover, .contact-edit-btn .glyphicon:hover {
+  color: darken(@brand-secondary, 10%);
+  cursor: pointer;
 }
 
 .btn-circle-add {
@@ -50,14 +47,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18px;
   line-height: 1.33;
   border-radius: 25px;
+  color: #fff;
+  background-color: @brand-secondary;
+  border-color: @brand-secondary;
+}
+
+.btn-circle-add:hover, .btn-circle-add:focus {
+  color: #fff;
+  background-color: darken(@brand-secondary, 10%);
+  border-color: darken(@brand-secondary, 10%);
 }
 
 .last-contacted-info {
   margin-top: 5px;
-}
-
-.interaction-label {
-  margin-right: 5px;
 }
 
 .interaction-label span {

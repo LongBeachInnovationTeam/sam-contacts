@@ -108,12 +108,13 @@ if (Meteor.isClient) {
   });
 
   Template.ContactsList.events({
-    "click #add-interaction-btn": function (event) {
+    "click .add-interaction-btn": function (event) {
       var id = event.target.dataset.id;
       Session.set("editContactId", id);
       $("#add-interaction-modal").modal("show");
     },
     "click .contact-edit-btn": function (event) {
+      console.log(event);
       var id = event.target.id;
       Session.set("editContactId", id);
       Meteor.setTimeout(function () {
