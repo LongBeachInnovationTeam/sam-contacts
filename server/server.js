@@ -5,6 +5,14 @@ if (Meteor.isServer) {
 		// Enable this in order to create accounts in dev
 		//process.env.MAIL_URL = "smtp://mail.longbeach.gov:25";
 
+		// Ensure that the following indexes are defined and created in our mongodb database
+		Contacts._ensureIndex({
+			"name": 1,
+			"title": 1,
+			"organization": 1,
+			"tags": 1
+		}, { background: true });
+
 	  // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users
 	  // asking for help with their account, be sure to set this to an email address that you can receive email at.
 	  Accounts.emailTemplates.from = 'Long Beach i-team <i-team@longbeach.gov>';
