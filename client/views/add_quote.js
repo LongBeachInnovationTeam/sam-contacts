@@ -1,5 +1,23 @@
 if (Meteor.isClient) {
 
+  var addNewContact = function (newQuote) {
+    var newContact = {
+      name: newQuote.author,
+      tags: new Array(),
+      interactions: new Array(),
+      quotes: new Array(),
+      owner: Meteor.userId(),
+      ownerUsername: Meteor.user().emails[0].address
+    }
+    var isValidName = newQuote.author !== "" && newQuote.author;
+    var isExistingContact = contactExists(newContact.name, "");
+    if (isValidName) {
+      newContact.createdDate = new Date();
+      newContact.lastModifiedDate = newContact.createdDate;
+      Meteor.call("addContact", newContact);
+    }
+  }
+
   var resetAddQuotesForm = function () {
     // Reset form, hide modal, and return to caller
     // $("#add-invalid-contact-alert").hide();
@@ -46,14 +64,24 @@ if (Meteor.isClient) {
       }
 
       var isValidQuote = newQuote.quote !== "" && newQuote.quote;
+      var isExistingContact = contactExists(newQuote.author, "");
+      var editedContact = Contacts.findOne({_id: newQuote.authorId});
+
+      // Create a new contact in the DB if it does not already exist
+      if (isValidQuote && !isExistingContact) {
+        addNewContact(newQuote);
+        editedContact = Contacts.findOne({ name: newQuote.author });
+        newQuote.authorId = editedContact._id;
+      }
 
       if (isValidQuote) {
-        var editedContact = Contacts.findOne({_id: authorId});
         newQuote.dateAdded = new Date();
         editedContact.quotes.push(newQuote);
         editedContact.lastModifiedDate = new Date();
-        Meteor.call("updateContact", authorId, editedContact);
-        resetAddQuotesForm();
+        if (newQuote.authorId) {
+          Meteor.call("updateContact", newQuote.authorId, editedContact);
+          resetAddQuotesForm();
+        }
       }
 
       return false;
