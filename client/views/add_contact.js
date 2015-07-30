@@ -2,7 +2,7 @@ if (Meteor.isClient) {
 
   var resetAddContactForm = function () {
     // Reset form, hide modal, and return to caller
-    $("#add-tags-field").tagsinput("destroy");
+    $(".add-tags-dropdown").select2("data", null);
     $("#add-invalid-contact-alert").hide();
     $("#add-existing-contact-alert").hide();
     $(".new-contact").parsley().reset();
