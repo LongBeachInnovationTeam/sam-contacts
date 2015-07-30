@@ -2,7 +2,7 @@ if (Meteor.isClient) {
 
   var resetEditContactForm = function () {
     var id = Session.get("editContactId");
-    $("#" + id + "-edit-tags-field").tagsinput("destroy");
+    $(".edit-tags-dropdown").select2("destroy");
     $(".edit-invalid-contact-alert").hide();
     $("form.edit-contact").parsley().reset();
     $("#edit-contact-modal").modal("hide");
@@ -13,12 +13,21 @@ if (Meteor.isClient) {
       var id = Session.get("editContactId", id);
       return Contacts.findOne({_id: id});
     },
-    getTagsAsString: function (tags) {
-      return tags.join();
+    getAllTags: function () {
+      var contacts = Contacts.find({}).fetch();
+      var tags = new Array();
+      contacts.forEach(function (contact) {
+        contact.tags.forEach(function (tag) {
+          if (tags.indexOf(tag) < 0) {
+            tags.push(tag);
+          }
+        });
+      });
+      return tags.sort();
     },
-    getTagsInputId: function () {
-      var id = Session.get("editContactId", id);
-      return id + "-edit-tags-field";
+    getOptionValue: function () {
+      var self = this;
+      return this;
     }
   });
 
@@ -36,7 +45,7 @@ if (Meteor.isClient) {
       var email = $("#edit-email-field").val();
       var address = $("#edit-address-field").val();
       var website = $("#edit-website-field").val();
-      var tags = $("#" + id + "-edit-tags-field").val();
+      var tags = $(".edit-tags-dropdown").select2("val");
       var regularMeetings = $("#edit-regular-meetings-field").val();
       var notableAnnualEvents = $("#edit-notable-events-field").val();
       var notes = $("#edit-notes-field").val();
@@ -51,7 +60,7 @@ if (Meteor.isClient) {
         email: email,
         address: address,
         website: website,
-        tags: sanitizeTags(tags) || [],
+        tags: tags,
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
         notes: notes

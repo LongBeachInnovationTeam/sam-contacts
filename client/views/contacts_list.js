@@ -114,11 +114,12 @@ if (Meteor.isClient) {
       $("#add-interaction-modal").modal("show");
     },
     "click .contact-edit-btn": function (event) {
-      console.log(event);
+      var self = this;
       var id = event.target.id;
       Session.set("editContactId", id);
       Meteor.setTimeout(function () {
-        $("#" + id + "-edit-tags-field").tagsinput("refresh");
+        $(".edit-tags-dropdown").select2();
+        $(".edit-tags-dropdown").select2("val", self.tags);
       }, 100);
     }
   });
