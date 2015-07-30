@@ -41,16 +41,6 @@ if (Meteor.isClient) {
     }
   }
 
-  sanitizeTags = function (tags) {
-    // Get tags from tag input, split them into a new array, strip out any
-    // non-alphanumeric characters make them lowercase, and return an array of tags
-    var tagsArray = tags.split(",");
-    for (tag in tagsArray) {
-      tagsArray[tag] = tagsArray[tag].toLowerCase().replace(/\W/g, ' ');
-    }
-    return tagsArray;
-  }
-
   sanitizeQuote = function (quote) {
     return quote.replace(/\s+/g,' ').trim();
   }

@@ -10,6 +10,25 @@ if (Meteor.isClient) {
     $("#add-contact-modal").modal("hide");
   }
 
+  Template.AddContact.helpers({
+    getAllTags: function () {
+      var contacts = Contacts.find({}).fetch();
+      var tags = new Array();
+      contacts.forEach(function (contact) {
+        contact.tags.forEach(function (tag) {
+          if (tags.indexOf(tag) < 0) {
+            tags.push(tag);
+          }
+        });
+      });
+      return tags.sort();
+    },
+    getOptionValue: function () {
+      var self = this;
+      return this;
+    }
+  });
+
   Template.AddContact.events({
     "submit .new-contact": function (event, template) {
       event.preventDefault();
@@ -23,7 +42,7 @@ if (Meteor.isClient) {
       var email = $("#add-email-field").val();
       var address = $("#add-address-field").val();
       var website = $("#add-website-field").val();
-      var tags = $("#add-tags-field").val();
+      var tags = $(".add-tags-dropdown").select2("val");
       var regularMeetings = $("#add-regular-meetings-field").val();
       var notableAnnualEvents = $("#add-notable-events-field").val();
       var notes = $("#add-notes-field").val();
@@ -38,7 +57,7 @@ if (Meteor.isClient) {
         email: email,
         address: address,
         website: website,
-        tags: sanitizeTags(tags) || new Array(),
+        tags: tags,
         regularMeetings: regularMeetings,
         notableAnnualEvents: notableAnnualEvents,
         notes: notes,
@@ -88,6 +107,7 @@ if (Meteor.isClient) {
   });
 
   Template.AddContact.rendered = function () {
+    $(".add-tags-dropdown").select2();
     $("#add-contact-modal").on("hidden.bs.modal", function (e) {
       resetAddContactForm();
     });

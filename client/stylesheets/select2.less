@@ -1,0 +1,31 @@
+// Import Vendors
+@import "vendor/custom.bootstrap.mixins.import.less";
+@import "vendor/custom.bootstrap.import.less";
+
+// Components
+@import "components/a_component.import.less";
+
+// Globals
+@import "typo.import.less";
+
+// Sites
+@import "sites/home.import.less";
+
+.select2-container {
+  width: 100%;
+}
+
+.select2-results .select2-highlighted {
+  background: @brand-secondary;
+  color: #fff;
+}
+
+.select2-search-choice {
+  color: #fff !important;
+  background: @brand-secondary !important;
+  border-color: @brand-secondary !important;
+}
+
+.select2-search-choice-close {
+  background: url('packages/natestrauser_select2/lib/select2/select2.png') right top no-repeat !important;
+}

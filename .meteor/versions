@@ -44,6 +44,7 @@ minimongo@1.0.8
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8
+natestrauser:select2@3.5.1
 nemo64:bootstrap@3.3.4_2
 nemo64:bootstrap-data@3.3.4_1
 npm-bcrypt@0.7.8_2
@@ -71,3 +72,4 @@ underscore@1.0.3
 url@1.0.4
 webapp@1.2.0
 webapp-hashing@1.0.3
+zimme:select2-bootstrap3-css@1.4.6

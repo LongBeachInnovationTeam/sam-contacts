@@ -84,6 +84,8 @@ if (Meteor.isClient) {
         }
       }
 
+      Session.set("editContactId", "");
+
       return false;
     }
   });
