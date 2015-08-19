@@ -23,7 +23,7 @@
 							<label for="emailList">SELECTED CONTACTS</label>
 							<select id="email-stakeholders-list-field" multiple="multiple" name="emailList" required>
 								{{#each getStakeholderAddresses}}
-									<option value="{{getOptionValue}}">{{this}}</option>
+									<option value="{{getLabelEmail this}}">{{getLabelName this}}</option>
 							  {{/each}}
 							</select>
 						</div>
@@ -45,24 +45,22 @@
 						</div>
 					</div>
 				</div>
-
-				<!--<div class="row">
+				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div id="sendingAsRadioGroup" class="form-group">
-							<label for="sendAsRadio">SENDING AS</label>
+							<label for="replyToRadio">REPLY TO</label>
 							<br />
 						  <label class="radio-inline">
-						    <input type="radio" name="sendAsRadio" id="optionsRadios1" value="{{getUserLabel}}" checked>
+						    <input type="radio" name="replyToRadio" value="{{getUserLabel}}" checked>
 						    {{getUserLabel}}
 						  </label>
 						  <label class="radio-inline">
-						    <input type="radio" name="sendAsRadio" id="optionsRadios2" value="i-team@longbeach.gov">
+						    <input type="radio" name="replyToRadio" value="i-team@longbeach.gov">
 						    i-team@longbeach.gov
 						  </label>
 						</div>
 					</div>
-				</div>-->
-
+				</div>
 				<button type="submit" class="btn btn-success" disabled="{{#if isEmptyList}}disabled{{/if}}">SEND</button>
 				<button type="button" id="btn-copy" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">COPY CONTACT LIST</button>
 			</form>

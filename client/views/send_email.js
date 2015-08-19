@@ -10,7 +10,7 @@ if (Meteor.isClient) {
 			selectedRecipients.forEach(function (r) {
 				var isValidEmail = r.email !== "" && r.email;
 				if (isValidEmail) {
-					validRecipients.push(r.email);
+					validRecipients.push(r);
 				}
 			});
 
@@ -30,6 +30,16 @@ if (Meteor.isClient) {
 	Template.ContactStakeholders.helpers({
 		isEmptyList: function () {
 			return Session.get("isEmptyList");
+		},
+		getLabelEmail: function (recipient) {
+			return recipient.email;
+		},
+		getLabelName: function (recipient) {
+			var label = "";
+			if (recipient.name && recipient.name !== "") {
+				label = recipient.name;
+			}
+			return label + " " + "<" + recipient.email + ">";
 		},
 		getStakeholderAddresses: function () {
 			return Session.get("stakeholderAddressList");
@@ -66,7 +76,7 @@ if (Meteor.isClient) {
 			var subject = $("#email-subject-field").val();
 			var message = $("#email-message-field").val();
 			var checkedElement = template.find("input:radio[name=sendAsRadio]:checked");
-			// var sendingAs = $(checkedElement).val();
+			var sendingAs = $(checkedElement).val();
 			var validRecipients = getModifiedRecipients();
 
 			if (validRecipients.length > 0) {
@@ -95,9 +105,13 @@ if (Meteor.isClient) {
 			else {
 				Session.set("isEmptyList", false);
 				var validRecipients = compileRecipients(e.val);
+				var labels = new Array();
+				validRecipients.forEach(function (r) {
+					labels.push(r.email);
+				});
 				Session.set("stakeholderAddressList", validRecipients);
 				Meteor.setTimeout(function () {
-					$("#email-stakeholders-list-field").val(validRecipients).trigger("change");
+					$("#email-stakeholders-list-field").val(labels).trigger("change");
 				}, 100);
 			}
 		});
