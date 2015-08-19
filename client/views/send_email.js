@@ -67,8 +67,16 @@ if (Meteor.isClient) {
 
 	Template.ContactStakeholders.events({
 		"click #btn-copy": function (event, template) {
+			event.preventDefault();
 			var validRecipients = getModifiedRecipients().join();
 			window.prompt("Copy to clipboard: Ctrl+C, Enter", validRecipients);
+			return false;
+		},
+		"click #btn-export": function (event, template) {
+			event.preventDefault();
+			var categories = $("#email-stakeholders-field").select2("val");
+			Router.go("export", { id: categories.join() });
+			return false;
 		},
 		"submit .new-email": function (event, template) {
 			event.preventDefault();
@@ -92,9 +100,11 @@ if (Meteor.isClient) {
 	});
 
 	Template.ContactStakeholders.rendered = function () {
+		// Initialization of components and states
 		$("#email-stakeholders-field").select2();
 		$("#email-stakeholders-list-field").select2();
 		Session.set("isEmptyList", true);
+		$('[data-toggle="tooltip"]').tooltip()
 
 		$(".email-tags-dropdown").on("change", function (e) {
 			if (e.val.length === 0) {
@@ -105,13 +115,13 @@ if (Meteor.isClient) {
 			else {
 				Session.set("isEmptyList", false);
 				var validRecipients = compileRecipients(e.val);
-				var labels = new Array();
+				var emails = new Array();
 				validRecipients.forEach(function (r) {
-					labels.push(r.email);
+					emails.push(r.email);
 				});
 				Session.set("stakeholderAddressList", validRecipients);
 				Meteor.setTimeout(function () {
-					$("#email-stakeholders-list-field").val(labels).trigger("change");
+					$("#email-stakeholders-list-field").val(emails).trigger("change");
 				}, 100);
 			}
 		});
