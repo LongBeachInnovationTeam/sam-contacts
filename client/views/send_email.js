@@ -1,10 +1,29 @@
 if (Meteor.isClient) {
 
+  var compileRecipients = function () {
+  	var stakeholderGroups = $("#email-stakeholders-field").select2("val");
+		var selectedRecipients = Contacts.find({ tags: { $in: stakeholderGroups } }).fetch();
+		var validRecipients = new Array();
+		if (selectedRecipients.length > 0) {
+			selectedRecipients.forEach(function (r) {
+				var isValidEmail = r.email !== "" && r.email;
+				if (isValidEmail) {
+					validRecipients.push(r.email);
+				}
+			});
+
+		}
+		return _.uniq(validRecipients).sort();
+  }
+
   var resetForm = function () {
-    $(".email-tags-dropdown").select2("data", null);
+    $("#email-stakeholders-field").select2("data", null);
   }
 
 	Template.ContactStakeholders.helpers({
+		isEmptyList: function () {
+			return Session.get("isEmptyList");
+		},
     getStakeholders: function () {
       var contacts = Contacts.find({}).fetch();
       var tags = new Array();
@@ -27,43 +46,43 @@ if (Meteor.isClient) {
 	});
 
 	Template.ContactStakeholders.events({
+		"click #btn-copy": function (event, template) {
+			var validRecipients = compileRecipients().join();
+			window.prompt("Copy to clipboard: Ctrl+C, Enter", validRecipients);
+		},
 		"submit .new-email": function (event, template) {
 			event.preventDefault();
 
-			var stakeholderGroups = $("#email-stakeholders-field").select2("val");
 			var subject = $("#email-subject-field").val();
 			var message = $("#email-message-field").val();
-			var checkedElement = template.find('input:radio[name=sendAsRadio]:checked');
+			var checkedElement = template.find("input:radio[name=sendAsRadio]:checked");
 			// var sendingAs = $(checkedElement).val();
+			var validRecipients = compileRecipients();
 
-			var selectedRecipients = Contacts.find({ tags: { $in: stakeholderGroups } }).fetch();
-			var validRecipients = new Array();
-
-			if (selectedRecipients.length > 0) {
-				selectedRecipients.forEach(function (r) {
-					var isValidEmail = r.email !== "" && r.email;
-					var isNotDuplicate = validRecipients.indexOf(r.email > -1);
-					if (isValidEmail && isNotDuplicate) {
-						validRecipients.push(r.email);
-					}
-				});
-				validRecipients.sort();
+			if (validRecipients.length > 0) {
+				var validRecipientsStr = validRecipients.join();
+				var mailToStr = "mailto:" + validRecipientsStr +
+					"?subject=" + escapeHtml(subject) +
+					"&body=" + escapeHtml(message);
+				window.open(mailToStr);
 			}
 
-			var validRecipientsStr = validRecipients.join();
-			var mailToStr = "mailto:" + validRecipientsStr +
-				"?subject=" + subject.trim().replace(" ", "%20") +
-				"&body=" + message.trim().replace(" ", "%20");
-			window.open(mailToStr);
-
 			return false;
-		},
-
-
+		}
 	});
 
 	Template.ContactStakeholders.rendered = function () {
-		$(".email-tags-dropdown").select2();
+		$("#email-stakeholders-field").select2();
+		Session.set("isEmptyList", true);
+		$("#email-stakeholders-field").on("change", function (e) {
+			var stakeholderGroups = $("#email-stakeholders-field").select2("val");
+			if (stakeholderGroups.length === 0) {
+				Session.set("isEmptyList", true);
+			}
+			else {
+				Session.set("isEmptyList", false);
+			}
+		});
 	}
 
 }

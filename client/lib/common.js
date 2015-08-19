@@ -20,6 +20,22 @@ if (Meteor.isClient) {
     }
   }
 
+  var entityMap = {
+    " ": "%20",
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': '&quot;',
+    "'": '&#39;',
+    "/": '&#x2F;'
+  };
+
+  escapeHtml = function (string) {
+    return String(string).replace(/[&<>"'\/\s]/g, function (s) {
+      return entityMap[s];
+    });
+  }
+
   organizationExists = function (org) {
     var existingOrg = Organizations.findOne({
       name: org

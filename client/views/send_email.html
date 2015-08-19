@@ -51,7 +51,8 @@
 					</div>
 				</div>-->
 
-				<button type="submit" class="btn btn-primary">FINALIZE IN OUTLOOK</button>
+				<button type="submit" class="btn btn-success" disabled="{{#if isEmptyList}}disabled{{/if}}">SEND</button>
+				<button type="button" id="btn-copy" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">COPY CONTACT LIST</button>
 			</form>
 		</div>
 	</div>
