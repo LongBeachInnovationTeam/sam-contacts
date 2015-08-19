@@ -1,0 +1,58 @@
+<template name="ContactStakeholders">
+	<div class="page-header">
+		<h1>CONTACT STAKEHOLDERS</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<form class="new-email" data-parsley-validate>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+						  <label for="stakeholders">STAKEHOLDER GROUPS *</label>
+							<select id="email-stakeholders-field" class="email-tags-dropdown" multiple="multiple" name="stakeholders" required>
+								{{#each getStakeholders}}
+									<option value="{{getOptionValue}}">{{this}}</option>
+							  {{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+							<label for="subject">SUBJECT</label>
+							<input type="text" id="email-subject-field" class="form-control" name="subject" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+							<label for="message">MESSAGE</label>
+							<textarea id="email-message-field" class="form-control" name="message" rows="10"></textarea>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div id="sendingAsRadioGroup" class="form-group">
+							<label for="sendAsRadio">SENDING AS</label>
+							<br />
+						  <label class="radio-inline">
+						    <input type="radio" name="sendAsRadio" id="optionsRadios1" value="{{getUserLabel}}" checked>
+						    {{getUserLabel}}
+						  </label>
+						  <label class="radio-inline">
+						    <input type="radio" name="sendAsRadio" id="optionsRadios2" value="i-team@longbeach.gov">
+						    i-team@longbeach.gov
+						  </label>
+						</div>
+					</div>
+				</div>-->
+
+				<button type="submit" class="btn btn-primary">FINALIZE IN OUTLOOK</button>
+			</form>
+		</div>
+	</div>
+</template>
