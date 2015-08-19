@@ -1,0 +1,72 @@
+<template name="ContactStakeholders">
+	<div class="page-header">
+		<h1>CONTACT STAKEHOLDERS</h1>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<form class="new-email" data-parsley-validate>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+						  <label for="stakeholders">STAKEHOLDER CATEGORIES *</label>
+							<select id="email-stakeholders-field" class="email-tags-dropdown" multiple="multiple" name="stakeholders" required>
+								{{#each getStakeholders}}
+									<option value="{{getOptionValue}}">{{this}}</option>
+							  {{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+							<label for="emailList">AVAILABLE CONTACTS</label>
+							<select id="email-stakeholders-list-field" multiple="multiple" name="emailList" required>
+								{{#each getStakeholderAddresses}}
+									<option value="{{getLabelEmail this}}">{{getLabelName this}}</option>
+							  {{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+							<label for="subject">SUBJECT</label>
+							<input type="text" id="email-subject-field" class="form-control" name="subject" />
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="form-group">
+							<label for="message">MESSAGE</label>
+							<textarea id="email-message-field" class="form-control" name="message" rows="10"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div id="sendingAsRadioGroup" class="form-group">
+							<label for="replyToRadio">REPLY TO</label>
+							<br />
+						  <label class="radio-inline">
+						    <input type="radio" name="replyToRadio" value="{{getUserLabel}}" checked>
+						    {{getUserLabel}}
+						  </label>
+						  <label class="radio-inline">
+						    <input type="radio" name="replyToRadio" value="i-team@longbeach.gov">
+						    i-team@longbeach.gov
+						  </label>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success" disabled="{{#if isEmptyList}}disabled{{/if}}">SEND</button>
+				<div class="btn-group pull-right" role="group">
+					<button type="button" id="btn-copy" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">COPY CONTACT LIST</button>
+					<button type="button" id="btn-export" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}" data-toggle="tooltip" data-placement="top" title="Exports all contacts for selected categories">EXPORT CSV</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
