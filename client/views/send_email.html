@@ -8,7 +8,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="form-group">
-						  <label for="stakeholders">STAKEHOLDER GROUPS *</label>
+						  <label for="stakeholders">STAKEHOLDER CATEGORIES *</label>
 							<select id="email-stakeholders-field" class="email-tags-dropdown" multiple="multiple" name="stakeholders" required>
 								{{#each getStakeholders}}
 									<option value="{{getOptionValue}}">{{this}}</option>
@@ -20,7 +20,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
 						<div class="form-group">
-							<label for="emailList">SELECTED CONTACTS</label>
+							<label for="emailList">AVAILABLE CONTACTS</label>
 							<select id="email-stakeholders-list-field" multiple="multiple" name="emailList" required>
 								{{#each getStakeholderAddresses}}
 									<option value="{{getLabelEmail this}}">{{getLabelName this}}</option>
