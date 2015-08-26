@@ -39,7 +39,10 @@ if (Meteor.isClient) {
 			if (recipient.name && recipient.name !== "") {
 				label = recipient.name;
 			}
-			return label + " " + "<" + recipient.email + ">";
+			else if (recipient.email && recipient.email !== "") {
+				label = recipient.email;
+			}
+			return label;
 		},
 		getStakeholderAddresses: function () {
 			return Session.get("stakeholderAddressList");
