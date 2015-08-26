@@ -152,10 +152,29 @@ if (Meteor.isClient) {
 		});
 	}
 
+// Make the count panel and monthly trend panel the same height
+	var resizeCountPanel = function () {
+		Meteor.setTimeout(function () {
+			var monthlyTrendPanelHeight = $("#monthly-trend-panel").height();
+			$("#count-panel").height(monthlyTrendPanelHeight);
+		}, 100);
+	}
+
+	Template.Stats.created = function () {
+	  $(window).resize(function () {
+			resizeCountPanel();
+	  });
+	}
+
+	Template.Stats.destroyed = function () {
+		$(window).off('resize');
+	}
+
 	Template.Stats.rendered = function () {
 		Chart.defaults.global.responsive = true;
 		renderCategoriesCountChart();
 		renderMonthlyTrendChart();
+		resizeCountPanel();
 	}
 
 	Template.Stats.helpers({
