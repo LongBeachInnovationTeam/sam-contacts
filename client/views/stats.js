@@ -50,29 +50,94 @@ if (Meteor.isClient) {
 		return data;
 	}
 
+	var getMonthlyTrendData = function () {
+		var rollingMonths = {};
+		// Get all contacts that were created withing the last six months
+		var startDate = new Date();
+		var endDate = new Date(startDate);
+		endDate.setMonth(startDate.getMonth() - 6);
+		endDate.setDate(1);
+		var contacts = Contacts.find({
+			createdDate: {
+				$gte: endDate,
+				$lt: startDate
+			}
+		}).fetch();
+		contacts.forEach(function (c) {
+			var createdDate = new Date(c.createdDate);
+			var monthName = parseMonth(createdDate);
+			if (rollingMonths[monthName]) {
+				var curCount = rollingMonths[monthName];
+				rollingMonths[monthName] = curCount + 1;
+			}
+			else {
+				rollingMonths[monthName] = 1;
+			}
+		});
+		var rgbaFill = "rgba(123, 45, 131, 0.2)";
+		var rgbaHighlight = "rgba(123, 45, 131, 1.0)";
+		var data = {
+	    labels: _.keys(rollingMonths),
+	    datasets: [
+        {
+          label: "My dataset",
+          fillColor: rgbaFill,
+          strokeColor: rgbaHighlight,
+          pointColor: rgbaHighlight,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: rgbaHighlight,
+          data: _.values(rollingMonths)
+        }
+	    ]
+		};
+		return data;
+	}
+
+	var parseMonth = function (d) {
+		var month = new Array();
+		month[0] = "January";
+		month[1] = "February";
+		month[2] = "March";
+		month[3] = "April";
+		month[4] = "May";
+		month[5] = "June";
+		month[6] = "July";
+		month[7] = "August";
+		month[8] = "September";
+		month[9] = "October";
+		month[10] = "November";
+		month[11] = "December";
+		return month[d.getMonth()];
+	}
+
 	var renderCategoriesCountChart = function (d) {
 		var ctx = $("#category-chart").get(0).getContext("2d");
-		var monthlyCategoryChart = new Chart(ctx).Bar(d, {
-			scaleShowGridLines: false
+		var chart = new Chart(ctx).Bar(d, {});
+	}
+
+	var renderMonthlyTrendChart = function (d) {
+		var ctx = $("#monthly-trend-chart").get(0).getContext("2d");
+		var chart = new Chart(ctx).Line(d, {
+			scaleShowGridLines : false,
+			bezierCurve : false,
 		});
 	}
 
-	Template.Stats.helpers({
-	});
-
-	Template.Stats.events({
-
-	});
-
 	Template.Stats.created = function () {
 		Session.set("categoryCountData", getCategoriesCountData());
+		Session.set("monthlyTrendData", getMonthlyTrendData());
 	}
 
 	Template.Stats.rendered = function () {
 		Chart.defaults.global.responsive = true;
 		var categoryCountData = Session.get("categoryCountData");
+		var monthlyTrendData = Session.get("monthlyTrendData");
 		if (categoryCountData) {
 			renderCategoriesCountChart(categoryCountData);
+		}
+		if (monthlyTrendData) {
+			renderMonthlyTrendChart(monthlyTrendData);
 		}
 	}
 
