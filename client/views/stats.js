@@ -7,7 +7,13 @@ if (Meteor.isClient) {
   	}
     return keys.sort(function (a,b) {
 			return obj[a] - obj[b];
-    });
+    }).reverse();
+	}
+
+	var getSortedValues = function (obj) {
+		return _.values(obj).sort(function (a, b) {
+			return b - a;
+		});
 	}
 
 	var getCategoriesCountData = function () {
@@ -24,19 +30,19 @@ if (Meteor.isClient) {
 				}
 			});
 		});
-		var sortedKeys = getSortedKeys(tagCounts).reverse();
-		var sortedValues = _.values(tagCounts).sort(function (a, b) {
-			return b - a;
-		});
+		var sortedKeys = getSortedKeys(tagCounts);
+		var sortedValues = getSortedValues(tagCounts);
+		var rgbaFill = "rgba(123, 45, 131, 1.0)";
+		var rgbaHighlight = "rgba(123, 45, 131, 0.75)";
 		var data = {
 		  labels: sortedKeys,
 		  datasets: [
 		    {
 		      label: "Total Categories",
-		      fillColor: "rgba(123, 45, 131, 1.0)",
-		      strokeColor: "rgba(123, 45, 131, 1.0)",
-		      highlightFill: "rgba(123, 45, 131, 0.75)",
-		      highlightStroke: "rgba(123, 45, 131, 1.0)",
+		      fillColor: rgbaFill,
+		      strokeColor: rgbaFill,
+		      highlightFill: rgbaHighlight,
+		      highlightStroke: rgbaFill,
 		      data: sortedValues
 		    }
 		  ]
@@ -44,7 +50,7 @@ if (Meteor.isClient) {
 		return data;
 	}
 
-	var renderMonthlyCategoriesChart = function (d) {
+	var renderCategoriesCountChart = function (d) {
 		var ctx = $("#category-chart").get(0).getContext("2d");
 		var monthlyCategoryChart = new Chart(ctx).Bar(d, {
 			scaleShowGridLines: false
@@ -66,7 +72,7 @@ if (Meteor.isClient) {
 		Chart.defaults.global.responsive = true;
 		var categoryCountData = Session.get("categoryCountData");
 		if (categoryCountData) {
-			renderMonthlyCategoriesChart(categoryCountData);
+			renderCategoriesCountChart(categoryCountData);
 		}
 	}
 
