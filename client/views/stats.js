@@ -137,34 +137,25 @@ if (Meteor.isClient) {
 		return participants;
 	}
 
-	var renderCategoriesCountChart = function (d) {
+	var renderCategoriesCountChart = function () {
+		var data = getCategoriesCountData();
 		var ctx = $("#category-chart").get(0).getContext("2d");
-		var chart = new Chart(ctx).Bar(d, {});
+		new Chart(ctx).Bar(data, {});
 	}
 
-	var renderMonthlyTrendChart = function (d) {
+	var renderMonthlyTrendChart = function () {
+		var data = getMonthlyTrendData();
 		var ctx = $("#monthly-trend-chart").get(0).getContext("2d");
-		var chart = new Chart(ctx).Line(d, {
+		new Chart(ctx).Line(data, {
 			scaleShowGridLines : false,
 			bezierCurve : false
 		});
 	}
 
-	Template.Stats.created = function () {
-		Session.set("categoryCountData", getCategoriesCountData());
-		Session.set("monthlyTrendData", getMonthlyTrendData());
-	}
-
 	Template.Stats.rendered = function () {
 		Chart.defaults.global.responsive = true;
-		var categoryCountData = Session.get("categoryCountData");
-		var monthlyTrendData = Session.get("monthlyTrendData");
-		if (categoryCountData) {
-			renderCategoriesCountChart(categoryCountData);
-		}
-		if (monthlyTrendData) {
-			renderMonthlyTrendChart(monthlyTrendData);
-		}
+		renderCategoriesCountChart();
+		renderMonthlyTrendChart();
 	}
 
 	Template.Stats.helpers({
