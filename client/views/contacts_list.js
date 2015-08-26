@@ -94,9 +94,6 @@ if (Meteor.isClient) {
         });
       }
     },
-    getTotalContacts: function () {
-      return Contacts.find().count();
-    },
     getTitle: function (str) {
       if (str && str !== "") {
         return str;

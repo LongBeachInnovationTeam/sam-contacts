@@ -111,6 +111,32 @@ if (Meteor.isClient) {
 		return month[d.getMonth()];
 	}
 
+	var getTotalParticipantCount = function () {
+		var participants = {};
+		var startDate = new Date();
+		var endDate = new Date(startDate);
+		endDate.setDate(1);
+		var contacts = Contacts.find({
+			createdDate: {
+				$gte: endDate,
+				$lt: startDate
+			}
+		}).fetch();
+		contacts.forEach(function (c) {
+			var email = c.ownerUsername;
+			var userName = email.match(/^([^@]*)@/)[1];
+			var firstName = userName.split(".")[0];
+			if (participants[firstName]) {
+				var curCount = participants[firstName];
+				participants[firstName] = curCount + 1;
+			}
+			else {
+				participants[firstName] = 1;
+			}
+		});
+		return participants;
+	}
+
 	var renderCategoriesCountChart = function (d) {
 		var ctx = $("#category-chart").get(0).getContext("2d");
 		var chart = new Chart(ctx).Bar(d, {});
@@ -120,7 +146,7 @@ if (Meteor.isClient) {
 		var ctx = $("#monthly-trend-chart").get(0).getContext("2d");
 		var chart = new Chart(ctx).Line(d, {
 			scaleShowGridLines : false,
-			bezierCurve : false,
+			bezierCurve : false
 		});
 	}
 
@@ -140,5 +166,18 @@ if (Meteor.isClient) {
 			renderMonthlyTrendChart(monthlyTrendData);
 		}
 	}
+
+	Template.Stats.helpers({
+		getTotalContacts: function () {
+			return Contacts.find().count();
+		},
+		getTotalJuicyQuotes: function () {
+			var counter = 0;
+			Contacts.find().fetch().forEach(function (c) {
+				counter += c.quotes.length;
+			});
+			return counter;
+		}
+	});
 
 }

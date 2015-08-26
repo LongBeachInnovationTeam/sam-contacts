@@ -16,11 +16,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row equal">
 		<div class="col-sm-6 col-md-6 col-lg-6">
 			<div class="panel panel-primary">
 			  <div class="panel-heading">
-			 		<h3 class="panel-title">Monthly Trend of New Stakeholders</h3>
+			 		<h3 class="panel-title">No. of New Stakeholders</h3>
 			  </div>
 			  <div class="panel-body">
 		    	<div>
@@ -30,6 +30,14 @@
 			</div>
 		</div>
 		<div class="col-sm-6 col-md-6 col-lg-6">
+			<div class="row">
+			  <div class="well well-total-stakeholders">
+			  	<h3 class="text-center">{{getTotalContacts}} stakeholder contacts</h3>
+			  </div>
+			  <div class="well well-total-juicy-quotes">
+			  	<h3 class="text-center">{{getTotalJuicyQuotes}} juicy quotes</h3>
+			  </div>
+		  </div>
 		</div>
 	</div>
 </template>
