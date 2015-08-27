@@ -86,6 +86,24 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 5px solid #7B2D83;
 }
 
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  #count-wrapper {
+    margin-top: 25px;
+  }
+  .well-text {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: @screen-lg-min) {
+  #count-wrapper {
+    margin-top: 45px;
+  }
+  .well-text {
+    font-size: 24px;
+  }
+}
+
 .well-total-stakeholders {
   background-color: #7B2D83;
   border-radius: 6px;
