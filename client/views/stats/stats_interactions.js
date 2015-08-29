@@ -121,14 +121,12 @@ if (Meteor.isClient) {
 			});
 		});
 		var data = new Array();
-		var randomHighlightColor = randomColor({ luminosity: "bright", seed: tags.length });
 		for(var t in tags) {
 			var attr = tags[t];
 			if (tags.hasOwnProperty(t) && attr > 0) {
 				data.push({
 					value: attr,
 					color: randomColor({ luminosity: "bright", count: tags.length }),
-					highlight: randomHighlightColor,
 					label: t
 				});
 			}
