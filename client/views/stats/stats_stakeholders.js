@@ -53,16 +53,16 @@ if (Meteor.isClient) {
 	var getMonthlyTrendData = function () {
 		var rollingMonths = {};
 		// Get all contacts that were created withing the last six months
-		var startDate = new Date();
-		var endDate = new Date(startDate);
-		endDate.setMonth(startDate.getMonth() - 6);
-		endDate.setDate(1);
+		var endDate = new Date();
+		var startDate = new Date(endDate);
+		startDate.setMonth(startDate.getMonth() - 6);
+		startDate.setDate(1);
 		var contacts = Contacts.find({
 			createdDate: {
-				$gte: endDate,
-				$lt: startDate
+				$gte: startDate,
+				$lte: endDate
 			}
-		}).fetch();
+		}, { sort: { createdDate: 1 } }).fetch();
 		contacts.forEach(function (c) {
 			var createdDate = new Date(c.createdDate);
 			var monthName = parseMonth(createdDate);
@@ -92,23 +92,6 @@ if (Meteor.isClient) {
 	    ]
 		};
 		return data;
-	}
-
-	var parseMonth = function (d) {
-		var month = new Array();
-		month[0] = "January";
-		month[1] = "February";
-		month[2] = "March";
-		month[3] = "April";
-		month[4] = "May";
-		month[5] = "June";
-		month[6] = "July";
-		month[7] = "August";
-		month[8] = "September";
-		month[9] = "October";
-		month[10] = "November";
-		month[11] = "December";
-		return month[d.getMonth()];
 	}
 
 	var getTotalParticipantCount = function () {
@@ -152,13 +135,13 @@ if (Meteor.isClient) {
 		});
 	}
 
-// Make the count panel and monthly trend panel the same height
+	// Make the count panel and monthly trend panel the same height
 	var resizeCountPanel = function () {
 		var monthlyTrendPanelHeight = $("#monthly-trend-panel").height();
 		$("#count-panel").height(monthlyTrendPanelHeight);
 	}
 
-	Template.Stats.created = function () {
+	Template.StatsStakeholders.created = function () {
 	  $(window).resize(function () {
 	  	Meteor.setTimeout(function () {
 				resizeCountPanel();
@@ -166,12 +149,11 @@ if (Meteor.isClient) {
 	  });
 	}
 
-	Template.Stats.destroyed = function () {
+	Template.StatsStakeholders.destroyed = function () {
 		$(window).off('resize');
 	}
 
-	Template.Stats.rendered = function () {
-		Chart.defaults.global.responsive = true;
+	Template.StatsStakeholders.rendered = function () {
 		Meteor.setTimeout(function () {
 			renderCategoriesCountChart();
 			renderMonthlyTrendChart();
@@ -179,7 +161,7 @@ if (Meteor.isClient) {
 		}, 500);
 	}
 
-	Template.Stats.helpers({
+	Template.StatsStakeholders.helpers({
 		getTotalContacts: function () {
 			return Contacts.find().count();
 		},
