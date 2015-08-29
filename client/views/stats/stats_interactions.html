@@ -1,38 +1,6 @@
 <template name="StatsInteractions">
 	<div class="row">
-		<div class="col-sm-12 col-md-12 col-lg-12">
-			<div class="panel panel-primary">
-			  <div class="panel-heading">
-			 		<h3 class="panel-title">Interaction History During the Past 6 Months</h3>
-			  </div>
-			  <div class="panel-body">
-		    	<div>
-		    		<canvas id="interaction-history-chart"></canvas>
-	    		</div>
-			  </div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-8 col-md-8 col-lg-8">
-			<div class="panel panel-primary">
-			  <div class="panel-heading">
-			  	<div class="pull-left">
-			 			<h3 class="panel-title">Interactions by i-team Member</h3>
-		 			</div>
-		 			<div class="pull-right">
-		 				<span class="badge">{{getCurrentMonthLabel}}</span>
-		 			</div>
-		 			<br />
-			  </div>
-			  <div class="panel-body">
-		    	<div>
-
-	    		</div>
-			  </div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-4 col-lg-4">
+		<div class="col-sm-6 col-md-6 col-lg-6">
 			<div id="count-panel" class="panel panel-primary">
 			  <div class="panel-heading">
 			 		<h3 class="panel-title">Estimated Total Counts</h3>
@@ -54,6 +22,32 @@
 					  	</div>
 					  </div>
 				  </div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<div id="monthly-trend-panel" class="panel panel-primary">
+			  <div class="panel-heading">
+			 		<h4 class="panel-title">Non-Iteam Members Reached By Stakeholder Category</h4>
+			  </div>
+			  <div class="panel-body">
+		    	<div>
+		    		<canvas id="interaction-category-chart"></canvas>
+	    		</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			 		<h3 class="panel-title">Interaction History During the Past 6 Months</h3>
+			  </div>
+			  <div class="panel-body">
+		    	<div>
+		    		<canvas id="interaction-history-chart"></canvas>
+	    		</div>
 			  </div>
 			</div>
 		</div>

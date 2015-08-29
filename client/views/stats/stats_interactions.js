@@ -5,7 +5,7 @@ if (Meteor.isClient) {
 		var startDate = new Date(endDate);
 		startDate.setMonth(startDate.getMonth() - 6);
 		startDate.setDate(1);
-		if (d >= startDate && d <= endDate) {
+		if (d.getTime() >= startDate.getTime() && d <= endDate.getTime()) {
 			return true;
 		}
 		else {
@@ -13,7 +13,7 @@ if (Meteor.isClient) {
 		}
 	}
 
-	var getMonthlyTrendData = function () {
+	var getMonthlyInteractionHistoryData = function () {
 		// Data structures for Series 1 and Series 2 of the chart
 		var totalInteractions = {};
 		var estimatedAttendees = {};
@@ -46,10 +46,10 @@ if (Meteor.isClient) {
 					}
 					if (estimatedAttendees[monthName]) {
 						var curCount = estimatedAttendees[monthName];
-						estimatedAttendees[monthName] = curCount + parseInt(i.estimatedAttendees);
+						estimatedAttendees[monthName] = curCount + (parseInt(i.estimatedAttendees) || 0);
 					}
 					else {
-						estimatedAttendees[monthName] = parseInt(i.estimatedAttendees);
+						estimatedAttendees[monthName] = parseInt(i.estimatedAttendees) || 0;
 					}
 				}
 			});
@@ -72,7 +72,7 @@ if (Meteor.isClient) {
           data: _.values(totalInteractions)
         },
         {
-          label: "Total Interactions",
+          label: "Total Non-iteam Members Met",
           fillColor: series2Fill,
           strokeColor: series2Highlight,
           pointColor: series2Highlight,
@@ -86,8 +86,58 @@ if (Meteor.isClient) {
 		return data;
 	}
 
+	var getCategoryData = function () {
+		// Data structures for Series 1 and Series 2 of the chart
+		var tags = {};
+		// Get all contacts that were created withing the last six months
+		var endDate = new Date();
+		var startDate = new Date(endDate);
+		startDate.setMonth(startDate.getMonth() - 6);
+		startDate.setDate(1);
+		var contacts = Contacts.find({
+			interactions: {
+				$elemMatch: {
+					interactionDate: {
+						$gte: startDate.toISOString(),
+						$lte: endDate.toISOString()
+					}
+				}
+			}
+		}, { sort: { "interactions.interactionDate": 1 } }).fetch();
+		contacts.forEach(function (c) {
+			c.interactions.forEach(function (i) {
+				var createdDate = new Date(i.interactionDate);
+				if (isDateInReportingRange(createdDate)) {
+					c.tags.forEach(function (t) {
+						if (tags[t]) {
+							var curCount = tags[t];
+							tags[t] = curCount + (parseInt(i.estimatedAttendees) || 0);
+						}
+						else {
+							tags[t] = parseInt(i.estimatedAttendees) || 0;
+						}
+					});
+				}
+			});
+		});
+		var data = new Array();
+		var randomHighlightColor = randomColor({ luminosity: "bright", seed: tags.length });
+		for(var t in tags) {
+			var attr = tags[t];
+			if (tags.hasOwnProperty(t) && attr > 0) {
+				data.push({
+					value: attr,
+					color: randomColor({ luminosity: "bright", count: tags.length }),
+					highlight: randomHighlightColor,
+					label: t
+				});
+			}
+		}
+		return data;
+	}
+
 	var renderInteractionHistoryChart = function () {
-		var data = getMonthlyTrendData();
+		var data = getMonthlyInteractionHistoryData();
 		var ctx = $("#interaction-history-chart").get(0).getContext("2d");
 		new Chart(ctx).Line(data, {
 			scaleShowGridLines : false,
@@ -95,10 +145,35 @@ if (Meteor.isClient) {
 		});
 	}
 
+	var renderCategoryPolarAreaChart = function () {
+		var data = getCategoryData();
+		var ctx = $("#interaction-category-chart").get(0).getContext("2d");
+		new Chart(ctx).PolarArea(data);
+	}
+
+	// Make the count panel and monthly trend panel the same height
+	var resizeCountPanel = function () {
+		var monthlyTrendPanelHeight = $("#monthly-trend-panel").height();
+		$("#count-panel").height(monthlyTrendPanelHeight);
+	}
+
+	Template.StatsInteractions.created = function () {
+	  $(window).resize(function () {
+	  	Meteor.setTimeout(function () {
+				resizeCountPanel();
+			}, 100);
+	  });
+	}
+
+	Template.StatsInteractions.destroyed = function () {
+		$(window).off('resize');
+	}
+
 	Template.StatsInteractions.rendered = function () {
 		Meteor.setTimeout(function () {
 			renderInteractionHistoryChart();
-			//resizeCountPanel();
+			renderCategoryPolarAreaChart();
+			resizeCountPanel();
 		}, 500);
 	}
 
