@@ -176,14 +176,6 @@ if (Meteor.isClient) {
 	}
 
 	Template.StatsInteractions.helpers({
-		getCurrentMonthLabel: function () {
-			var today = new Date();
-			var monthName = parseMonth(today);
-			var year = today.getFullYear().toString();
-			var yearLabel = "'" + year.substring(2, year.length);
-			var label = monthName.substring(0, 3).toUpperCase() + " " + yearLabel;
-			return label;
-		},
 		getTotalInteractions: function () {
 			var counter = 0;
 			Contacts.find().fetch().forEach(function (c) {

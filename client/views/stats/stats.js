@@ -9,6 +9,7 @@ if (Meteor.isClient) {
 		Chart.defaults.global.animation = false;
 		Chart.defaults.global.responsive = true;
 		Chart.defaults.global.scaleFontFamily = "'Open Sans', sans-serif";
+
 		// Set default template to render
 		Session.set("navItem", "StatsStakeholders");
 		// Setting the session to the name of the template will render it

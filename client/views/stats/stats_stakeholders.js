@@ -94,15 +94,21 @@ if (Meteor.isClient) {
 		return data;
 	}
 
-	var getTotalParticipantCount = function () {
-		var participants = {};
-		var startDate = new Date();
-		var endDate = new Date(startDate);
-		endDate.setDate(1);
+	var getMonthlyParticipantCount = function (startDate, endDate) {
+		var participants = {
+			alex: 0,
+			alma: 0,
+			eric: 0,
+			harrison: 0,
+			heidi: 0,
+			holly: 0,
+			john: 0,
+			ryan: 0
+		};
 		var contacts = Contacts.find({
 			createdDate: {
-				$gte: endDate,
-				$lt: startDate
+				$gte: startDate,
+				$lte: endDate
 			}
 		}).fetch();
 		contacts.forEach(function (c) {
@@ -120,10 +126,61 @@ if (Meteor.isClient) {
 		return participants;
 	}
 
+	var getPreviousMonthParticipantCount = function (){
+		var endDate = new Date();
+		var startDate = new Date(endDate);
+		startDate.setMonth(startDate.getMonth() - 1);
+		startDate.setDate(1);
+		return getMonthlyParticipantCount(startDate, endDate);
+	}
+
+	var getCurrentMonthParticipantCount = function () {
+		var endDate = new Date();
+		var startDate = new Date(endDate);
+		startDate.setDate(1);
+		return getMonthlyParticipantCount(startDate, endDate);
+	}
+
+	var getMonthlyParticipantData = function () {
+		var currentMonthData = getCurrentMonthParticipantCount();
+		var previousMonthData = getPreviousMonthParticipantCount();
+		var combinedKeys = _.union(_.keys(previousMonthData), _.keys(currentMonthData));
+		var currentRgbaFill = "rgba(123, 45, 131, 1.0)";
+		var currentRgbaHighlight = "rgba(123, 45, 131, 0.75)";
+		var previousRgbaFill = "rgba(59, 85, 216, 1.0)";
+		var previousRgbaHighlight = "rgba(59, 85, 216, 0.75)";
+		var data = {
+	    labels: combinedKeys,
+	    datasets: [
+        {
+          label: "Previous Month Participation",
+          fillColor: previousRgbaFill,
+          strokeColor: previousRgbaHighlight,
+          pointColor: previousRgbaHighlight,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: previousRgbaHighlight,
+          data: _.values(previousMonthData)
+        },
+        {
+          label: "Current Month Participation",
+          fillColor: currentRgbaFill,
+          strokeColor: currentRgbaHighlight,
+          pointColor: currentRgbaHighlight,
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: currentRgbaHighlight,
+          data: _.values(currentMonthData)
+        }
+	    ]
+		};
+		return data;
+	}
+
 	var renderCategoriesCountChart = function () {
 		var data = getCategoriesCountData();
 		var ctx = $("#category-chart").get(0).getContext("2d");
-		new Chart(ctx).Bar(data, {});
+		new Chart(ctx).Bar(data);
 	}
 
 	var renderMonthlyTrendChart = function () {
@@ -133,6 +190,12 @@ if (Meteor.isClient) {
 			scaleShowGridLines : false,
 			bezierCurve : false
 		});
+	}
+
+	var renderMonthlyParticipantChart = function () {
+		var data = getMonthlyParticipantData();
+		var ctx = $("#monthly-participation-chart").get(0).getContext("2d");
+		new Chart(ctx).Bar(data);
 	}
 
 	// Make the count panel and monthly trend panel the same height
@@ -157,11 +220,21 @@ if (Meteor.isClient) {
 		Meteor.setTimeout(function () {
 			renderCategoriesCountChart();
 			renderMonthlyTrendChart();
+			renderMonthlyParticipantChart();
 			resizeCountPanel();
 		}, 500);
 	}
 
 	Template.StatsStakeholders.helpers({
+		getCurrentMonthLabel: function () {
+			var today = new Date();
+			var monthName = parseMonth(today);
+			var year = today.getFullYear().toString();
+			var monthLabel = monthName.substring(0, 3).toUpperCase();
+			var yearLabel = "'" + year.substring(2, year.length);
+			var label = monthLabel + " " + yearLabel;
+			return label;
+		},
 		getTotalContacts: function () {
 			return Contacts.find().count();
 		},
