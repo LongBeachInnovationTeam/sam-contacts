@@ -4,7 +4,7 @@ if (Meteor.isClient) {
     * To Title Case 2.1 – http://individed.com/code/to-title-case/
     * Copyright © 2008–2013 David Gouch. Licensed under the MIT License.
    */
-  String.prototype.toTitleCase = function(){
+  String.prototype.toTitleCase = function () {
     var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
     return this.replace(/[A-Za-z0-9\u00C0-\u00FF]+[^\s-]*/g, function(match, index, title){
       if (index > 0 && index + match.length !== title.length &&
@@ -19,6 +19,12 @@ if (Meteor.isClient) {
       return match.charAt(0).toUpperCase() + match.substr(1);
     });
   };
+
+  Date.prototype.addDays = function (days) {
+    var d = new Date(this.valueOf())
+    d.setDate(d.getDate() + days);
+    return d;
+  }
 
   contactExists = function (name, organizationName) {
     var existingContact;
@@ -93,6 +99,16 @@ if (Meteor.isClient) {
       "workforce development",
     ];
     return tags.sort();
+  }
+
+  getDateRange = function (startDate, endDate) {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= endDate) {
+      dateArray.push(new Date (currentDate));
+      currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
   }
 
   organizationExists = function (org) {

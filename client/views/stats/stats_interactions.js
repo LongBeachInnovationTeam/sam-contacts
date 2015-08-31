@@ -17,11 +17,25 @@ if (Meteor.isClient) {
 		// Data structures for Series 1 and Series 2 of the chart
 		var totalInteractions = {};
 		var estimatedAttendees = {};
+
 		// Get all contacts that were created withing the last six months
 		var endDate = new Date();
 		var startDate = new Date(endDate);
 		startDate.setMonth(startDate.getMonth() - 6);
 		startDate.setDate(1);
+
+		// Initialize values for the past six months
+		var dateRange = getDateRange(startDate, endDate);
+		dateRange.forEach(function (d) {
+			var currentMonth = parseMonth(d);
+			if (!totalInteractions[currentMonth]) {
+				totalInteractions[currentMonth] = 0;
+			}
+			if (!estimatedAttendees[currentMonth]) {
+				estimatedAttendees[currentMonth] = 0;
+			}
+		});
+
 		var contacts = Contacts.find({
 			interactions: {
 				$elemMatch: {
@@ -54,6 +68,7 @@ if (Meteor.isClient) {
 				}
 			});
 		});
+
 		var series1Fill = "rgba(59, 216, 125, 0.2)";
 		var series1Highlight = "rgba(59, 216, 125, 1.0)";
 		var series2Fill = "rgba(59, 85, 216, 0.2)";

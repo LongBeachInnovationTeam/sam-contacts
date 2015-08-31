@@ -57,6 +57,16 @@ if (Meteor.isClient) {
 		var startDate = new Date(endDate);
 		startDate.setMonth(startDate.getMonth() - 6);
 		startDate.setDate(1);
+
+		// Initialize values for the past six months
+		var dateRange = getDateRange(startDate, endDate);
+		dateRange.forEach(function (d) {
+			var currentMonth = parseMonth(d);
+			if (!rollingMonths[currentMonth]) {
+				rollingMonths[currentMonth] = 0;
+			}
+		});
+
 		var contacts = Contacts.find({
 			createdDate: {
 				$gte: startDate,
@@ -74,6 +84,7 @@ if (Meteor.isClient) {
 				rollingMonths[monthName] = 1;
 			}
 		});
+
 		var rgbaFill = "rgba(123, 45, 131, 0.2)";
 		var rgbaHighlight = "rgba(123, 45, 131, 1.0)";
 		var data = {
