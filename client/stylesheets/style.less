@@ -13,6 +13,7 @@
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: @font-family-headings;
+  text-transform: uppercase;
 }
 
 .add-interaction-btn .glyphicon, .contact-edit-btn .glyphicon {
@@ -44,6 +45,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   background-color: darken(@brand-success, 10%);
   border-color: darken(@brand-success, 10%);
+}
+
+.chart-legend ul {
+  list-style-type: none;
+}
+
+.chart-legend li span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
 }
 
 .contact-label {
@@ -86,8 +98,30 @@ h1, h2, h3, h4, h5, h6 {
   border-left: 5px solid #7B2D83;
 }
 
+.well-count {
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+}
+
+.well-total-stakeholders {
+  background-color: #7B2D83;
+}
+
+.well-total-member-estimates {
+  background-color: #3B55D8;
+}
+
+.well-total-interactions {
+  background-color: #3BD87D;
+}
+
+.well-total-juicy-quotes {
+  background-color: #0EB1D1;
+}
+
 @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
-  #count-wrapper {
+  .count-wrapper {
     margin-top: 25px;
   }
   .well-text {
@@ -96,26 +130,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (min-width: @screen-lg-min) {
-  #count-wrapper {
+  .count-wrapper {
     margin-top: 45px;
   }
   .well-text {
     font-size: 24px;
   }
-}
-
-.well-total-stakeholders {
-  background-color: #7B2D83;
-  border-radius: 6px;
-  border: none;
-  color: #fff;
-}
-
-.well-total-juicy-quotes {
-  background-color: #0EB1D1;
-  border-radius: 6px;
-  border: none;
-  color: #fff;
 }
 
 #add-btn {
@@ -124,4 +144,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #footer-heart {
   color: #DB1507;
+}
+
+#nav-item-wrapper {
+  margin-top: 20px;
 }

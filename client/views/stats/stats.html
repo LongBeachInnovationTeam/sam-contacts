@@ -1,0 +1,18 @@
+<template name="Stats">
+	<div class="page-header">
+		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Stats</h1>
+	</div>
+	<!-- Nav tabs -->
+	<ul id="stats-tabs" class="nav nav-tabs">
+	  <li role="presentation" class="active">
+	  	<a href="#stakeholders" aria-controls="stakeholders" role="tab" data-toggle="tab">STAKEHOLDERS</a>
+  	</li>
+	  <li role="presentation">
+	  	<a href="#interactions" aria-controls="interactions" role="tab" data-toggle="tab">INTERACTIONS</a>
+  	</li>
+	</ul>
+  <!-- Tab panes are rendered below -->
+  <div id="nav-item-wrapper">
+  	{{> UI.dynamic template=navItem }}
+	</div>
+</template>

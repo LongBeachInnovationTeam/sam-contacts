@@ -89,7 +89,7 @@
 									<div class="form-group">
 										<label for="tags">TAGS (GRANT-RELATED INTERESTS/TOPICS/CHALLENGES)</label>
 										<select class="edit-tags-dropdown" multiple="multiple" name="tags">
-											{{#each getAllTags}}
+											{{#each getTags}}
 												<option value="{{getOptionValue}}">{{this}}</option>
 										  {{/each}}
 										</select>

@@ -8,7 +8,6 @@ if (Meteor.isServer) {
 		// Ensure that the following indexes are defined and created in our mongodb database
 		Contacts._ensureIndex({
 			"name": 1,
-			"title": 1,
 			"organization": 1,
 			"tags": 1
 		}, { background: true });

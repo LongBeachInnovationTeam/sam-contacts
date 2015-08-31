@@ -1,0 +1,57 @@
+<template name="StatsInteractions">
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<div id="count-panel" class="panel panel-primary">
+			  <div class="panel-heading">
+			 		<h3 class="panel-title">Est. Total Counts</h3>
+			  </div>
+			  <div class="panel-body">
+			  	<div class="count-wrapper">
+				  	<div class="row">
+				  		<div class="col-sm-12 col-md-12 col-lg-12">
+							  <div class="well well-count well-total-interactions">
+							  	<div class="text-center well-text">{{getTotalInteractions}} interactions</div>
+							  </div>
+						  </div>
+					  </div>
+					  <div class="row">
+					  	<div class="col-sm-12 col-md-12 col-lg-12">
+							  <div class="well well-count well-total-member-estimates">
+							  	<div class="text-center well-text">{{getTotalNonIteamMembers}} non-iteam members met</div>
+							  </div>
+					  	</div>
+					  </div>
+				  </div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<div id="monthly-trend-panel" class="panel panel-primary">
+			  <div class="panel-heading">
+			 		<h3 class="panel-title">Interaction History During the Past 6 Months</h3>
+			  </div>
+			  <div class="panel-body">
+		    	<div>
+		    		<canvas id="interaction-history-chart"></canvas>
+		    		<div id="interaction-history-legend" class="chart-legend"></div>
+	    		</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-primary">
+			  <div class="panel-heading">
+			 		<h4 class="panel-title">Est. Non-Iteam Members Reached By Stakeholder Category</h4>
+			  </div>
+			  <div class="panel-body">
+		    	<div>
+		    		<canvas id="interaction-category-chart"></canvas>
+		    		<div id="interaction-category-legend" class="chart-legend"></div>
+	    		</div>
+			  </div>
+			</div>
+		</div>
+	</div>
+</template>
