@@ -145,35 +145,40 @@ if (Meteor.isClient) {
 		var currentMonthData = getCurrentMonthParticipantCount();
 		var previousMonthData = getPreviousMonthParticipantCount();
 		var combinedKeys = _.union(_.keys(previousMonthData), _.keys(currentMonthData));
+
 		var currentRgbaFill = "rgba(123, 45, 131, 1.0)";
 		var currentRgbaHighlight = "rgba(123, 45, 131, 0.75)";
 		var previousRgbaFill = "rgba(59, 85, 216, 1.0)";
 		var previousRgbaHighlight = "rgba(59, 85, 216, 0.75)";
+
+		var endDate = new Date();
+		var startDate = new Date(endDate);
+		startDate.setMonth(startDate.getMonth() - 1);
+		var currentMonthName = parseMonth(endDate);
+		var previousMonthName = parseMonth(startDate);
+
 		var data = {
 	    labels: combinedKeys,
 	    datasets: [
         {
-          label: "Previous Month Participation",
-          fillColor: previousRgbaFill,
-          strokeColor: previousRgbaHighlight,
-          pointColor: previousRgbaHighlight,
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: previousRgbaHighlight,
+          label: previousMonthName + " " + "Participation",
+		      fillColor: previousRgbaFill,
+		      strokeColor: previousRgbaFill,
+		      highlightFill: previousRgbaHighlight,
+		      highlightStroke: previousRgbaFill,
           data: _.values(previousMonthData)
         },
         {
-          label: "Current Month Participation",
-          fillColor: currentRgbaFill,
-          strokeColor: currentRgbaHighlight,
-          pointColor: currentRgbaHighlight,
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: currentRgbaHighlight,
+          label: currentMonthName + " " + "Participation",
+		      fillColor: currentRgbaFill,
+		      strokeColor: currentRgbaFill,
+		      highlightFill: currentRgbaHighlight,
+		      highlightStroke: currentRgbaFill,
           data: _.values(currentMonthData)
         }
 	    ]
 		};
+
 		return data;
 	}
 
@@ -195,7 +200,8 @@ if (Meteor.isClient) {
 	var renderMonthlyParticipantChart = function () {
 		var data = getMonthlyParticipantData();
 		var ctx = $("#monthly-participation-chart").get(0).getContext("2d");
-		new Chart(ctx).Bar(data);
+		var chart = new Chart(ctx).Bar(data);
+		document.getElementById("monthly-participation-legend").innerHTML = chart.generateLegend();
 	}
 
 	// Make the count panel and monthly trend panel the same height
