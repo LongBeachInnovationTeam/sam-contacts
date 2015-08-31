@@ -201,7 +201,7 @@ if (Meteor.isClient) {
 		var data = getMonthlyParticipantData();
 		var ctx = $("#monthly-participation-chart").get(0).getContext("2d");
 		var chart = new Chart(ctx).Bar(data);
-		document.getElementById("monthly-participation-legend").innerHTML = chart.generateLegend();
+		return chart;
 	}
 
 	// Make the count panel and monthly trend panel the same height
@@ -226,8 +226,10 @@ if (Meteor.isClient) {
 		Meteor.setTimeout(function () {
 			renderCategoriesCountChart();
 			renderMonthlyTrendChart();
-			renderMonthlyParticipantChart();
+			var monthlyParticipantChart = renderMonthlyParticipantChart();
 			resizeCountPanel();
+			// Generate the legend after resizing the panel in order to make it responsive
+			$("#monthly-participation-legend").html(monthlyParticipantChart.generateLegend());
 		}, 500);
 	}
 

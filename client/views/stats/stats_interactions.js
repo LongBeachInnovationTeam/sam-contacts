@@ -141,14 +141,14 @@ if (Meteor.isClient) {
 			scaleShowGridLines : false,
 			bezierCurve : false
 		});
-		document.getElementById("interaction-history-legend").innerHTML = chart.generateLegend();
+		return chart;
 	}
 
 	var renderCategoryPolarAreaChart = function () {
 		var data = getCategoryData();
 		var ctx = $("#interaction-category-chart").get(0).getContext("2d");
 		var chart = new Chart(ctx).PolarArea(data);
-		document.getElementById("interaction-category-legend").innerHTML = chart.generateLegend();
+		return chart;
 	}
 
 	// Make the count panel and monthly trend panel the same height
@@ -171,9 +171,12 @@ if (Meteor.isClient) {
 
 	Template.StatsInteractions.rendered = function () {
 		Meteor.setTimeout(function () {
-			renderInteractionHistoryChart();
-			renderCategoryPolarAreaChart();
+			var interactionHistoryChart = renderInteractionHistoryChart();
+			var categoryPolarAreaChart = renderCategoryPolarAreaChart();
 			resizeCountPanel();
+			// Generate the legend after resizing the panel in order to make it responsive
+			$("#interaction-history-legend").html(interactionHistoryChart.generateLegend());
+			$("#interaction-category-legend").html(categoryPolarAreaChart.generateLegend());
 		}, 500);
 	}
 
