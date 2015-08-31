@@ -34,7 +34,8 @@ if (Meteor.isClient) {
         purpose: purpose,
         outcome: outcome,
         followUpAction: followUpAction,
-        notes: notes
+        notes: notes,
+        owner: Meteor.userId()
       };
 
       var isValidId = id !== "" && id;
