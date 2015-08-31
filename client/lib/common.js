@@ -56,6 +56,45 @@ if (Meteor.isClient) {
     });
   }
 
+  getAllTags = function () {
+    var tags = [
+      "access to capital",
+      "access to services",
+      "business services",
+      "co-working space",
+      "creative economy",
+      "eb-5",
+      "economic development",
+      "education",
+      "entrepreneur",
+      "external partner",
+      "federal",
+      "funding",
+      "grants",
+      "hackathon",
+      "hub/cluster",
+      "i-team",
+      "incubator",
+      "infrastructure",
+      "internal partner",
+      "jobs",
+      "long beach",
+      "market research",
+      "media",
+      "non profit",
+      "open data",
+      "placemaking",
+      "real estate development",
+      "research",
+      "small business",
+      "solutioning",
+      "tech",
+      "venture capital",
+      "workforce development",
+    ];
+    return tags.sort();
+  }
+
   organizationExists = function (org) {
     var existingOrg = Organizations.findOne({
       name: org

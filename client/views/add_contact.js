@@ -11,17 +11,8 @@ if (Meteor.isClient) {
   }
 
   Template.AddContact.helpers({
-    getAllTags: function () {
-      var contacts = Contacts.find({}).fetch();
-      var tags = new Array();
-      contacts.forEach(function (contact) {
-        contact.tags.forEach(function (tag) {
-          if (tags.indexOf(tag) < 0) {
-            tags.push(tag);
-          }
-        });
-      });
-      return tags.sort();
+    getTags: function () {
+      return getAllTags();
     },
     getOptionValue: function () {
       var self = this;
