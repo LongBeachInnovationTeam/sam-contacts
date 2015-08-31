@@ -48,15 +48,7 @@ if (Meteor.isClient) {
 			return Session.get("stakeholderAddressList");
 		},
     getStakeholders: function () {
-      var contacts = Contacts.find({}).fetch();
-      var tags = new Array();
-      contacts.forEach(function (contact) {
-        contact.tags.forEach(function (tag) {
-          if (tags.indexOf(tag) < 0) {
-            tags.push(tag);
-          }
-        });
-      });
+      var tags = getAllTags();
       return tags.sort();
     },
     getOptionValue: function () {
