@@ -62,7 +62,7 @@ if (Meteor.isClient) {
 	    labels: _.keys(totalInteractions),
 	    datasets: [
         {
-          label: "Total No. of Interactions",
+          label: "Total interactions",
           fillColor: series1Fill,
           strokeColor: series1Highlight,
           pointColor: series1Highlight,
@@ -72,7 +72,7 @@ if (Meteor.isClient) {
           data: _.values(totalInteractions)
         },
         {
-          label: "Estimated No. of Non-iteam Members Met",
+          label: "Estimated non-iteam members met",
           fillColor: series2Fill,
           strokeColor: series2Highlight,
           pointColor: series2Highlight,

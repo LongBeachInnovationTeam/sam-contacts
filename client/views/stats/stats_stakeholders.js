@@ -161,7 +161,7 @@ if (Meteor.isClient) {
 	    labels: combinedKeys,
 	    datasets: [
         {
-          label: previousMonthName + " " + "Participation",
+          label: previousMonthName + " " + "participation",
 		      fillColor: previousRgbaFill,
 		      strokeColor: previousRgbaFill,
 		      highlightFill: previousRgbaHighlight,
@@ -169,7 +169,7 @@ if (Meteor.isClient) {
           data: _.values(previousMonthData)
         },
         {
-          label: currentMonthName + " " + "Participation",
+          label: currentMonthName + " " + "participation",
 		      fillColor: currentRgbaFill,
 		      strokeColor: currentRgbaFill,
 		      highlightFill: currentRgbaHighlight,
