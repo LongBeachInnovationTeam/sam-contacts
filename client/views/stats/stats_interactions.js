@@ -62,7 +62,7 @@ if (Meteor.isClient) {
 	    labels: _.keys(totalInteractions),
 	    datasets: [
         {
-          label: "Total Interactions",
+          label: "Total No. of Interactions",
           fillColor: series1Fill,
           strokeColor: series1Highlight,
           pointColor: series1Highlight,
@@ -72,7 +72,7 @@ if (Meteor.isClient) {
           data: _.values(totalInteractions)
         },
         {
-          label: "Total Non-iteam Members Met",
+          label: "Estimated No. of Non-iteam Members Met",
           fillColor: series2Fill,
           strokeColor: series2Highlight,
           pointColor: series2Highlight,
@@ -137,16 +137,18 @@ if (Meteor.isClient) {
 	var renderInteractionHistoryChart = function () {
 		var data = getMonthlyInteractionHistoryData();
 		var ctx = $("#interaction-history-chart").get(0).getContext("2d");
-		new Chart(ctx).Line(data, {
+		var chart = new Chart(ctx).Line(data, {
 			scaleShowGridLines : false,
 			bezierCurve : false
 		});
+		document.getElementById("interaction-history-legend").innerHTML = chart.generateLegend();
 	}
 
 	var renderCategoryPolarAreaChart = function () {
 		var data = getCategoryData();
 		var ctx = $("#interaction-category-chart").get(0).getContext("2d");
-		new Chart(ctx).PolarArea(data);
+		var chart = new Chart(ctx).PolarArea(data);
+		document.getElementById("interaction-category-legend").innerHTML = chart.generateLegend();
 	}
 
 	// Make the count panel and monthly trend panel the same height
