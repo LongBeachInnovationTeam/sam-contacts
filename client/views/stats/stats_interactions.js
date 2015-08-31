@@ -168,7 +168,7 @@ if (Meteor.isClient) {
 
 	// Make the count panel and monthly trend panel the same height
 	var resizeCountPanel = function () {
-		var monthlyTrendPanelHeight = $("#monthly-trend-panel").height();
+		var monthlyTrendPanelHeight = $("#monthly-interaction-panel").height();
 		$("#count-panel").height(monthlyTrendPanelHeight);
 	}
 
@@ -190,7 +190,6 @@ if (Meteor.isClient) {
 			var categoryPolarAreaChart = renderCategoryPolarAreaChart();
 			resizeCountPanel();
 			// Generate the legend after resizing the panel in order to make it responsive
-			$("#interaction-history-legend").html(interactionHistoryChart.generateLegend());
 			$("#interaction-category-legend").html(categoryPolarAreaChart.generateLegend());
 		}, 500);
 	}
