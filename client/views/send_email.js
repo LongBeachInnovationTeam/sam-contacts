@@ -13,7 +13,6 @@ if (Meteor.isClient) {
 					validRecipients.push(r);
 				}
 			});
-
 		}
 		return _.uniq(validRecipients).sort();
   }
@@ -48,16 +47,7 @@ if (Meteor.isClient) {
 			return Session.get("stakeholderAddressList");
 		},
     getStakeholders: function () {
-      var contacts = Contacts.find({}).fetch();
-      var tags = new Array();
-      contacts.forEach(function (contact) {
-        contact.tags.forEach(function (tag) {
-          if (tags.indexOf(tag) < 0) {
-            tags.push(tag);
-          }
-        });
-      });
-      return tags.sort();
+      return getAllTags().sort();
     },
     getOptionValue: function () {
       var self = this;
