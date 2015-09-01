@@ -1,0 +1,27 @@
+<template name="DeleteQuote">
+	<div class="modal fade" id="delete-quote-modal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">DELETE QUOTE</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="alert alert-danger">Are you sure you want to delete the quote?</div>
+	      	{{#with getQuote}}
+						<blockquote>
+						  <p>{{quote}}</p>
+						  <footer>{{author}}</footer>
+						</blockquote>
+					{{/with}}
+				</div>
+				<div class="modal-footer">
+	      	<form class="delete-quote-form">
+    				<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+						<button type="submit" class="btn btn-danger">DELETE</button>
+					</form>
+				</div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</template>

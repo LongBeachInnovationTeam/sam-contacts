@@ -19,13 +19,13 @@
 		  </div>
 	  </div>
 	  <div class="row">
-			{{#each contacts}}
+	  	{{#each contacts}}
 				{{#each quotes}}
 					<div class="col-sm-4 col-md-4 col-lg-4">
 						<blockquote class="{{getQuoteType}}">
 						  <p>{{quote}}</p>
 						  <footer>
-					  		{{author}}
+					  		{{author}} <a class="pull-right delete-juicy-quote-link" data-contact-id="{{authorId}}" data-quote="{{quote}}" data-author="{{author}}"><span class="glyphicon glyphicon-trash"></span></a>
 					  	</footer>
 						</blockquote>
 					</div>
@@ -33,5 +33,6 @@
 			{{/each}}
 	  </div>
 	  {{>AddQuote}}
+	  {{>DeleteQuote}}
   {{/if}}
 </template>
