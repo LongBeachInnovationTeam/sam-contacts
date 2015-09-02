@@ -12,6 +12,7 @@ if (Meteor.isClient) {
 
 		// Set default template to render
 		Session.set("navItem", "StatsStakeholders");
+
 		// Setting the session to the name of the template will render it
 		// after its respective tab is selected
 		$('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
