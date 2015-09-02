@@ -1,16 +1,9 @@
 if (Meteor.isClient) {
 
 	var isDateInReportingRange = function (d) {
-		var endDate = new Date();
-		var startDate = new Date(endDate);
-		startDate.setMonth(startDate.getMonth() - 6);
-		startDate.setDate(1);
-		if (d.getTime() >= startDate.getTime() && d <= endDate.getTime()) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		var now = moment();
+		var startDate = moment().date(1).subtract(6, "months");
+		return moment(d).isBetween(startDate, now);
 	}
 
 	var getMonthlyInteractionHistoryData = function () {
@@ -48,9 +41,9 @@ if (Meteor.isClient) {
 		}, { sort: { "interactions.interactionDate": 1 } }).fetch();
 		contacts.forEach(function (c) {
 			c.interactions.forEach(function (i) {
-				var createdDate = new Date(i.interactionDate);
+				var createdDate = moment(i.interactionDate, "YYYY-MM-DD");
 				var monthName = parseMonth(createdDate);
-				if (isDateInReportingRange(createdDate)) {
+				if (isDateInReportingRange(createdDate.toDate())) {
 					if (totalInteractions[monthName]) {
 						var curCount = totalInteractions[monthName];
 						totalInteractions[monthName] = curCount + 1;
