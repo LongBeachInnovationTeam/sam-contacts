@@ -109,6 +109,7 @@ if (Meteor.isClient) {
 		var participants = {
 			alex: 0,
 			alma: 0,
+			demo: 0,
 			eric: 0,
 			harrison: 0,
 			heidi: 0,

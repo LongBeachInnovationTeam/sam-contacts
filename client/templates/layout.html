@@ -1,12 +1,22 @@
 <template name="Layout">
 	<div class="container">
 		{{>Navigation}}
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<div class="alert alert-warning" role="alert">
+					<p>
+						This is a demo instance of SAM for i-teams to evaluate and explore.
+						Holla at ya boy <a href="https://twitter.com/_lxchavez">@_lxchavez</a> for feedback!
+					</p>
+				</div>
+			</div>
+		</div>
 		{{#if currentUser}}
 			{{>yield}}
 		{{else}}
 			<div class="jumbotron">
-			  <h1>Sign in to view contacts</h1>
-			  <p>Must have a longbeach.gov email to access the system</p>
+			  <h1>Sign in to acces system</h1>
+			  <p>A real system would be resticted to a domain.gov or domain.org email</p>
 			</div>
 		{{/if}}
 		{{>Footer}}
