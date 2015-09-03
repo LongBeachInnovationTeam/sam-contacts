@@ -118,37 +118,31 @@ if (Meteor.isClient) {
 		};
 		var contacts = Contacts.find({
 			createdDate: {
-				$gte: startDate,
-				$lte: endDate
+				$gte: startDate.toDate(),
+				$lte: endDate.toDate()
 			}
 		}).fetch();
 		contacts.forEach(function (c) {
 			var email = c.ownerUsername;
 			var userName = email.match(/^([^@]*)@/)[1];
 			var firstName = userName.split(".")[0];
-			if (participants[firstName]) {
+			if (_.has(participants, firstName)) {
 				var curCount = participants[firstName];
 				participants[firstName] = curCount + 1;
-			}
-			else {
-				participants[firstName] = 1;
 			}
 		});
 		return participants;
 	}
 
 	var getPreviousMonthParticipantCount = function (){
-		var endDate = new Date();
-		var startDate = new Date(endDate);
-		startDate.setMonth(startDate.getMonth() - 1);
-		startDate.setDate(1);
+		var startDate = moment({hour: 0, minute: 0, seconds: 0, milliseconds: 0}).date(1).subtract(1, "months");
+		var endDate = moment().subtract(1, "months").endOf("month");
 		return getMonthlyParticipantCount(startDate, endDate);
 	}
 
 	var getCurrentMonthParticipantCount = function () {
-		var endDate = new Date();
-		var startDate = new Date(endDate);
-		startDate.setDate(1);
+		var endDate = moment();
+		var startDate = moment({hour: 0, minute: 0, seconds: 0, milliseconds: 0}).date(1);
 		return getMonthlyParticipantCount(startDate, endDate);
 	}
 
@@ -162,9 +156,8 @@ if (Meteor.isClient) {
 		var previousRgbaFill = "rgba(59, 85, 216, 1.0)";
 		var previousRgbaHighlight = "rgba(59, 85, 216, 0.75)";
 
-		var endDate = new Date();
-		var startDate = new Date(endDate);
-		startDate.setMonth(startDate.getMonth() - 1);
+		var endDate = moment();
+		var startDate = moment().subtract(1, "months");
 		var currentMonthName = parseMonth(endDate);
 		var previousMonthName = parseMonth(startDate);
 
