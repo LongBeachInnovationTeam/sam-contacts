@@ -1,5 +1,7 @@
 if (Meteor.isClient) {
 
+  Meteor.subscribe("contacts");
+
   var colorCode = 0;
 
   Template.JuicyQuotes.events({

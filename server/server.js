@@ -8,8 +8,11 @@ if (Meteor.isServer) {
 		// Ensure that the following indexes are defined and created in our mongodb database
 		Contacts._ensureIndex({
 			"name": 1,
-			"organization": 1,
-			"tags": 1
+			"organization": 1
+		}, { background: true });
+
+		Contacts._ensureIndex({
+			"name": 1
 		}, { background: true });
 
 	  // By default, the email is sent from no-reply@meteor.com. If you wish to receive email from users
