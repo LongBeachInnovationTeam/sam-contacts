@@ -1,7 +1,5 @@
 if (Meteor.isClient) {
 
-  Meteor.subscribe("contacts");
-
   var resetAddContactForm = function () {
     // Reset form, hide modal, and return to caller
     $(".add-tags-dropdown").select2("data", null);

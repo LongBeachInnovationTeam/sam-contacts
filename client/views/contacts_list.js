@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
 
-  incrementLimit = function (inc) {
+  var incrementLimit = function (inc) {
     if (!inc) {
       inc = 10;
     }
@@ -11,8 +11,8 @@ if (Meteor.isClient) {
   Template.ContactsList.helpers({
     contacts: function () {
       return Contacts.find({}, {
-        limit: Session.get("limit")
-        //sort: { name: 1, organization: 1 }
+        limit: Session.get("limit"),
+        //sort: { name: 1, organization: 1 },
       });
     },
     getCell: function (str) {
