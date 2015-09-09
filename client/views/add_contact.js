@@ -62,32 +62,12 @@ if (Meteor.isClient) {
       var isValidOrganizationName = newContact.organization !== "" && newContact.organization;
       var isExistingContact = contactExists(newContact.name, newContact.organization);
 
-      // Create an entry in the Organizations collection for a newly identified organization
-      if (isValidOrganizationName) {
-        var orgName = newContact.organization;
-        if (!organizationExists(orgName)) {
-          var org = {
-            name: orgName,
-            createdDate: new Date()
-          }
-          Meteor.call("addOrganization", org);
-        }
-      }
-
       // Create a new contact
       if (isExistingContact) {
         $("#add-existing-contact-alert").show();
       }
       else {
         if (isValidName || isValidOrganizationName) {
-          var org = Organizations.findOne({
-            name: newContact.organization
-          });
-          if (org) {
-            newContact.organization_id = org._id;
-          }
-          newContact.createdDate = new Date();
-          newContact.lastModifiedDate = newContact.createdDate;
           Meteor.call("addContact", newContact);
         }
         resetAddContactForm();

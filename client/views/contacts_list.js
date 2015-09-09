@@ -1,6 +1,6 @@
 if (Meteor.isClient) {
 
-  incrementLimit = function (inc) {
+  var incrementLimit = function (inc) {
     if (!inc) {
       inc = 10;
     }
@@ -11,8 +11,7 @@ if (Meteor.isClient) {
   Template.ContactsList.helpers({
     contacts: function () {
       return Contacts.find({}, {
-        limit: Session.get("limit"),
-        sort: { name: 1, organization: 1 }
+        limit: Session.get("limit")
       });
     },
     getCell: function (str) {
@@ -126,7 +125,7 @@ if (Meteor.isClient) {
     // Deps.autorun() automatically rerun the subscription whenever Session.get('limit') changes
     // http://docs.meteor.com/#deps_autorun
     Deps.autorun(function() {
-      Meteor.subscribe("getContacts", Session.get("limit"));
+      Meteor.subscribe("contactsList", Session.get("limit"));
     });
   }
 

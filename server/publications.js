@@ -1,15 +1,15 @@
 if (Meteor.isServer) {
-	Meteor.publish("getContacts", function (limit) {
+	Meteor.publish("contactsList", function (limit) {
+    // A limit value of 0 is equivalent to setting no limit
 	  if (limit > Contacts.find().count()) {
 	    limit = 0;
 	  }
-	  return Contacts.find({ }, { limit: limit });
+	  return Contacts.find({}, {
+      limit: limit
+    });
 	});
   Meteor.publish("contacts", function () {
     return Contacts.find();
-  });
-  Meteor.publish("organizations", function () {
-    return Organizations.find();
   });
   Meteor.publish("users", function () {
   	return Meteor.users.find({ }, {

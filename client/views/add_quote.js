@@ -12,16 +12,12 @@ if (Meteor.isClient) {
     var isValidName = newQuote.author !== "" && newQuote.author;
     var isExistingContact = contactExists(newContact.name, "");
     if (isValidName) {
-      newContact.createdDate = new Date();
-      newContact.lastModifiedDate = newContact.createdDate;
       Meteor.call("addContact", newContact);
     }
   }
 
   var resetAddQuotesForm = function () {
     // Reset form, hide modal, and return to caller
-    // $("#add-invalid-contact-alert").hide();
-    // $("#add-existing-contact-alert").hide();
     $(".add-quoute").parsley().reset();
     $(".add-quoute")[0].reset();
     $("#add-quote-modal").modal("hide");
@@ -85,7 +81,6 @@ if (Meteor.isClient) {
       }
 
       Session.set("editContactId", "");
-
       return false;
     }
   });

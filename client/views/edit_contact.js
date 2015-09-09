@@ -60,27 +60,8 @@ if (Meteor.isClient) {
       var isValidName = editedContact.name !== "" && editedContact.name;
       var isValidOrganizationName = editedContact.organization !== "" && editedContact.organization;
 
-      // Create an entry in the Organizations collection for a newly identified organization
-      if (isValidOrganizationName) {
-        var orgName = editedContact.organization;
-        if (!organizationExists(orgName)) {
-          var org = {
-            name: orgName,
-            createdDate: new Date()
-          }
-          Meteor.call("addOrganization", org);
-        }
-      }
-
       // Update contact
       if (isValidName || isValidOrganizationName) {
-        var org = Organizations.findOne({
-          name: editedContact.organization
-        });
-        if (org) {
-          editedContact.organization_id = org._id;
-        }
-        editedContact.lastModifiedDate = new Date();
         Meteor.call("updateContact", id, editedContact);
       }
 
