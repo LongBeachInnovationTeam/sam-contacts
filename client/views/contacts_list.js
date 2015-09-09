@@ -11,8 +11,7 @@ if (Meteor.isClient) {
   Template.ContactsList.helpers({
     contacts: function () {
       return Contacts.find({}, {
-        limit: Session.get("limit"),
-        //sort: { name: 1, organization: 1 },
+        limit: Session.get("limit")
       });
     },
     getCell: function (str) {

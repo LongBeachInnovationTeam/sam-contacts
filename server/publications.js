@@ -5,8 +5,7 @@ if (Meteor.isServer) {
 	    limit = 0;
 	  }
 	  return Contacts.find({}, {
-      limit: limit,
-      //sort: { name: 1, organization: 1},
+      limit: limit
     });
 	});
   Meteor.publish("contacts", function () {
