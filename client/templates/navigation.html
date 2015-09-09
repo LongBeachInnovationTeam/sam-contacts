@@ -14,16 +14,16 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li>
+	        <li class="{{isActivePath '/'}}">
 	        	<a href="/"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> STAKEHOLDERS</a>
         	</li>
-	        <li>
+	        <li class="{{isActivePath '/quotes'}}">
 	        	<a href="/quotes"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> JUICY QUOTES</a>
         	</li>
-	        <li>
+	        <li class="{{isActivePath '/contact'}}">
 	        	<a href="/contact"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> CONTACT</a>
         	</li>
-	        <li>
+	        <li class="{{isActivePath '/stats'}}">
 	        	<a href="/stats"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> STATS</a>
         	</li>
 	      </ul>
