@@ -68,26 +68,37 @@ if (Meteor.isClient) {
 		"click #btn-export": function (event, template) {
 			event.preventDefault();
 			var categories = $("#email-stakeholders-field").select2("val");
-			Router.go("export", { id: categories.join() });
+			if (categories && categories.length > 0) {
+				// Find all contacts that match the categories
+			  var selectedRecipients = Contacts.find({ tags: { $in: categories } }).fetch();
+			  // Prepare CSV
+			  var csv = Papa.unparse(selectedRecipients);
+			  var csvBlob = new Blob([csv]);
+			  // Download file to client
+			  var d = new Date();
+				var a = window.document.createElement("a");
+		    a.href = window.URL.createObjectURL(csvBlob, { type: "text/csv;charset=utf-8" });
+		    a.download = "sam-export-" + d.toJSON() + ".csv";
+		    document.body.appendChild(a);
+		    a.click();
+		    document.body.removeChild(a);
+			}
 			return false;
 		},
 		"submit .new-email": function (event, template) {
 			event.preventDefault();
-
 			var subject = $("#email-subject-field").val();
 			var message = $("#email-message-field").val();
 			var checkedElement = template.find("input:radio[name=sendAsRadio]:checked");
 			var sendingAs = $(checkedElement).val();
 			var validRecipients = getModifiedRecipients();
-
 			if (validRecipients.length > 0) {
 				var validRecipientsStr = validRecipients.join();
 				var mailToStr = "mailto:" + validRecipientsStr +
 					"?subject=" + escapeHtml(subject) +
 					"&body=" + escapeHtml(message);
-				window.open(mailToStr);
+				window.open(mailToStr, "_self");
 			}
-
 			return false;
 		}
 	});

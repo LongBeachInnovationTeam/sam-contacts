@@ -45,7 +45,6 @@
 						</div>
 					</div>
 				</div>
-
 				<!--
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">
@@ -64,11 +63,16 @@
 					</div>
 				</div>
 				-->
-
-				<button type="submit" class="btn btn-success" disabled="{{#if isEmptyList}}disabled{{/if}}">SEND IN OUTLOOK</button>
-				<div class="btn-group pull-right" role="group">
-					<button type="button" id="btn-copy" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">COPY CONTACT LIST</button>
-					<button type="button" id="btn-export" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}" data-toggle="tooltip" data-placement="top" title="Exports all contacts for selected categories">EXPORT CSV</button>
+				<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+						<button type="submit" class="btn btn-success" disabled="{{#if isEmptyList}}disabled{{/if}}" data-toggle="tooltip" data-placement="top" title="Finish drafting in default email program">EMAIL</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" id="btn-copy" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">COPY LIST</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" id="btn-export" class="btn btn-default" disabled="{{#if isEmptyList}}disabled{{/if}}">EXPORT</button>
+					</div>
 				</div>
 			</form>
 		</div>
