@@ -5,8 +5,12 @@
 			{{>yield}}
 		{{else}}
 			<div class="jumbotron">
-			  <h1>Sign in to view contacts</h1>
-			  <p>Must have a longbeach.gov email to access the system</p>
+				{{#if loggingIn}}
+					<h1>Logging in...</h1>
+				{{else}}
+				  <h1>Sign in to view contacts</h1>
+				  <p>Must have a longbeach.gov email to access the system</p>
+				{{/if}}
 			</div>
 		{{/if}}
 		{{>Footer}}
