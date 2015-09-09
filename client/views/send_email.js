@@ -85,7 +85,7 @@ if (Meteor.isClient) {
 				var mailToStr = "mailto:" + validRecipientsStr +
 					"?subject=" + escapeHtml(subject) +
 					"&body=" + escapeHtml(message);
-				window.open(mailToStr);
+				window.open(mailToStr, "_self");
 			}
 
 			return false;
