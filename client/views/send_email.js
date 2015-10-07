@@ -17,6 +17,18 @@ if (Meteor.isClient) {
 		return _.uniq(validRecipients).sort();
   }
 
+  var downloadFile = function (selectedRecipients) {
+		var csv = Papa.unparse(selectedRecipients);
+		var csvBlob = new Blob([csv]);
+		var d = new Date();
+		var a = window.document.createElement("a");
+		a.href = window.URL.createObjectURL(csvBlob, { type: "text/csv;charset=utf-8" });
+		a.download = "sam-export-" + d.toJSON() + ".csv";
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+  }
+
   var getModifiedRecipients = function () {
   	var selected = $("#email-stakeholders-list-field").select2("val");
 		return selected;
@@ -29,6 +41,9 @@ if (Meteor.isClient) {
 	Template.ContactStakeholders.helpers({
 		isEmptyList: function () {
 			return Session.get("isEmptyList");
+		},
+		isSafari: function () {
+			return navigator.vendor && navigator.vendor.indexOf('Apple') > -1;
 		},
 		getLabelEmail: function (recipient) {
 			return recipient.email;
@@ -65,23 +80,21 @@ if (Meteor.isClient) {
 			window.prompt("Copy to clipboard: Ctrl+C, Enter", validRecipients);
 			return false;
 		},
-		"click #btn-export": function (event, template) {
+		"click #btn-export-selected": function (event, template) {
 			event.preventDefault();
 			var categories = $("#email-stakeholders-field").select2("val");
 			if (categories && categories.length > 0) {
 				// Find all contacts that match the categories
 			  var selectedRecipients = Contacts.find({ tags: { $in: categories } }).fetch();
-			  // Prepare CSV
-			  var csv = Papa.unparse(selectedRecipients);
-			  var csvBlob = new Blob([csv]);
-			  // Download file to client
-			  var d = new Date();
-				var a = window.document.createElement("a");
-		    a.href = window.URL.createObjectURL(csvBlob, { type: "text/csv;charset=utf-8" });
-		    a.download = "sam-export-" + d.toJSON() + ".csv";
-		    document.body.appendChild(a);
-		    a.click();
-		    document.body.removeChild(a);
+			  downloadFile(selectedRecipients);
+			}
+			return false;
+		},
+		"click #btn-export-all": function (event, template) {
+			event.preventDefault();
+			var selectedRecipients = Contacts.find().fetch();
+			if (selectedRecipients && selectedRecipients.length > 0) {
+				downloadFile(selectedRecipients);
 			}
 			return false;
 		},
