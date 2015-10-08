@@ -72,11 +72,13 @@
 					</div>
 					{{#unless isSafari}}
 						<div class="btn-group" role="group">
-						 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled="{{#if isEmptyList}}disabled{{/if}}">
+						 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 						    EXPORT <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu">
-						    <li><a id="btn-export-selected" href="#">EXPORT SELECTED CATEGORIES</a></li>
+						  	{{#unless isEmptyList}}
+						    	<li><a id="btn-export-selected" href="#">EXPORT SELECTED CATEGORIES</a></li>
+						    {{/unless}}
 						    <li><a id="btn-export-all" href="#">EXPORT ALL CONTACTS</a></li>
 						  </ul>
 						</div>
