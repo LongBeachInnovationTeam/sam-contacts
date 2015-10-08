@@ -234,7 +234,7 @@ if (Meteor.isClient) {
 			resizeCountPanel();
 			// Generate the legend after resizing the panel in order to make it responsive
 			$("#monthly-participation-legend").html(monthlyParticipantChart.generateLegend());
-		}, 100);
+		}, 500);
 	}
 
 	Template.StatsStakeholders.helpers({
