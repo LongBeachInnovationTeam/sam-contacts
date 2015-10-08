@@ -184,7 +184,7 @@ if (Meteor.isClient) {
 			resizeCountPanel();
 			// Generate the legend after resizing the panel in order to make it responsive
 			$("#interaction-category-legend").html(categoryPolarAreaChart.generateLegend());
-		}, 500);
+		}, 100);
 	}
 
 	Template.StatsInteractions.helpers({
