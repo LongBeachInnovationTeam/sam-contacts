@@ -66,6 +66,8 @@ if (Meteor.isClient) {
     var tags = [
       "access to capital",
       "access to services",
+      "aerospace",
+      "business",
       "business services",
       "co-working space",
       "creative economy",
@@ -87,6 +89,7 @@ if (Meteor.isClient) {
       "jobs",
       "local government",
       "long beach",
+      "manufacturing",
       "market research",
       "media",
       "non profit",
